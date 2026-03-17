@@ -391,7 +391,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
       <div class="step-n">04</div>
       <div class="step-ic">📄</div>
       <h3>Pague e baixe</h3>
-      <p>Satisfeito? R$1 e o PDF profissional está pronto pra enviar hoje.</p>
+      <p>Satisfeito? R$9 e o PDF profissional está pronto pra enviar hoje.</p>
     </div>
   </div>
 </div>
@@ -555,7 +555,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
     <div class="res-logo">Currículo<em>AI</em></div>
     <div class="res-acts" id="res-acts">
       <button class="btn-outline" onclick="goChat()">← Recomeçar</button>
-      <button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$1</button>
+      <button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>
     </div>
   </div>
   <div class="res-body">
@@ -565,8 +565,8 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
         <div class="paywall-overlay" id="paywall-ov">
           <div class="pw-lock">🔒</div>
           <div class="pw-t">Seu currículo está <em>pronto</em></div>
-          <p class="pw-p">Preview gerado! Desbloqueie o PDF profissional por R$1 e comece a enviar hoje.</p>
-          <button class="pw-btn" onclick="openPay()">Desbloquear e baixar — R$1</button>
+          <p class="pw-p">Preview gerado! Desbloqueie o PDF profissional por R$9 e comece a enviar hoje.</p>
+          <button class="pw-btn" onclick="openPay()">Desbloquear e baixar — R$9</button>
           <div class="pw-note">Pagamento único · PDF profissional · Compatível com ATS</div>
         </div>
       </div>
@@ -670,7 +670,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
       <div class="modal-t">Baixar seu <em>currículo</em></div>
       <p class="modal-p">Gerado e validado pela nossa equipe de especialistas. Pronto para enviar.</p>
       <div class="modal-val">
-        <div class="modal-price">R$1</div>
+        <div class="modal-price">R$9</div>
         <div class="modal-val-info">
           <strong>Pagamento único</strong>
           <span>Sem assinatura, sem renovação</span>
@@ -687,7 +687,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
         <input type="text" id="pix-cpf" class="pix-inp" placeholder="CPF (somente números)" maxlength="11" inputmode="numeric">
       </div>
       <div id="pix-err" class="pix-err" style="display:none"></div>
-      <button class="modal-pay-btn" id="pix-btn" onclick="gerarPix()">Gerar PIX — R$1 →</button>
+      <button class="modal-pay-btn" id="pix-btn" onclick="gerarPix()">Gerar PIX — R$9 →</button>
       <button class="modal-close" onclick="closePay()">Agora não</button>
     </div>
 
@@ -984,7 +984,7 @@ function renderResult(d, jaoPago=false){
   } else {
     ov.classList.remove('hidden');
     cvOut.classList.remove('unlocked');
-    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$1</button>`;
+    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>`;
   }
 
   showScr('result-scr');
@@ -998,7 +998,7 @@ function openPay(){
   document.getElementById('pix-step2').style.display='none';
   document.getElementById('pix-err').style.display='none';
   const btn=document.getElementById('pix-btn');
-  btn.disabled=false; btn.textContent='Gerar PIX — R$1 →';
+  btn.disabled=false; btn.textContent='Gerar PIX — R$9 →';
 }
 
 function closePay(){
@@ -1041,7 +1041,7 @@ async function gerarPix(){
   }catch(e){
     errEl.textContent=e.message||'Erro ao gerar PIX. Tente novamente.';
     errEl.style.display='';
-    btn.disabled=false; btn.textContent='Gerar PIX — R$1 →';
+    btn.disabled=false; btn.textContent='Gerar PIX — R$9 →';
   }
 }
 

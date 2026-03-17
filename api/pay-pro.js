@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Dados incompletos' });
   }
 
-  const ABACATEPAY_KEY = process.env.ABACATEPAY_KEY;
+  const ABACATEPAY_KEY = process.env.ABACATE_KEY;
   const NOCODB_TABLE_ID = process.env.NOCODB_TABLE_ID;
   const NOCODB_API_KEY = process.env.NOCODB_API_KEY;
 

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Dados incompletos' });
   }
 
-  const ABACATEPAY_KEY = process.env.ABACATEPAY_KEY;
+  const ABACATEPAY_KEY = process.env.ABACATE_KEY;
   const NOCODB_TABLE_ID = process.env.NOCODB_TABLE_ID;
   const NOCODB_API_KEY = process.env.NOCODB_API_KEY;
 
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${ABACATEPAY_KEY}`,
       },
       body: JSON.stringify({
-        amount: 100, // R$1,00 em centavos
+        amount: 900, // R$9,00 em centavos
         expiresIn: 600, // 10 minutos
         description: 'CurriculoAI PDF',
         customer: {
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
           CPF: taxId,
           PixId: pix.id,
           Status: 'PENDING',
-          Valor: 100,
+          Valor: 900,
         }),
       });
     } catch (dbErr) {
