@@ -378,6 +378,10 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
   <div class="nav-r">
     <a onclick="scrollSec('#como')">Como funciona</a>
     <a onclick="scrollSec('#especialistas')">Nossa equipe</a>
+    <a onclick="openOrLoginDashboard()" style="display:flex;align-items:center;gap:5px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Meus Currículos
+    </a>
     <a class="nav-cta" onclick="goChat()">Criar currículo →</a>
     <div id="nav-auth" style="display:flex;align-items:center;gap:10px"></div>
   </div>
@@ -543,10 +547,10 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 <section class="cta-sec">
 <div class="cta-inner">
   <div class="sec-kicker">Simples assim</div>
-  <div class="sec-h">Crie de graça.<br>Conquiste a vaga.</div>
-  <p class="sec-p" style="margin:0 auto 32px;text-align:center">A conversa e o preview são gratuitos. Só cobramos quando você estiver 100% satisfeito com o resultado.</p>
-  <div class="cta-price">PDF profissional por apenas <strong>R$1</strong> — pagamento único, sem assinatura</div>
-  <button class="btn-prim" onclick="goChat()">Começar agora — é grátis</button>
+  <div class="sec-h">Crie de graça.<br>Baixe quando estiver pronto.</div>
+  <p class="sec-p" style="margin:0 auto 32px;text-align:center">Converse com a IA, visualize o resultado e só pague quando estiver 100% satisfeito com o currículo.</p>
+  <div class="cta-price">PDF profissional por apenas <strong>R$9</strong> — pagamento único, sem assinatura</div>
+  <button class="btn-prim" onclick="goChat()">Quero meu currículo grátis →</button>
 </div>
 </section>
 
@@ -820,10 +824,14 @@ function initAuth(){
 function updateNavAuth(){
   const el=document.getElementById('nav-auth'); if(!el) return;
   if(_user){
-    el.innerHTML=`<span class="nav-user-name">${_user.nome.split(' ')[0]}</span><button class="btn-nav-dash" onclick="openDashboard()">Meus Currículos</button><button class="btn-nav-out" onclick="logout()">Sair</button>`;
+    el.innerHTML=`<span class="nav-user-name">Olá, ${_user.nome.split(' ')[0]}</span><button class="btn-nav-out" onclick="logout()">Sair</button>`;
   } else {
     el.innerHTML=`<button class="btn-nav-login" onclick="openAuth('login')">Entrar</button><button class="btn-nav-login" style="background:var(--acc-dim);border-color:var(--acc-b);color:var(--acc)" onclick="openAuth('register')">Criar conta</button>`;
   }
+}
+function openOrLoginDashboard(){
+  if(_user){ openDashboard(); }
+  else { openAuth('login'); }
 }
 function openAuth(tab='login'){
   document.getElementById('auth-modal').classList.add('on');
