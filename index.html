@@ -281,42 +281,6 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 .modal-pay-btn:hover{opacity:.88;transform:translateY(-1px)}
 .modal-close{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fb);font-weight:300;transition:color .2s}
 .modal-close:hover{color:var(--t1)}
-/* AUTH MODAL */
-.auth-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--b1)}
-.auth-tab{flex:1;background:none;border:none;padding:12px;font-size:13px;font-weight:400;color:var(--t3);cursor:pointer;font-family:var(--fb);border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px}
-.auth-tab.on{color:var(--acc);border-bottom-color:var(--acc)}
-.auth-form{display:flex;flex-direction:column;gap:12px}
-.auth-inp{background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 14px;color:var(--t0);font-family:var(--fb);font-size:14px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
-.auth-inp::placeholder{color:var(--t3)}.auth-inp:focus{border-color:var(--acc)}
-.auth-err{font-size:12.5px;color:#f87171;text-align:left;padding:0 2px;min-height:18px}
-.auth-submit{width:100%;background:var(--acc);color:#09090a;border:none;padding:14px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:opacity .14s;margin-top:4px}
-.auth-submit:hover{opacity:.88}.auth-submit:disabled{opacity:.5;cursor:default}
-/* NAV USER */
-.nav-user-name{font-size:13px;color:var(--t2);font-weight:300}
-.btn-nav-dash{background:var(--acc-dim);border:1px solid var(--acc-b);color:var(--acc);border-radius:6px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--fb);transition:background .2s}
-.btn-nav-dash:hover{background:var(--acc-b)}
-.btn-nav-login{background:none;border:1px solid var(--b2);color:var(--t1);border-radius:6px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--fb);transition:all .2s}
-.btn-nav-login:hover{border-color:var(--t2)}
-.btn-nav-out{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fb);padding:0 4px}
-/* DASHBOARD */
-.dash-wrap{max-width:900px;margin:0 auto;padding:100px 40px 60px}
-.dash-head{margin-bottom:40px}
-.dash-title{font-family:var(--fd);font-size:42px;font-weight:300;letter-spacing:-.5px;margin-bottom:6px}
-.dash-title em{font-style:italic;color:var(--acc)}
-.dash-sub{font-size:13px;color:var(--t3);font-weight:300}
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.dash-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:22px;transition:border-color .2s;cursor:pointer}
-.dash-card:hover{border-color:var(--b2)}
-.dash-card-name{font-size:15px;font-weight:400;color:var(--t0);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dash-card-cargo{font-size:12px;color:var(--t3);font-weight:300;margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dash-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.dash-badge{font-size:10px;font-weight:500;letter-spacing:.5px;padding:3px 8px;border-radius:4px}
-.dash-badge.pago{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
-.dash-badge.gratis{background:var(--b0);color:var(--t3);border:1px solid var(--b1)}
-.dash-card-date{font-size:10.5px;color:var(--t3)}
-.dash-card-btn{background:var(--acc);color:#09090a;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--fb)}
-.dash-empty{text-align:center;padding:80px 20px;color:var(--t3)}
-.dash-empty p{margin-bottom:20px;font-size:14px}
 /* PIX FORM */
 .pix-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;text-align:left}
 .pix-inp{background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 14px;color:var(--t0);font-family:var(--fb);font-size:14px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
@@ -378,12 +342,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
   <div class="nav-r">
     <a onclick="scrollSec('#como')">Como funciona</a>
     <a onclick="scrollSec('#especialistas')">Nossa equipe</a>
-    <a onclick="openOrLoginDashboard()" style="display:flex;align-items:center;gap:5px">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      Meus Currículos
-    </a>
     <a class="nav-cta" onclick="goChat()">Criar currículo →</a>
-    <div id="nav-auth" style="display:flex;align-items:center;gap:10px"></div>
   </div>
 </nav>
 
@@ -633,17 +592,6 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
   </div>
 </div>
 
-<!-- ═══════ DASHBOARD ═══════ -->
-<div id="dashboard-scr" class="scr">
-  <div class="dash-wrap">
-    <div class="dash-head">
-      <div class="dash-title">Meus <em>currículos</em></div>
-      <div class="dash-sub" id="dash-sub">Carregando…</div>
-    </div>
-    <div class="dash-grid" id="dash-grid"></div>
-  </div>
-</div>
-
 <!-- ═══════ PRO MODAL ═══════ -->
 <div class="modal-bg" id="pro-modal">
   <div class="modal">
@@ -709,39 +657,6 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
     <div class="pro-result-sub" id="pro-result-sub"></div>
     <div id="pro-result-content"></div>
     <div class="pro-result-acts" id="pro-result-acts"></div>
-  </div>
-</div>
-
-<!-- ═══════ AUTH MODAL ═══════ -->
-<div class="modal-bg" id="auth-modal">
-  <div class="modal" style="max-width:380px">
-    <div class="auth-tabs">
-      <button class="auth-tab on" id="tab-login" onclick="switchAuthTab('login')">Entrar</button>
-      <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Criar conta</button>
-    </div>
-
-    <!-- Login -->
-    <div id="auth-login">
-      <div class="auth-form">
-        <input type="email" class="auth-inp" id="login-email" placeholder="E-mail" autocomplete="email">
-        <input type="password" class="auth-inp" id="login-senha" placeholder="Senha" autocomplete="current-password">
-        <div class="auth-err" id="login-err"></div>
-        <button class="auth-submit" id="login-btn" onclick="doLogin()">Entrar</button>
-      </div>
-    </div>
-
-    <!-- Register -->
-    <div id="auth-register" style="display:none">
-      <div class="auth-form">
-        <input type="text" class="auth-inp" id="reg-nome" placeholder="Nome completo" autocomplete="name">
-        <input type="email" class="auth-inp" id="reg-email" placeholder="E-mail" autocomplete="email">
-        <input type="password" class="auth-inp" id="reg-senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password">
-        <div class="auth-err" id="reg-err"></div>
-        <button class="auth-submit" id="reg-btn" onclick="doRegister()">Criar conta</button>
-      </div>
-    </div>
-
-    <button class="modal-close" style="margin-top:18px" onclick="closeAuth()">Fechar</button>
   </div>
 </div>
 
@@ -813,126 +728,14 @@ const QUESTIONS = [
   { key:'idiomas',   ask:'Último passo! Seus **idiomas**:', opts:['Só português','Inglês básico','Inglês intermediário','Inglês avançado / fluente'] },
 ];
 
-let step = 0, answers = {}, _cvData = null, _savedResumoId = null;
-
-/* ── AUTH STATE ── */
-let _user = null;
-function initAuth(){
-  try { _user = JSON.parse(localStorage.getItem('curriculo_user')); } catch(e){}
-  updateNavAuth();
-}
-function updateNavAuth(){
-  const el=document.getElementById('nav-auth'); if(!el) return;
-  if(_user){
-    el.innerHTML=`<span class="nav-user-name">Olá, ${_user.nome.split(' ')[0]}</span><button class="btn-nav-out" onclick="logout()">Sair</button>`;
-  } else {
-    el.innerHTML=`<button class="btn-nav-login" onclick="openAuth('login')">Entrar</button><button class="btn-nav-login" style="background:var(--acc-dim);border-color:var(--acc-b);color:var(--acc)" onclick="openAuth('register')">Criar conta</button>`;
-  }
-}
-function openOrLoginDashboard(){
-  if(_user){ openDashboard(); }
-  else { openAuth('login'); }
-}
-function openAuth(tab='login'){
-  document.getElementById('auth-modal').classList.add('on');
-  switchAuthTab(tab);
-}
-function closeAuth(){ document.getElementById('auth-modal').classList.remove('on'); }
-function switchAuthTab(tab){
-  document.getElementById('auth-login').style.display = tab==='login'?'':'none';
-  document.getElementById('auth-register').style.display = tab==='register'?'':'none';
-  document.getElementById('tab-login').classList.toggle('on', tab==='login');
-  document.getElementById('tab-register').classList.toggle('on', tab==='register');
-}
-async function doLogin(){
-  const email=document.getElementById('login-email').value.trim();
-  const senha=document.getElementById('login-senha').value;
-  const errEl=document.getElementById('login-err');
-  const btn=document.getElementById('login-btn');
-  errEl.textContent=''; btn.disabled=true; btn.textContent='Entrando…';
-  try{
-    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,senha})});
-    const d=await r.json();
-    if(d.error) throw new Error(d.error);
-    _user={token:d.token,nome:d.nome,email:d.email};
-    localStorage.setItem('curriculo_user',JSON.stringify(_user));
-    closeAuth(); updateNavAuth();
-  }catch(e){ errEl.textContent=e.message; }
-  btn.disabled=false; btn.textContent='Entrar';
-}
-async function doRegister(){
-  const nome=document.getElementById('reg-nome').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
-  const senha=document.getElementById('reg-senha').value;
-  const errEl=document.getElementById('reg-err');
-  const btn=document.getElementById('reg-btn');
-  errEl.textContent=''; btn.disabled=true; btn.textContent='Criando conta…';
-  try{
-    const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,email,senha})});
-    const d=await r.json();
-    if(d.error) throw new Error(d.error);
-    _user={token:d.token,nome:d.nome,email:d.email};
-    localStorage.setItem('curriculo_user',JSON.stringify(_user));
-    closeAuth(); updateNavAuth();
-  }catch(e){ errEl.textContent=e.message; }
-  btn.disabled=false; btn.textContent='Criar conta';
-}
-function logout(){
-  _user=null; localStorage.removeItem('curriculo_user'); updateNavAuth();
-}
-
-/* ── DASHBOARD ── */
-async function openDashboard(){
-  showScr('dashboard-scr');
-  document.getElementById('dash-grid').innerHTML='<p style="color:var(--t3);font-size:13px">Carregando…</p>';
-  if(!_user){ document.getElementById('dash-sub').textContent='Faça login para ver seus currículos.'; return; }
-  try{
-    const r=await fetch('/api/resumos/list',{headers:{'Authorization':'Bearer '+_user.token}});
-    const d=await r.json();
-    if(d.error) throw new Error(d.error);
-    renderDashboard(d.list||[]);
-  }catch(e){
-    document.getElementById('dash-grid').innerHTML=`<p style="color:#f87171;font-size:13px">${e.message}</p>`;
-  }
-}
-function renderDashboard(list){
-  const sub=document.getElementById('dash-sub');
-  const grid=document.getElementById('dash-grid');
-  sub.textContent=list.length ? `${list.length} currículo${list.length>1?'s':''} gerado${list.length>1?'s':''}` : '';
-  if(!list.length){
-    grid.innerHTML=`<div class="dash-empty"><p>Você ainda não tem currículos salvos.</p><button class="btn-prim" onclick="goChat()">Criar meu primeiro currículo →</button></div>`;
-    return;
-  }
-  grid.innerHTML=list.map(r=>{
-    const data=r.criadoEm?new Date(r.criadoEm).toLocaleDateString('pt-BR'):'';
-    return `<div class="dash-card" onclick="abrirResumo(${JSON.stringify(JSON.stringify(r))})">
-      <div class="dash-card-name">${r.nomeCompleto||'—'}</div>
-      <div class="dash-card-cargo">${r.cargo||'—'}</div>
-      <div class="dash-card-foot">
-        <span class="dash-badge ${r.pago?'pago':'gratis'}">${r.pago?'✓ PDF desbloqueado':'Preview'}</span>
-        <span class="dash-card-date">${data}</span>
-        <button class="dash-card-btn" onclick="event.stopPropagation();abrirResumo(${JSON.stringify(JSON.stringify(r))})">Abrir</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-function abrirResumo(jsonStr){
-  const r=JSON.parse(jsonStr);
-  try{
-    const dados=typeof r.dadosCV==='string'?JSON.parse(r.dadosCV):r.dadosCV;
-    answers=dados.answers||{};
-    _cvData=dados.cvData||dados;
-    _savedResumoId=r.id;
-    renderResult(_cvData, r.pago);
-  }catch(e){ alert('Erro ao abrir currículo.'); }
-}
+let step = 0, answers = {}, _cvData = null;
 
 function showScr(id){
   document.querySelectorAll('.scr').forEach(s=>{s.classList.remove('on');s.style.display=''});
   const el=document.getElementById(id);
   el.classList.add('on');
   if(id==='loading-scr') el.style.display='flex';
-  if(id==='result-scr'||id==='dashboard-scr') el.style.display='block';
+  if(id==='result-scr') el.style.display='block';
   window.scrollTo(0,0);
 }
 
@@ -1081,19 +884,6 @@ Responda APENAS com JSON, sem texto, sem markdown:
   clearInterval(iv);
   ids.forEach(id=>{document.getElementById(id).classList.remove('act');document.getElementById(id).classList.add('done')});
   _cvData=d;
-  _savedResumoId=null;
-  // Auto-save to account if logged in
-  if(_user){
-    fetch('/api/resumos/save',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_user.token},
-      body:JSON.stringify({
-        nomeCompleto:answers.nome||'',
-        cargo:answers.cargo||'',
-        dadosCV:JSON.stringify({answers,cvData:d})
-      })
-    }).then(r=>r.json()).then(j=>{ if(j.id) _savedResumoId=j.id; }).catch(()=>{});
-  }
   setTimeout(()=>renderResult(d),450);
 }
 
@@ -1190,7 +980,7 @@ function renderResult(d, jaoPago=false){
   if(jaoPago){
     ov.classList.add('hidden');
     cvOut.classList.add('unlocked');
-    acts.innerHTML=`<button class="btn-outline" onclick="${_savedResumoId?'openDashboard()':'goChat()'}">← ${_savedResumoId?'Voltar':'Recomeçar'}</button><button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
+    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
   } else {
     ov.classList.remove('hidden');
     cvOut.classList.remove('unlocked');
@@ -1287,14 +1077,6 @@ function unlockCV(){
   document.getElementById('res-acts').innerHTML=`
     <button class="btn-outline" onclick="goChat()">← Novo currículo</button>
     <button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
-  // Mark resume as paid in account
-  if(_user && _savedResumoId){
-    fetch('/api/resumos/save',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_user.token},
-      body:JSON.stringify({pixId:_pixId,pago:true})
-    }).catch(()=>{});
-  }
 }
 
 function confirmPay(){unlockCV();}
@@ -1483,9 +1265,6 @@ function downloadProPDF(){
   w.document.close();
   setTimeout(()=>w.print(),800);
 }
-
-// Init on load
-window.addEventListener('DOMContentLoaded', initAuth);
 
 function downloadPDF(){
   const d=_cvData||{};
