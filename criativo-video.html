@@ -3,64 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CurrículoAI — Criativo Video</title>
+<title>CurrículoAI — Motion Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#09090a;--acc:#d4b896;
-  --fb:'DM Sans',sans-serif;
+:root{--bg:#09090a;--acc:#d4b896;--fb:'DM Sans',sans-serif}
+body{
+  background:#080809;
+  display:flex;flex-direction:column;align-items:center;
+  min-height:100vh;padding:32px 20px 48px;
+  font-family:var(--fb);color:#fff;gap:20px;
 }
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap');
-body{background:#0a0a0b;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:40px 24px;font-family:var(--fb);color:#fff;gap:24px}
 
-h1{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.5px;color:rgba(255,255,255,.5)}
-h1 em{font-style:italic;color:var(--acc)}
+/* ── HEADER ── */
+.header{display:flex;flex-direction:column;align-items:center;gap:4px}
+.logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.logo em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--acc);letter-spacing:1px}
+.tagline{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.5px}
 
-.canvas-wrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 32px 80px rgba(0,0,0,.8)}
-canvas{display:block}
+/* ── FORMAT TOGGLE ── */
+.fmt-toggle{
+  display:flex;gap:0;
+  background:#111113;border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;padding:4px;
+}
+.fmt-btn{
+  padding:7px 20px;border-radius:6px;border:none;
+  font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;color:rgba(255,255,255,.3);background:transparent;
+  display:flex;align-items:center;gap:6px;
+}
+.fmt-btn.active{background:var(--acc);color:#09090a;}
+.fmt-btn:not(.active):hover{color:rgba(255,255,255,.6)}
 
-.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center}
+.fmt-icon{opacity:.7}
+.fmt-btn.active .fmt-icon{opacity:1}
 
+/* ── CANVAS WRAP ── */
+.canvas-outer{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.canvas-wrap{
+  position:relative;border-radius:14px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 40px 100px rgba(0,0,0,.85);
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+/* Feed 1:1 */
+.canvas-wrap.feed   canvas{display:block;width:400px;height:400px}
+/* Stories 9:16 */
+.canvas-wrap.stories canvas{display:block;width:270px;height:480px}
+
+/* ── CONTROLS ── */
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
 .btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 22px;border-radius:7px;
-  font-family:var(--fb);font-size:11px;font-weight:500;letter-spacing:.6px;text-transform:uppercase;
-  cursor:pointer;border:none;transition:opacity .15s,transform .1s;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 20px;border-radius:7px;
+  font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;
+  cursor:pointer;border:none;transition:opacity .15s,transform .1s;white-space:nowrap;
 }
-.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn:hover{opacity:.82;transform:translateY(-1px)}
 .btn:active{transform:translateY(0);opacity:1}
-.btn-acc{background:var(--acc);color:#09090a}
-.btn-dark{background:#18181b;color:#fff;border:1px solid rgba(255,255,255,.12)}
-.btn-rec{background:#c0392b;color:#fff}
-.btn-stop{background:#2c2c2e;color:#fff;border:1px solid rgba(255,255,255,.12)}
-.btn:disabled{opacity:.35;pointer-events:none}
+.btn-rec {background:#c0392b;color:#fff}
+.btn-stop{background:#1e1e21;color:#fff;border:1px solid rgba(255,255,255,.1)}
+.btn-reset{background:#1e1e21;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.08)}
+.btn:disabled{opacity:.3;pointer-events:none}
 
-.status{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.3px;display:flex;align-items:center;gap:6px}
-.rec-dot{width:7px;height:7px;border-radius:50%;background:#c0392b;animation:pulse-rec .8s ease-in-out infinite}
-@keyframes pulse-rec{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+/* ── STATUS ── */
+.status{
+  font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.3px;
+  display:flex;align-items:center;gap:6px;
+}
+.rec-dot{
+  width:6px;height:6px;border-radius:50%;background:#c0392b;
+  animation:blink .9s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
-.info{font-size:10px;color:rgba(255,255,255,.2);text-align:center;line-height:1.7;letter-spacing:.2px}
-.info span{color:rgba(212,184,150,.5)}
+/* ── INFO ── */
+.info{
+  font-size:10px;color:rgba(255,255,255,.18);text-align:center;
+  line-height:1.8;letter-spacing:.2px;max-width:340px;
+}
+.info strong{color:rgba(212,184,150,.45);font-weight:400}
+
+/* ── SPEC BADGES ── */
+.specs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.spec{
+  padding:4px 10px;border-radius:20px;
+  font-size:9px;font-weight:400;letter-spacing:.6px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.2);
+}
 </style>
 </head>
 <body>
 
-<h1>Currículo<em>AI</em> — Motion Creative</h1>
-
-<div class="canvas-wrap">
-  <canvas id="c" width="540" height="540"></canvas>
+<div class="header">
+  <div class="logo">Currículo<em>AI</em></div>
+  <div class="tagline">Motion Creative — Meta Ads</div>
 </div>
 
+<!-- FORMAT TOGGLE -->
+<div class="fmt-toggle">
+  <button class="fmt-btn active" id="btnFeed" onclick="setFormat('feed')">
+    <svg class="fmt-icon" width="12" height="12" viewBox="0 0 12 12"><rect width="12" height="12" rx="2" fill="currentColor"/></svg>
+    Feed 1:1
+  </button>
+  <button class="fmt-btn" id="btnStories" onclick="setFormat('stories')">
+    <svg class="fmt-icon" width="8" height="12" viewBox="0 0 8 12"><rect width="8" height="12" rx="2" fill="currentColor"/></svg>
+    Stories 9:16
+  </button>
+</div>
+
+<!-- CANVAS -->
+<div class="canvas-outer">
+  <div class="canvas-wrap feed" id="canvasWrap">
+    <canvas id="c"></canvas>
+  </div>
+</div>
+
+<!-- CONTROLS -->
 <div class="controls">
   <button class="btn btn-rec" id="btnRec" onclick="startRecording()">
-    <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="currentColor"/></svg>
+    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
     Gravar Vídeo
   </button>
   <button class="btn btn-stop" id="btnStop" onclick="stopRecording()" disabled>
-    <svg width="10" height="10" viewBox="0 0 10 10"><rect width="10" height="10" rx="2" fill="currentColor"/></svg>
+    <svg width="8" height="8" viewBox="0 0 8 8"><rect width="8" height="8" rx="1.5" fill="currentColor"/></svg>
     Parar e Baixar
   </button>
-  <button class="btn btn-dark" onclick="resetAnim()">
+  <button class="btn btn-reset" onclick="resetAnim()">
     <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M2 8a6 6 0 1 1 1.5 3.9l1.1-1.1A4.5 4.5 0 1 0 3.5 8H5l-2.5 2.5L0 8h2z"/></svg>
     Reiniciar
   </button>
@@ -68,82 +142,118 @@ canvas{display:block}
 
 <div class="status" id="status">Animação em loop · Clique em Gravar para capturar</div>
 
+<div class="specs" id="specs">
+  <div class="spec" id="specFmt">Feed · 1080×1080 px</div>
+  <div class="spec">60 fps</div>
+  <div class="spec">WebM · ~8s loop</div>
+  <div class="spec">Meta Ads</div>
+</div>
+
 <div class="info">
-  Grave por pelo menos <span>1 loop completo (~8s)</span> para capturar a animação inteira.<br>
-  O download será em <span>WebM</span> · Compatível com Meta Ads, Premiere, After Effects.
+  Grave por pelo menos <strong>1 loop completo (~8s)</strong>.<br>
+  Download em <strong>WebM</strong> · compatível com Premiere, After Effects e Meta Ads.
 </div>
 
 <script>
-// ─── FONTS ───
-const FONT_DISPLAY = '"Cormorant Garamond", Georgia, serif';
-const FONT_UI      = '"DM Sans", sans-serif';
-
-// ─── COLORS ───
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+const FONT_D = '"Cormorant Garamond", Georgia, serif';
+const FONT_U = '"DM Sans", sans-serif';
 const C_BG   = '#09090a';
-const C_S1   = '#111113';
-const C_S2   = '#18181b';
 const C_ACC  = '#d4b896';
 const C_W    = '#ffffff';
-const C_T1   = 'rgba(255,255,255,0.72)';
 const C_T2   = 'rgba(255,255,255,0.42)';
 const C_T3   = 'rgba(255,255,255,0.20)';
+const FPS    = 60;
+const TOTAL  = 510; // ~8.5s loop
 
-// ─── CANVAS SETUP ───
+/* ═══════════════════════════════════════════
+   CANVAS & FORMAT STATE
+═══════════════════════════════════════════ */
 const canvas = document.getElementById('c');
 const ctx    = canvas.getContext('2d');
-const W = canvas.width;
-const H = canvas.height;
+let FORMAT   = 'feed';   // 'feed' | 'stories'
+let W, H;
 
-// ─── ANIMATION STATE ───
-const FPS     = 60;
-const TOTAL   = 520; // frames per loop ~8.7s
+function applyFormat(fmt){
+  FORMAT = fmt;
+  if(fmt === 'feed'){
+    canvas.width  = 1080;
+    canvas.height = 1080;
+  } else {
+    canvas.width  = 1080;
+    canvas.height = 1920;
+  }
+  W = canvas.width;
+  H = canvas.height;
+  initParticles();
+
+  // UI: toggle classes
+  document.getElementById('canvasWrap').className = `canvas-wrap ${fmt}`;
+  document.getElementById('btnFeed').className    = `fmt-btn${fmt==='feed'?' active':''}`;
+  document.getElementById('btnStories').className = `fmt-btn${fmt==='stories'?' active':''}`;
+  document.getElementById('specFmt').textContent  =
+    fmt === 'feed' ? 'Feed · 1080×1080 px' : 'Stories · 1080×1920 px';
+}
+
+function setFormat(fmt){
+  if(FORMAT === fmt) return;
+  if(recorder && recorder.state !== 'inactive') return; // can't switch while recording
+  frame = 0;
+  applyFormat(fmt);
+}
+
+applyFormat('feed');
+
+/* ═══════════════════════════════════════════
+   ANIMATION STATE
+═══════════════════════════════════════════ */
 let frame     = 0;
-let raf       = null;
 let particles = [];
-
-// ─── RECORDER ───
+let raf       = null;
 let recorder  = null;
 let chunks    = [];
 
-// ─── EASING ───
+/* ═══════════════════════════════════════════
+   EASING
+═══════════════════════════════════════════ */
 const ease = {
-  out3:  t => 1 - Math.pow(1-t, 3),
-  out5:  t => 1 - Math.pow(1-t, 5),
-  in3:   t => t * t * t,
-  inOut: t => t < .5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2,
+  out3:  t => 1 - Math.pow(1-t,3),
+  out5:  t => 1 - Math.pow(1-t,5),
+  in3:   t => t*t*t,
   spring:t => {
+    if(t===0) return 0; if(t===1) return 1;
     const c4 = (2*Math.PI)/3;
-    return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2,-10*t)*Math.sin((t*10-0.75)*c4)+1;
+    return Math.pow(2,-10*t)*Math.sin((t*10-.75)*c4)+1;
   }
 };
+const clamp    = (v,a,b) => Math.max(a,Math.min(b,v));
+const progress = (f,s,e) => clamp((f-s)/(e-s),0,1);
+const lerp     = (a,b,t) => a+(b-a)*t;
 
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function progress(f, start, end){ return clamp((f-start)/(end-start),0,1) }
-function lerp(a,b,t){return a+(b-a)*t}
-
-// ─── PARTICLES ───
+/* ═══════════════════════════════════════════
+   PARTICLES
+═══════════════════════════════════════════ */
 function initParticles(){
-  particles = [];
-  for(let i=0;i<38;i++){
-    particles.push({
-      x: Math.random()*W,
-      y: Math.random()*H,
-      r: Math.random()*1.2+0.2,
-      vx: (Math.random()-.5)*.25,
-      vy: (Math.random()-.5)*.25,
-      o: Math.random()*.25+.03,
-      flicker: Math.random()*Math.PI*2,
-      fspeed: Math.random()*.04+.01,
-    });
-  }
+  particles = Array.from({length:46},()=>({
+    x: Math.random()*W,
+    y: Math.random()*H,
+    r: Math.random()*1.4+.3,
+    vx:(Math.random()-.5)*.3,
+    vy:(Math.random()-.5)*.3,
+    o: Math.random()*.22+.04,
+    fl:Math.random()*Math.PI*2,
+    fs:Math.random()*.035+.008,
+  }));
 }
-initParticles();
 
-// ─── DRAW HELPERS ───
+/* ═══════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════ */
 function roundRect(x,y,w,h,r){
   ctx.beginPath();
-  ctx.moveTo(x+r,y);
-  ctx.lineTo(x+w-r,y);
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
   ctx.quadraticCurveTo(x+w,y,x+w,y+r);
   ctx.lineTo(x+w,y+h-r);
   ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
@@ -154,299 +264,357 @@ function roundRect(x,y,w,h,r){
   ctx.closePath();
 }
 
-function hexToRgb(hex){
-  const r=parseInt(hex.slice(1,3),16);
-  const g=parseInt(hex.slice(3,5),16);
-  const b=parseInt(hex.slice(5,7),16);
-  return {r,g,b};
-}
-
-// ─── MAIN DRAW ───
-function draw(f){
-  const t = f / TOTAL; // 0-1 normalized loop position
-
-  // ── 1. BACKGROUND ──
-  const bgAlpha = ease.out3(progress(f,0,30));
+/* ═══════════════════════════════════════════
+   DRAW — shared elements (W/H relative)
+═══════════════════════════════════════════ */
+function drawBg(bgAlpha, f){
   ctx.globalAlpha = 1;
   ctx.fillStyle = C_BG;
   ctx.fillRect(0,0,W,H);
-
-  // glow center-left
-  const glowA = bgAlpha * 0.55 * (0.7 + 0.3*Math.sin(f*.018));
-  const grd = ctx.createRadialGradient(W*.15,H*.55,0, W*.15,H*.55,W*.65);
-  grd.addColorStop(0,`rgba(212,184,150,${glowA})`);
+  // ambient glow
+  const ga = bgAlpha * .55 * (.7+.3*Math.sin(f*.018));
+  const grd = ctx.createRadialGradient(W*.12,H*.5,0,W*.12,H*.5,W*.7);
+  grd.addColorStop(0,`rgba(212,184,150,${ga})`);
   grd.addColorStop(1,'transparent');
-  ctx.globalAlpha = 1;
   ctx.fillStyle = grd;
   ctx.fillRect(0,0,W,H);
-
-  // ── 2. PARTICLES ──
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if(p.x<0) p.x=W; if(p.x>W) p.x=0;
-    if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-    p.flicker += p.fspeed;
-    const po = p.o * (0.5+0.5*Math.sin(p.flicker)) * bgAlpha;
-    ctx.globalAlpha = po;
-    ctx.fillStyle = C_ACC;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  ctx.globalAlpha = 1;
-
-  // ── 3. ACCENT LINE ──
-  const lineP = ease.out3(progress(f,20,80));
-  if(lineP > 0){
-    const lineLen = lerp(0, W*.42, lineP);
-    const lineX = W*.08;
-    const lineY = H*.345;
-    ctx.globalAlpha = lineP * .5;
-    const lineGrd = ctx.createLinearGradient(lineX,0,lineX+lineLen,0);
-    lineGrd.addColorStop(0,C_ACC);
-    lineGrd.addColorStop(1,'transparent');
-    ctx.strokeStyle = lineGrd;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(lineX, lineY);
-    ctx.lineTo(lineX + lineLen, lineY);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 4. EYEBROW BADGE ──
-  const eyeP = ease.spring(progress(f,35,90));
-  if(eyeP > 0){
-    const bx = W*.08;
-    const by = H*.355;
-    ctx.globalAlpha = clamp(eyeP*1.5,0,1);
-    ctx.save();
-    ctx.translate(0, lerp(-12,0,eyeP));
-
-    // badge bg
-    const badgeW = 110; const badgeH = 20; const badgeR = 10;
-    roundRect(bx, by, badgeW, badgeH, badgeR);
-    ctx.fillStyle = 'rgba(212,184,150,0.08)';
-    ctx.fill();
-    roundRect(bx, by, badgeW, badgeH, badgeR);
-    ctx.strokeStyle = 'rgba(212,184,150,0.25)';
-    ctx.lineWidth = .8;
-    ctx.stroke();
-
-    // dot
-    ctx.fillStyle = C_ACC;
-    ctx.beginPath();
-    ctx.arc(bx+11, by+10, 2.5, 0, Math.PI*2);
-    ctx.fill();
-
-    // text
-    ctx.font = `400 9px/1 ${FONT_UI}`;
-    ctx.fillStyle = C_T2;
-    ctx.letterSpacing = '2px';
-    ctx.fillText('POWERED BY IA', bx+20, by+13.5);
-    ctx.letterSpacing = '0px';
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 5. LOGO ──
-  const logoP = ease.spring(progress(f,15,75));
-  if(logoP > 0){
-    ctx.save();
-    ctx.globalAlpha = clamp(logoP*1.4,0,1);
-    ctx.translate(0, lerp(-8,0,logoP));
-    const lx = W*.08; const ly = H*.31;
-    ctx.font = `300 13px/1 ${FONT_UI}`;
-    ctx.fillStyle = C_T2;
-    ctx.fillText('Currículo', lx, ly);
-    const tw = ctx.measureText('Currículo').width;
-    ctx.font = `italic 300 13px/1 ${FONT_DISPLAY}`;
-    ctx.fillStyle = C_ACC;
-    ctx.fillText('AI', lx+tw+1, ly);
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 6. MAIN HEADLINE ──
-  // Line 1: "O mercado"  frames 85-145
-  // Line 2: "não espera"  frames 115-175
-  // Line 3: "por você."   frames 145-205
-  const lines = [
-    {text:'O mercado', start:85, end:145, italic:false},
-    {text:'não espera', start:115, end:180, italic:true},
-    {text:'por você.', start:150, end:210, italic:false},
-  ];
-
-  lines.forEach((ln,i) => {
-    const lp = ease.out5(progress(f, ln.start, ln.end));
-    if(lp <= 0) return;
-    const lx = W*.08;
-    const ly = H*.47 + i*(W*.128);
-    ctx.save();
-    ctx.globalAlpha = lp;
-    ctx.translate(0, lerp(18,0,lp));
-
-    if(ln.italic){
-      ctx.font = `italic 300 ${W*.108}px/1 ${FONT_DISPLAY}`;
-      ctx.fillStyle = C_ACC;
-    } else {
-      ctx.font = `300 ${W*.108}px/1 ${FONT_DISPLAY}`;
-      ctx.fillStyle = C_W;
-    }
-    ctx.fillText(ln.text, lx, ly);
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  });
-
-  // ── 7. SUBTEXT ──
-  const subP = ease.out3(progress(f, 210, 270));
-  if(subP > 0){
-    ctx.save();
-    ctx.globalAlpha = subP * .7;
-    ctx.translate(0, lerp(10,0,subP));
-    ctx.font = `300 ${W*.026}px/1 ${FONT_UI}`;
-    ctx.fillStyle = C_T2;
-    ctx.fillText('Currículo profissional com IA em menos de 3 minutos.', W*.08, H*.784);
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 8. DIVIDER LINE ──
-  const divP = ease.out3(progress(f, 215, 280));
-  if(divP > 0){
-    ctx.globalAlpha = divP * .18;
-    ctx.fillStyle = C_W;
-    ctx.fillRect(W*.08, H*.80, W*.84 * divP, .8);
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 9. STATS ──
-  const stat1P = ease.spring(progress(f, 260, 315));
-  const stat2P = ease.spring(progress(f, 280, 335));
-  const stats = [
-    {val:'+12k', label:'currículos gerados', p:stat1P, x: W*.08},
-    {val:'3 min', label:'tempo médio', p:stat2P, x: W*.43},
-  ];
-  stats.forEach(s => {
-    if(s.p <= 0) return;
-    ctx.save();
-    ctx.globalAlpha = clamp(s.p*1.5,0,1);
-    ctx.translate(0, lerp(14,0,s.p));
-    ctx.font = `300 ${W*.064}px/1 ${FONT_DISPLAY}`;
-    ctx.fillStyle = C_ACC;
-    ctx.fillText(s.val, s.x, H*.89);
-    ctx.font = `300 ${W*.022}px/1 ${FONT_UI}`;
-    ctx.fillStyle = C_T3;
-    ctx.fillText(s.label, s.x, H*.92);
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  });
-
-  // ── 10. CTA BUTTON ──
-  const ctaP = ease.spring(progress(f, 330, 390));
-  if(ctaP > 0){
-    const bx = W*.08; const by = H*.79;
-    const bw = 148; const bh = 34; const br = 6;
-    ctx.save();
-    ctx.globalAlpha = ctaP;
-
-    // glow behind button
-    const pulse = 0.5 + 0.5*Math.sin(f*.08);
-    const bg2 = ctx.createRadialGradient(bx+bw/2, by+bh/2, 0, bx+bw/2, by+bh/2, 70);
-    bg2.addColorStop(0,`rgba(212,184,150,${.15*pulse})`);
-    bg2.addColorStop(1,'transparent');
-    ctx.fillStyle = bg2;
-    ctx.fillRect(bx-40,by-30,bw+80,bh+60);
-
-    // button bg
-    roundRect(bx,by,bw,bh,br);
-    ctx.fillStyle = C_ACC;
-    ctx.fill();
-
-    // button text
-    ctx.font = `500 ${W*.022}px/1 ${FONT_UI}`;
-    ctx.fillStyle = '#09090a';
-    ctx.fillText('Criar meu currículo →', bx+14, by+22);
-
-    ctx.restore();
-    ctx.globalAlpha = 1;
-  }
-
-  // ── 11. FADE OUT (last 40 frames) ──
-  const fadeP = progress(f, TOTAL-40, TOTAL);
-  if(fadeP > 0){
-    ctx.globalAlpha = ease.in3(fadeP);
-    ctx.fillStyle = C_BG;
-    ctx.fillRect(0,0,W,H);
-    ctx.globalAlpha = 1;
-  }
 }
 
-// ─── LOOP ───
+function drawParticles(bgAlpha){
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+    p.fl+=p.fs;
+    ctx.globalAlpha = p.o*(.5+.5*Math.sin(p.fl))*bgAlpha;
+    ctx.fillStyle = C_ACC;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+  });
+  ctx.globalAlpha=1;
+}
+
+function drawLogo(f, lx, ly){
+  const p = ease.spring(progress(f,15,75));
+  if(p<=0) return;
+  ctx.save();
+  ctx.globalAlpha = clamp(p*1.4,0,1);
+  ctx.translate(0, lerp(-W*.015,0,p));
+  const fs = W*.024;
+  ctx.font = `300 ${fs}px/1 ${FONT_U}`;
+  ctx.fillStyle = C_T2;
+  ctx.fillText('Currículo', lx, ly);
+  const tw = ctx.measureText('Currículo').width;
+  ctx.font = `italic 300 ${fs}px/1 ${FONT_D}`;
+  ctx.fillStyle = C_ACC;
+  ctx.fillText('AI', lx+tw+W*.002, ly);
+  ctx.restore(); ctx.globalAlpha=1;
+}
+
+function drawBadge(f, bx, by){
+  const p = ease.spring(progress(f,35,95));
+  if(p<=0) return;
+  ctx.save();
+  ctx.globalAlpha = clamp(p*1.5,0,1);
+  ctx.translate(0, lerp(-W*.02,0,p));
+  const bw=W*.24, bh=W*.04, br=bw/2, dotR=W*.005;
+  roundRect(bx,by,bw,bh,br);
+  ctx.fillStyle='rgba(212,184,150,0.07)'; ctx.fill();
+  roundRect(bx,by,bw,bh,br);
+  ctx.strokeStyle='rgba(212,184,150,0.22)'; ctx.lineWidth=1.2; ctx.stroke();
+  ctx.fillStyle=C_ACC;
+  ctx.beginPath(); ctx.arc(bx+bw*.12,by+bh/2,dotR,0,Math.PI*2); ctx.fill();
+  ctx.font=`400 ${W*.016}px/1 ${FONT_U}`;
+  ctx.fillStyle=C_T2;
+  ctx.letterSpacing=`${W*.003}px`;
+  ctx.fillText('POWERED BY IA', bx+bw*.21, by+bh*.68);
+  ctx.letterSpacing='0px';
+  ctx.restore(); ctx.globalAlpha=1;
+}
+
+function drawHeadline(f, lx, startY, lineH, fs){
+  const lines=[
+    {t:'O mercado',   s:85,  e:145, italic:false},
+    {t:'não espera',  s:115, e:180, italic:true},
+    {t:'por você.',   s:150, e:210, italic:false},
+  ];
+  lines.forEach((ln,i)=>{
+    const p=ease.out5(progress(f,ln.s,ln.e));
+    if(p<=0)return;
+    ctx.save();
+    ctx.globalAlpha=p;
+    ctx.translate(0,lerp(W*.032,0,p));
+    ctx.font = ln.italic
+      ? `italic 300 ${fs}px/1 ${FONT_D}`
+      : `300 ${fs}px/1 ${FONT_D}`;
+    ctx.fillStyle = ln.italic ? C_ACC : C_W;
+    ctx.fillText(ln.t, lx, startY + i*lineH);
+    ctx.restore(); ctx.globalAlpha=1;
+  });
+}
+
+function drawSubtext(f, lx, y, fs){
+  const p=ease.out3(progress(f,210,270));
+  if(p<=0)return;
+  ctx.save();
+  ctx.globalAlpha=p*.65;
+  ctx.translate(0,lerp(W*.015,0,p));
+  ctx.font=`300 ${fs}px/1 ${FONT_U}`;
+  ctx.fillStyle=C_T2;
+  ctx.fillText('Currículo profissional com IA em menos de 3 minutos.',lx,y);
+  ctx.restore(); ctx.globalAlpha=1;
+}
+
+function drawDivider(f, lx, y){
+  const p=ease.out3(progress(f,215,280));
+  if(p<=0)return;
+  ctx.globalAlpha=p*.15;
+  ctx.fillStyle=C_W;
+  ctx.fillRect(lx, y, W*.84*p, 1.5);
+  ctx.globalAlpha=1;
+}
+
+function drawStats(f, lx, y, valFs, labFs){
+  const s1=ease.spring(progress(f,260,315));
+  const s2=ease.spring(progress(f,280,335));
+  [{val:'+12k',  label:'currículos gerados', p:s1, x:lx},
+   {val:'3 min', label:'tempo médio',         p:s2, x:lx+W*.32}
+  ].forEach(s=>{
+    if(s.p<=0)return;
+    ctx.save();
+    ctx.globalAlpha=clamp(s.p*1.5,0,1);
+    ctx.translate(0,lerp(W*.022,0,s.p));
+    ctx.font=`300 ${valFs}px/1 ${FONT_D}`;
+    ctx.fillStyle=C_ACC;
+    ctx.fillText(s.val,s.x,y);
+    ctx.font=`300 ${labFs}px/1 ${FONT_U}`;
+    ctx.fillStyle=C_T3;
+    ctx.fillText(s.label,s.x,y+labFs*1.5);
+    ctx.restore(); ctx.globalAlpha=1;
+  });
+}
+
+function drawCTA(f, bx, by){
+  const p=ease.spring(progress(f,330,390));
+  if(p<=0)return;
+  const bw=W*.32, bh=W*.07, br=W*.012;
+  ctx.save(); ctx.globalAlpha=p;
+  const pulse=.5+.5*Math.sin(f*.08);
+  const bg2=ctx.createRadialGradient(bx+bw/2,by+bh/2,0,bx+bw/2,by+bh/2,W*.2);
+  bg2.addColorStop(0,`rgba(212,184,150,${.18*pulse})`);
+  bg2.addColorStop(1,'transparent');
+  ctx.fillStyle=bg2; ctx.fillRect(bx-W*.06,by-W*.06,bw+W*.12,bh+W*.12);
+  roundRect(bx,by,bw,bh,br);
+  ctx.fillStyle=C_ACC; ctx.fill();
+  ctx.font=`500 ${W*.038}px/1 ${FONT_U}`;
+  ctx.fillStyle='#09090a';
+  const txt='Criar meu currículo →';
+  const tw=ctx.measureText(txt).width;
+  ctx.fillText(txt, bx+(bw-tw)/2, by+bh*.64);
+  ctx.restore(); ctx.globalAlpha=1;
+}
+
+function drawAccentLine(f, lx, ly){
+  const p=ease.out3(progress(f,20,80));
+  if(p<=0)return;
+  const len=lerp(0,W*.38,p);
+  ctx.globalAlpha=p*.45;
+  const lg=ctx.createLinearGradient(lx,0,lx+len,0);
+  lg.addColorStop(0,C_ACC); lg.addColorStop(1,'transparent');
+  ctx.strokeStyle=lg; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+len,ly); ctx.stroke();
+  ctx.globalAlpha=1;
+}
+
+function drawFade(f){
+  const p=progress(f,TOTAL-45,TOTAL);
+  if(p<=0)return;
+  ctx.globalAlpha=ease.in3(p);
+  ctx.fillStyle=C_BG; ctx.fillRect(0,0,W,H);
+  ctx.globalAlpha=1;
+}
+
+/* ═══════════════════════════════════════════
+   DRAW — FORMAT LAYOUTS
+═══════════════════════════════════════════ */
+function drawFeed(f){
+  const bgAlpha=ease.out3(progress(f,0,30));
+  const LX=W*.082;
+
+  drawBg(bgAlpha,f);
+  drawParticles(bgAlpha);
+  drawAccentLine(f, LX, H*.34);
+  drawLogo(f, LX, H*.305);
+  drawBadge(f, LX, H*.352);
+  drawHeadline(f, LX, H*.49, W*.132, W*.112);
+  drawSubtext(f, LX, H*.788, W*.026);
+  drawDivider(f, LX, H*.808);
+  drawStats(f, LX, H*.876, W*.062, W*.022);
+  drawCTA(f, LX, H*.788);
+  drawFade(f);
+}
+
+function drawStories(f){
+  const bgAlpha=ease.out3(progress(f,0,30));
+  const LX=W*.09;
+
+  drawBg(bgAlpha,f);
+  drawParticles(bgAlpha);
+
+  // Stories: extra top glow
+  const ga2=bgAlpha*.35*(.6+.4*Math.sin(f*.022+1));
+  const g2=ctx.createRadialGradient(W*.88,H*.18,0,W*.88,H*.18,W*.6);
+  g2.addColorStop(0,`rgba(212,184,150,${ga2})`);
+  g2.addColorStop(1,'transparent');
+  ctx.fillStyle=g2; ctx.fillRect(0,0,W,H);
+
+  // Top area: logo + badge
+  drawAccentLine(f, LX, H*.175);
+  drawLogo(f, LX, H*.155);
+  drawBadge(f, LX, H*.18);
+
+  // Vertical spacer line left
+  const vlineP=ease.out3(progress(f,30,90));
+  if(vlineP>0){
+    ctx.globalAlpha=vlineP*.12;
+    ctx.fillStyle=C_ACC;
+    ctx.fillRect(LX, H*.22, 1.5, H*.52*vlineP);
+    ctx.globalAlpha=1;
+  }
+
+  // Big centered headline (stories: larger, more vertical space)
+  drawHeadlineStories(f, LX+W*.06, H*.32, H*.085, W*.158);
+
+  // Subtext
+  drawSubtext(f, LX+W*.06, H*.645, W*.034);
+
+  // Divider
+  drawDivider(f, LX, H*.668);
+
+  // Stats side by side
+  drawStats(f, LX, H*.706, W*.078, W*.028);
+
+  // CTA larger and centered
+  const ctaP=ease.spring(progress(f,330,390));
+  if(ctaP>0){
+    const bw=W*.78, bh=W*.13, bx=(W-bw)/2, by=H*.8, br=W*.018;
+    ctx.save(); ctx.globalAlpha=ctaP;
+    const pulse=.5+.5*Math.sin(f*.08);
+    const bg2=ctx.createRadialGradient(W/2,by+bh/2,0,W/2,by+bh/2,W*.45);
+    bg2.addColorStop(0,`rgba(212,184,150,${.22*pulse})`);
+    bg2.addColorStop(1,'transparent');
+    ctx.fillStyle=bg2; ctx.fillRect(0,by-W*.08,W,bh+W*.16);
+    roundRect(bx,by,bw,bh,br);
+    ctx.fillStyle=C_ACC; ctx.fill();
+    ctx.font=`500 ${W*.05}px/1 ${FONT_U}`;
+    ctx.fillStyle='#09090a';
+    const txt='Criar meu currículo →';
+    const tw=ctx.measureText(txt).width;
+    ctx.fillText(txt, bx+(bw-tw)/2, by+bh*.64);
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+
+  // Bottom tag
+  const tagP=ease.out3(progress(f,350,400));
+  if(tagP>0){
+    ctx.globalAlpha=tagP*.25;
+    ctx.font=`300 ${W*.022}px/1 ${FONT_U}`;
+    ctx.fillStyle=C_W;
+    ctx.textAlign='center';
+    ctx.fillText('curriculo.ai', W/2, H*.93);
+    ctx.textAlign='left';
+    ctx.globalAlpha=1;
+  }
+
+  drawFade(f);
+}
+
+function drawHeadlineStories(f, lx, startY, lineH, fs){
+  const lines=[
+    {t:'O mercado',   s:85,  e:145, italic:false},
+    {t:'não espera',  s:115, e:180, italic:true},
+    {t:'por você.',   s:150, e:210, italic:false},
+  ];
+  lines.forEach((ln,i)=>{
+    const p=ease.out5(progress(f,ln.s,ln.e));
+    if(p<=0)return;
+    ctx.save();
+    ctx.globalAlpha=p;
+    ctx.translate(0,lerp(W*.04,0,p));
+    ctx.font = ln.italic
+      ? `italic 300 ${fs}px/1 ${FONT_D}`
+      : `300 ${fs}px/1 ${FONT_D}`;
+    ctx.fillStyle = ln.italic ? C_ACC : C_W;
+    ctx.fillText(ln.t, lx, startY+i*lineH);
+    ctx.restore(); ctx.globalAlpha=1;
+  });
+}
+
+/* ═══════════════════════════════════════════
+   MAIN LOOP
+═══════════════════════════════════════════ */
+function draw(f){
+  if(FORMAT==='feed') drawFeed(f);
+  else                drawStories(f);
+}
+
 function loop(){
   draw(frame);
-  frame = (frame + 1) % TOTAL;
+  frame = (frame+1) % TOTAL;
   raf = requestAnimationFrame(loop);
 }
 
 function resetAnim(){
-  frame = 0;
-  initParticles();
+  frame=0; initParticles();
 }
 
 loop();
 
-// ─── RECORDING ───
+/* ═══════════════════════════════════════════
+   RECORDING
+═══════════════════════════════════════════ */
 function startRecording(){
-  chunks = [];
-  const stream = canvas.captureStream(FPS);
-  const mimeTypes = [
-    'video/webm;codecs=vp9',
-    'video/webm;codecs=vp8',
-    'video/webm',
-    'video/mp4',
-  ];
-  let mime = '';
-  for(const m of mimeTypes){
-    if(MediaRecorder.isTypeSupported(m)){mime=m;break;}
-  }
-  if(!mime){ alert('Seu browser não suporta gravação de vídeo. Use Chrome ou Edge.'); return; }
+  chunks=[];
+  const stream=canvas.captureStream(FPS);
+  const mimes=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'];
+  let mime='';
+  for(const m of mimes){ if(MediaRecorder.isTypeSupported(m)){mime=m;break;} }
+  if(!mime){ alert('Seu browser não suporta gravação. Use Chrome ou Edge.'); return; }
 
-  recorder = new MediaRecorder(stream, {mimeType: mime, videoBitsPerSecond: 12_000_000});
-  recorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
-  recorder.onstop = () => {
-    const blob = new Blob(chunks, {type: mime});
-    const ext  = mime.includes('mp4') ? 'mp4' : 'webm';
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = `criativo-video-curriculo-ai.${ext}`;
+  recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:18_000_000});
+  recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
+  recorder.onstop=()=>{
+    const blob=new Blob(chunks,{type:mime});
+    const ext=mime.includes('mp4')?'mp4':'webm';
+    const fmt=FORMAT==='stories'?'stories':'feed';
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`criativo-video-${fmt}-curriculo-ai.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
     setStatus('idle');
   };
-
-  recorder.start(100); // collect every 100ms
+  recorder.start(100);
   setStatus('recording');
-  document.getElementById('btnRec').disabled  = true;
-  document.getElementById('btnStop').disabled = false;
+  document.getElementById('btnRec').disabled=true;
+  document.getElementById('btnStop').disabled=false;
+  document.getElementById('btnFeed').disabled=true;
+  document.getElementById('btnStories').disabled=true;
 }
 
 function stopRecording(){
-  if(recorder && recorder.state !== 'inactive'){
-    recorder.stop();
-  }
-  document.getElementById('btnRec').disabled  = false;
-  document.getElementById('btnStop').disabled = true;
+  if(recorder&&recorder.state!=='inactive') recorder.stop();
+  document.getElementById('btnRec').disabled=false;
+  document.getElementById('btnStop').disabled=true;
+  document.getElementById('btnFeed').disabled=false;
+  document.getElementById('btnStories').disabled=false;
 }
 
 function setStatus(s){
-  const el = document.getElementById('status');
-  if(s === 'recording'){
-    el.innerHTML = '<span class="rec-dot"></span>Gravando — clique em Parar e Baixar quando quiser';
-  } else {
-    el.textContent = 'Animação em loop · Clique em Gravar para capturar';
-  }
+  const el=document.getElementById('status');
+  el.innerHTML = s==='recording'
+    ? '<span class="rec-dot"></span>Gravando — clique em Parar e Baixar quando quiser'
+    : 'Animação em loop · Clique em Gravar para capturar';
 }
 </script>
 </body>
