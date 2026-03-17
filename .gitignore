@@ -2,3 +2,5 @@
 .env
 node_modules/
 .vercel/
+.claude/
+curriculo-ai-v5.html

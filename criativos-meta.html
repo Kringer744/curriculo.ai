@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CurrículoAI — Criativos Meta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090a;--s1:#111113;--s2:#18181b;--s3:#222226;
+  --b0:rgba(255,255,255,0.04);--b1:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.14);
+  --t0:#fff;--t1:rgba(255,255,255,.72);--t2:rgba(255,255,255,.42);--t3:rgba(255,255,255,.2);
+  --acc:#d4b896;--acc-dim:rgba(212,184,150,0.08);--acc-b:rgba(212,184,150,0.22);
+  --fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',sans-serif;
+}
+body{background:#0d0d0f;font-family:var(--fb);color:#fff;padding:40px 32px;min-height:100vh}
+
+/* ─── LAYOUT ─── */
+.page-title{font-family:var(--fd);font-size:13px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--b1)}
+.page-title span{color:var(--acc)}
+
+.section-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3);font-family:var(--fb);font-weight:400;margin-bottom:20px}
+.criativo-block{margin-bottom:80px}
+.criativo-header{display:flex;align-items:baseline;gap:20px;margin-bottom:32px}
+.criativo-num{font-family:var(--fd);font-size:52px;font-weight:300;color:var(--b2);letter-spacing:-2px;line-height:1}
+.criativo-meta{display:flex;flex-direction:column;gap:4px}
+.criativo-title{font-family:var(--fd);font-size:22px;font-weight:300;color:var(--t0);letter-spacing:-.3px}
+.criativo-sub{font-size:12px;color:var(--acc);letter-spacing:.5px;font-weight:400}
+
+.formats-row{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+
+/* ─── FEED (1:1 — 1080×1080) ─── */
+.feed-wrap{display:flex;flex-direction:column;gap:10px}
+.feed-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:300}
+.feed{
+  width:380px;height:380px;
+  background:var(--bg);
+  border-radius:12px;
+  border:1px solid var(--b1);
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+}
+
+/* ─── STORIES (9:16 — 1080×1920) ─── */
+.story-wrap{display:flex;flex-direction:column;gap:10px}
+.story-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);font-weight:300}
+.story{
+  width:213px;height:380px;
+  background:var(--bg);
+  border-radius:12px;
+  border:1px solid var(--b1);
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+}
+
+/* ─── SPECS SIDEBAR ─── */
+.specs{
+  flex:1;min-width:240px;
+  background:var(--s1);
+  border:1px solid var(--b1);
+  border-radius:12px;
+  padding:28px 24px;
+  display:flex;flex-direction:column;gap:20px;
+  align-self:flex-start;
+}
+.spec-group h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;font-weight:400}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--b0)}
+.spec-row:last-child{border-bottom:none}
+.spec-key{font-size:11px;color:var(--t2);font-weight:300}
+.spec-val{font-size:11px;color:var(--t0);font-weight:400;text-align:right}
+.spec-val.acc{color:var(--acc)}
+.copy-block{background:var(--s2);border-radius:8px;padding:14px 16px;border:1px solid var(--b1)}
+.copy-field{margin-bottom:10px}
+.copy-field:last-child{margin-bottom:0}
+.copy-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.copy-text{font-size:12px;color:var(--t1);line-height:1.5;font-weight:300}
+.copy-text.headline{font-family:var(--fd);font-size:14px;font-weight:400;color:var(--t0)}
+
+
+/* ══════════════════════════════════════════
+   CRIATIVO 01 — "O Mercado Não Espera"
+   Feed: Full dark, headline grande, tagline, CTA
+   ══════════════════════════════════════════ */
+
+/* FEED 01 */
+.f01{background:var(--bg)}
+.f01 .grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:1;pointer-events:none;z-index:1
+}
+.f01 .bg-glow{
+  position:absolute;
+  width:260px;height:260px;
+  right:-40px;bottom:-60px;
+  background:radial-gradient(circle, rgba(212,184,150,0.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.f01 .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:32px}
+.f01 .logo-tag{display:inline-flex;align-items:center;gap:7px}
+.f01 .logo-dot{width:5px;height:5px;border-radius:50%;background:var(--acc)}
+.f01 .logo-txt{font-family:var(--fd);font-size:14px;font-weight:300;letter-spacing:.8px;color:var(--t1)}
+.f01 .logo-txt em{font-style:italic;color:var(--acc)}
+.f01 .center{}
+.f01 .eyebrow{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--acc);font-weight:400;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.f01 .eyebrow::before{content:'';width:18px;height:1px;background:var(--acc);opacity:.5}
+.f01 h2{font-family:var(--fd);font-size:44px;font-weight:300;line-height:.95;letter-spacing:-1.5px;color:var(--t0);margin-bottom:16px}
+.f01 h2 em{font-style:italic;color:var(--acc)}
+.f01 .sub{font-size:11px;color:var(--t2);font-weight:300;line-height:1.7;max-width:240px}
+.f01 .bottom-row{display:flex;align-items:center;justify-content:space-between}
+.f01 .cta-pill{background:var(--acc);color:#09090a;padding:9px 18px;border-radius:6px;font-size:10px;font-weight:500;letter-spacing:.5px}
+.f01 .stat{text-align:right}
+.f01 .stat-n{font-family:var(--fd);font-size:24px;font-weight:300;color:var(--acc);letter-spacing:-1px}
+.f01 .stat-l{font-size:9px;color:var(--t3);letter-spacing:.3px;margin-top:1px}
+
+/* STORY 01 */
+.s01{background:var(--bg)}
+.s01 .bg-glow{
+  position:absolute;
+  width:180px;height:180px;
+  right:-30px;top:80px;
+  background:radial-gradient(circle, rgba(212,184,150,0.09) 0%, transparent 70%);
+  pointer-events:none;
+}
+.s01 .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:22px 20px 24px}
+.s01 .top{display:flex;align-items:center;justify-content:space-between}
+.s01 .logo-tag{display:inline-flex;align-items:center;gap:6px}
+.s01 .logo-dot{width:4px;height:4px;border-radius:50%;background:var(--acc)}
+.s01 .logo-txt{font-family:var(--fd);font-size:12px;font-weight:300;letter-spacing:.6px;color:var(--t1)}
+.s01 .logo-txt em{font-style:italic;color:var(--acc)}
+.s01 .badge{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);border:1px solid var(--b2);padding:3px 8px;border-radius:20px}
+.s01 .mid{}
+.s01 .eyebrow{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.s01 .eyebrow::before{content:'';width:12px;height:1px;background:var(--acc);opacity:.5}
+.s01 h2{font-family:var(--fd);font-size:34px;font-weight:300;line-height:.95;letter-spacing:-1px;color:var(--t0);margin-bottom:12px}
+.s01 h2 em{font-style:italic;color:var(--acc)}
+.s01 .sub{font-size:10px;color:var(--t2);font-weight:300;line-height:1.7}
+.s01 .stats-row{display:flex;gap:0;margin-top:18px;padding-top:14px;border-top:1px solid var(--b1)}
+.s01 .sstat{flex:1;padding:0 10px}
+.s01 .sstat:first-child{padding-left:0;border-right:1px solid var(--b1)}
+.s01 .sstat-n{font-family:var(--fd);font-size:20px;font-weight:300;color:var(--acc);letter-spacing:-1px}
+.s01 .sstat-l{font-size:8px;color:var(--t3);letter-spacing:.2px;margin-top:1px}
+.s01 .cta-btn{background:var(--acc);color:#09090a;padding:11px;border-radius:6px;font-size:10px;font-weight:500;letter-spacing:.5px;text-align:center;width:100%}
+.s01 .url{font-size:8px;color:var(--t3);text-align:center;margin-top:8px;letter-spacing:.3px}
+
+
+/* ══════════════════════════════════════════
+   CRIATIVO 02 — "3 Minutos. Currículo Pronto."
+   Feed: Split layout com chat mockup
+   ══════════════════════════════════════════ */
+.f02{background:var(--s1)}
+.f02 .accent-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.f02 .content{position:absolute;inset:0;display:flex;flex-direction:column;padding:30px 28px}
+.f02 .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.f02 .logo-txt{font-family:var(--fd);font-size:13px;font-weight:300;letter-spacing:.8px;color:var(--t1)}
+.f02 .logo-txt em{font-style:italic;color:var(--acc)}
+.f02 .tag{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-b);padding:3px 9px;border-radius:20px;background:var(--acc-dim)}
+
+/* chat mockup */
+.chat-mock{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center;margin-bottom:18px}
+.msg{max-width:80%;padding:9px 13px;border-radius:10px;font-size:10px;line-height:1.5;font-weight:300}
+.msg-ai{background:var(--s3);border:1px solid var(--b1);color:var(--t1);align-self:flex-start;border-radius:3px 10px 10px 10px}
+.msg-user{background:rgba(212,184,150,0.12);border:1px solid var(--acc-b);color:var(--t0);align-self:flex-end;border-radius:10px 3px 10px 10px;text-align:right}
+.msg-name{font-size:8px;color:var(--t3);margin-bottom:4px;letter-spacing:.3px}
+.msg-ai .msg-name{color:var(--acc)}
+.typing{display:flex;align-items:center;gap:3px;padding:9px 13px;background:var(--s3);border:1px solid var(--b1);border-radius:3px 10px 10px 10px;width:52px;align-self:flex-start}
+.dot-t{width:4px;height:4px;border-radius:50%;background:var(--t3);animation:blink 1.2s infinite}
+.dot-t:nth-child(2){animation-delay:.2s}
+.dot-t:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+.f02 .bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--b1);padding-top:16px}
+.f02 .headline{font-family:var(--fd);font-size:18px;font-weight:300;letter-spacing:-.3px;color:var(--t0)}
+.f02 .headline em{font-style:italic;color:var(--acc)}
+.f02 .cta-small{background:var(--t0);color:#09090a;padding:7px 14px;border-radius:5px;font-size:9px;font-weight:500;letter-spacing:.5px;white-space:nowrap}
+
+/* STORY 02 */
+.s02{background:var(--s1)}
+.s02 .accent-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.s02 .content{position:absolute;inset:0;display:flex;flex-direction:column;padding:20px 18px}
+.s02 .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.s02 .logo-txt{font-family:var(--fd);font-size:11px;font-weight:300;letter-spacing:.6px}
+.s02 .logo-txt em{font-style:italic;color:var(--acc)}
+.s02 .tag{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-b);padding:2px 7px;border-radius:20px;background:var(--acc-dim)}
+.s02 .headline-s{font-family:var(--fd);font-size:26px;font-weight:300;line-height:1;letter-spacing:-.5px;color:var(--t0);margin-bottom:14px}
+.s02 .headline-s em{font-style:italic;color:var(--acc)}
+.s02 .chat-mock-s{flex:1;display:flex;flex-direction:column;gap:7px;justify-content:center}
+.s02 .cta-btn{background:var(--acc);color:#09090a;padding:10px;border-radius:6px;font-size:9px;font-weight:500;letter-spacing:.5px;text-align:center;width:100%;margin-top:14px}
+.s02 .url{font-size:7px;color:var(--t3);text-align:center;margin-top:6px;letter-spacing:.3px}
+
+
+/* ══════════════════════════════════════════
+   CRIATIVO 03 — Prova Social / Resultado
+   Feed: Depoimento + número destaque
+   ══════════════════════════════════════════ */
+.f03{background:var(--bg)}
+.f03 .side-accent{
+  position:absolute;top:0;left:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,transparent,var(--acc),transparent)
+}
+.f03 .bg-glow{
+  position:absolute;
+  width:200px;height:200px;
+  left:-40px;top:50%;transform:translateY(-50%);
+  background:radial-gradient(circle, rgba(212,184,150,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.f03 .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:32px}
+.f03 .top{display:flex;align-items:center;justify-content:space-between}
+.f03 .logo-txt{font-family:var(--fd);font-size:13px;font-weight:300;letter-spacing:.8px}
+.f03 .logo-txt em{font-style:italic;color:var(--acc)}
+.f03 .stars{display:flex;gap:2px;font-size:10px}
+
+/* depoimento */
+.f03 .testimonial{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 0}
+.f03 .quote-mark{font-family:var(--fd);font-size:52px;font-weight:300;color:var(--acc);line-height:.5;margin-bottom:14px;opacity:.4}
+.f03 .quote-text{font-family:var(--fd);font-size:17px;font-weight:300;line-height:1.4;letter-spacing:-.2px;color:var(--t1);margin-bottom:16px}
+.f03 .quote-text em{font-style:italic;color:var(--t0)}
+.f03 .author{display:flex;align-items:center;gap:10px}
+.f03 .av{width:30px;height:30px;border-radius:50%;background:var(--s3);border:1px solid var(--acc-b);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;color:var(--acc)}
+.f03 .author-info{}
+.f03 .author-name{font-size:11px;font-weight:400;color:var(--t0)}
+.f03 .author-role{font-size:9px;color:var(--t3);margin-top:1px}
+
+.f03 .bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--b1);padding-top:18px}
+.f03 .big-stat{display:flex;flex-direction:column}
+.f03 .big-n{font-family:var(--fd);font-size:34px;font-weight:300;color:var(--acc);letter-spacing:-1.5px;line-height:1}
+.f03 .big-l{font-size:9px;color:var(--t3);letter-spacing:.3px;margin-top:3px}
+.f03 .cta-pill{background:var(--acc);color:#09090a;padding:9px 18px;border-radius:6px;font-size:10px;font-weight:500;letter-spacing:.5px}
+
+/* STORY 03 */
+.s03{background:var(--bg)}
+.s03 .side-accent{
+  position:absolute;top:0;left:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,transparent,var(--acc),transparent)
+}
+.s03 .bg-glow{
+  position:absolute;
+  width:180px;height:180px;
+  left:-40px;bottom:60px;
+  background:radial-gradient(circle, rgba(212,184,150,0.07) 0%, transparent 70%);
+}
+.s03 .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:20px 18px}
+.s03 .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.s03 .logo-txt{font-family:var(--fd);font-size:11px;font-weight:300;letter-spacing:.6px}
+.s03 .logo-txt em{font-style:italic;color:var(--acc)}
+.s03 .stars{font-size:9px;display:flex;gap:1px}
+.s03 .big-n-s{font-family:var(--fd);font-size:54px;font-weight:300;color:var(--acc);letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.s03 .big-l-s{font-size:9px;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:18px}
+.s03 .quote-mark-s{font-family:var(--fd);font-size:36px;font-weight:300;color:var(--acc);line-height:.5;margin-bottom:10px;opacity:.35}
+.s03 .quote-text-s{font-family:var(--fd);font-size:15px;font-weight:300;line-height:1.45;letter-spacing:-.2px;color:var(--t1);flex:1}
+.s03 .quote-text-s em{font-style:italic;color:var(--t0)}
+.s03 .author-s{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--b1)}
+.s03 .av-s{width:26px;height:26px;border-radius:50%;background:var(--s3);border:1px solid var(--acc-b);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:11px;color:var(--acc)}
+.s03 .author-name-s{font-size:10px;font-weight:400;color:var(--t0)}
+.s03 .author-role-s{font-size:8px;color:var(--t3)}
+.s03 .cta-btn{background:var(--acc);color:#09090a;padding:10px;border-radius:6px;font-size:9px;font-weight:500;letter-spacing:.5px;text-align:center;width:100%;margin-top:14px}
+.s03 .url{font-size:7px;color:var(--t3);text-align:center;margin-top:6px;letter-spacing:.3px}
+
+/* ─── ID VISUAL GUIDE ─── */
+.id-guide{
+  background:var(--s1);
+  border:1px solid var(--b1);
+  border-radius:14px;
+  padding:36px;
+  margin-top:24px;
+  margin-bottom:64px;
+}
+.id-guide h3{font-family:var(--fd);font-size:28px;font-weight:300;letter-spacing:-.3px;margin-bottom:28px;color:var(--t0)}
+.id-guide h3 em{font-style:italic;color:var(--acc)}
+.id-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.id-col h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px;font-weight:400;padding-bottom:10px;border-bottom:1px solid var(--b1)}
+.color-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.color-swatch{width:28px;height:28px;border-radius:5px;border:1px solid var(--b2);flex-shrink:0}
+.color-info{}
+.color-name{font-size:11px;color:var(--t1);font-weight:400}
+.color-hex{font-size:10px;color:var(--t3);font-weight:300;font-family:monospace;letter-spacing:.5px}
+.font-row{margin-bottom:14px}
+.font-preview-d{font-family:var(--fd);font-size:26px;font-weight:300;color:var(--t0);line-height:1}
+.font-preview-d em{font-style:italic;color:var(--acc)}
+.font-preview-b{font-family:var(--fb);font-size:14px;font-weight:300;color:var(--t1)}
+.font-meta{font-size:10px;color:var(--t3);margin-top:4px;letter-spacing:.3px}
+.spacing-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.spacing-box{height:8px;background:var(--acc-dim);border:1px solid var(--acc-b);border-radius:2px}
+.spacing-label{font-size:10px;color:var(--t2);font-weight:300}
+
+/* ─── DOWNLOAD BUTTONS ─── */
+.dl-group{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:6px;
+  font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.5px;
+  cursor:pointer;border:none;transition:opacity .15s,transform .1s;
+  text-transform:uppercase;
+}
+.dl-btn:hover{opacity:.85;transform:translateY(-1px)}
+.dl-btn:active{transform:translateY(0)}
+.dl-btn.feed-dl{background:var(--acc);color:#09090a}
+.dl-btn.story-dl{background:var(--s3);color:var(--t0);border:1px solid var(--b2)}
+.dl-btn svg{width:11px;height:11px;flex-shrink:0}
+.dl-btn.loading{opacity:.5;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div class="page-title">Currículo<span>AI</span> — Criativos Meta · Feed 1080×1080 + Stories 1080×1920</div>
+
+<!-- ══════════ ID VISUAL GUIDE ══════════ -->
+<div class="id-guide">
+  <h3>Identidade <em>Visual</em></h3>
+  <div class="id-cols">
+    <!-- Cores -->
+    <div class="id-col">
+      <h4>Paleta de Cores</h4>
+      <div class="color-row"><div class="color-swatch" style="background:#09090a"></div><div class="color-info"><div class="color-name">Background</div><div class="color-hex">#09090a</div></div></div>
+      <div class="color-row"><div class="color-swatch" style="background:#111113"></div><div class="color-info"><div class="color-name">Surface 01</div><div class="color-hex">#111113</div></div></div>
+      <div class="color-row"><div class="color-swatch" style="background:#18181b"></div><div class="color-info"><div class="color-name">Surface 02</div><div class="color-hex">#18181b</div></div></div>
+      <div class="color-row"><div class="color-swatch" style="background:#222226"></div><div class="color-info"><div class="color-name">Surface 03</div><div class="color-hex">#222226</div></div></div>
+      <div class="color-row"><div class="color-swatch" style="background:#d4b896;border-color:#d4b896"></div><div class="color-info"><div class="color-name">Accent Gold</div><div class="color-hex">#d4b896</div></div></div>
+      <div class="color-row"><div class="color-swatch" style="background:#ffffff"></div><div class="color-info"><div class="color-name">White</div><div class="color-hex">#ffffff</div></div></div>
+    </div>
+
+    <!-- Tipografia -->
+    <div class="id-col">
+      <h4>Tipografia</h4>
+      <div class="font-row">
+        <div class="font-preview-d">Currículo<em>AI</em></div>
+        <div class="font-meta">Cormorant Garamond · Display / Títulos · weight 300–400 italic</div>
+      </div>
+      <div class="font-row">
+        <div class="font-preview-b">DM Sans — Interface & Corpo</div>
+        <div class="font-meta">DM Sans · UI / Body · weight 200, 300, 400, 500</div>
+      </div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--b1)">
+        <div class="font-meta" style="color:var(--t2);margin-bottom:8px">Hierarquia de texto:</div>
+        <div style="font-family:var(--fd);font-size:32px;font-weight:300;letter-spacing:-1px;line-height:1;margin-bottom:6px">H1 Display</div>
+        <div style="font-family:var(--fd);font-size:18px;font-weight:300;margin-bottom:6px">H2 Título</div>
+        <div style="font-family:var(--fb);font-size:12px;color:var(--t2);font-weight:300;margin-bottom:4px">Body · 12–14px · weight 300</div>
+        <div style="font-family:var(--fb);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3)">LABEL · 9–11PX · CAPS · 300</div>
+      </div>
+    </div>
+
+    <!-- Tom & Estilo -->
+    <div class="id-col">
+      <h4>Tom & Estilo Visual</h4>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;color:var(--acc);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Estética</div>
+          <div style="font-size:11px;color:var(--t1);font-weight:300;line-height:1.6">Dark Luxury Editorial — Premium, minimalista, sóbrio, sofisticado</div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;color:var(--acc);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Bordas & Raios</div>
+          <div style="font-size:11px;color:var(--t1);font-weight:300;line-height:1.6">Bordas rgba brancas (0.08–0.14) · Border-radius 6–14px · Glass sutil</div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;color:var(--acc);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Tom de Voz</div>
+          <div style="font-size:11px;color:var(--t1);font-weight:300;line-height:1.6">Direto, confiante, inteligente. Sem excessos. Resultado como hero.</div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px 14px">
+          <div style="font-size:10px;color:var(--acc);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">Elementos Gráficos</div>
+          <div style="font-size:11px;color:var(--t1);font-weight:300;line-height:1.6">Glow radial dourado · Grain sutil · Linhas finas · Italic nos heroes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CRIATIVO 01 ══════════ -->
+<div class="criativo-block">
+  <div class="criativo-header">
+    <div class="criativo-num">01</div>
+    <div class="criativo-meta">
+      <div class="criativo-title">O Mercado Não Espera</div>
+      <div class="criativo-sub">Urgência · Awareness · Topo de funil</div>
+    </div>
+  </div>
+  <div class="formats-row">
+
+    <!-- FEED 01 -->
+    <div class="feed-wrap">
+      <div class="feed-label">Feed · 1080 × 1080 px · 1:1</div>
+      <div class="feed f01" id="feed-01">
+        <div class="grain"></div>
+        <div class="bg-glow"></div>
+        <div class="content">
+          <div class="logo-tag">
+            <div class="logo-dot"></div>
+            <div class="logo-txt">Currículo<em>AI</em></div>
+          </div>
+          <div class="center">
+            <div class="eyebrow">Powered by IA</div>
+            <h2>O mercado<br><em>não espera</em><br>por você.</h2>
+            <p class="sub">Seu próximo currículo leva menos de 3 minutos. Com IA treinada por especialistas de RH.</p>
+          </div>
+          <div class="bottom-row">
+            <div class="cta-pill">Criar agora →</div>
+            <div class="stat">
+              <div class="stat-n">+12k</div>
+              <div class="stat-l">currículos gerados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn feed-dl" onclick="downloadCreativo('feed-01','criativo-01-feed-1080x1080',1080,1080)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Feed JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- STORY 01 -->
+    <div class="story-wrap">
+      <div class="story-label">Stories · 1080 × 1920 px · 9:16</div>
+      <div class="story s01" id="story-01">
+        <div class="bg-glow"></div>
+        <div class="content">
+          <div class="top">
+            <div class="logo-tag">
+              <div class="logo-dot"></div>
+              <div class="logo-txt">Currículo<em>AI</em></div>
+            </div>
+            <div class="badge">IA · RH</div>
+          </div>
+          <div class="mid">
+            <div class="eyebrow">Powered by IA</div>
+            <h2>O mercado<br><em>não espera</em><br>por você.</h2>
+            <p class="sub">Seu próximo currículo leva menos de 3 minutos. Com IA treinada por especialistas de RH.</p>
+            <div class="stats-row">
+              <div class="sstat">
+                <div class="sstat-n">+12k</div>
+                <div class="sstat-l">currículos gerados</div>
+              </div>
+              <div class="sstat">
+                <div class="sstat-n">3 min</div>
+                <div class="sstat-l">tempo médio</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cta-btn">Criar meu currículo →</div>
+            <div class="url">curriculoai.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn story-dl" onclick="downloadCreativo('story-01','criativo-01-stories-1080x1920',1080,1920)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Stories JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- SPECS 01 -->
+    <div class="specs">
+      <div class="spec-group">
+        <h4>Especificações</h4>
+        <div class="spec-row"><span class="spec-key">Objetivo</span><span class="spec-val">Awareness / Consideração</span></div>
+        <div class="spec-row"><span class="spec-key">Funil</span><span class="spec-val">Topo</span></div>
+        <div class="spec-row"><span class="spec-key">Público</span><span class="spec-val">Profissionais 22–40</span></div>
+        <div class="spec-row"><span class="spec-key">Feed</span><span class="spec-val">1080×1080 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Stories</span><span class="spec-val">1080×1920 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Fundo</span><span class="spec-val acc">#09090a</span></div>
+        <div class="spec-row"><span class="spec-key">Accent</span><span class="spec-val acc">#d4b896</span></div>
+        <div class="spec-row"><span class="spec-key">Display Font</span><span class="spec-val">Cormorant Garamond 300i</span></div>
+        <div class="spec-row"><span class="spec-key">UI Font</span><span class="spec-val">DM Sans 300/500</span></div>
+      </div>
+      <div class="spec-group">
+        <h4>Copy</h4>
+        <div class="copy-block">
+          <div class="copy-field">
+            <div class="copy-label">Headline</div>
+            <div class="copy-text headline">O mercado não espera por você.</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Subhead</div>
+            <div class="copy-text">Seu próximo currículo leva menos de 3 minutos. Com IA treinada por especialistas de RH.</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">CTA</div>
+            <div class="copy-text headline">Criar meu currículo →</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Caption (feed)</div>
+            <div class="copy-text">Mais de 12 mil profissionais já criaram o currículo que faltava. Você tem 3 minutos? 🔗 Link na bio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ CRIATIVO 02 ══════════ -->
+<div class="criativo-block">
+  <div class="criativo-header">
+    <div class="criativo-num">02</div>
+    <div class="criativo-meta">
+      <div class="criativo-title">3 Minutos. Currículo Pronto.</div>
+      <div class="criativo-sub">Processo · Demonstração · Meio de funil</div>
+    </div>
+  </div>
+  <div class="formats-row">
+
+    <!-- FEED 02 -->
+    <div class="feed-wrap">
+      <div class="feed-label">Feed · 1080 × 1080 px · 1:1</div>
+      <div class="feed f02" id="feed-02">
+        <div class="accent-bar"></div>
+        <div class="content">
+          <div class="top">
+            <div class="logo-txt">Currículo<em>AI</em></div>
+            <div class="tag">IA · RH</div>
+          </div>
+          <div class="chat-mock">
+            <div class="msg msg-ai">
+              <div class="msg-name">CurrículoAI ·</div>
+              Olá! Me conta sua área de atuação e vou criar seu currículo agora.
+            </div>
+            <div class="msg msg-user">
+              <div class="msg-name">· Você</div>
+              Sou analista de marketing, 4 anos de exp.
+            </div>
+            <div class="msg msg-ai">
+              <div class="msg-name">CurrículoAI ·</div>
+              Perfeito. Gerando seu currículo profissional...
+            </div>
+            <div class="typing">
+              <div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="headline">Só <em>3 minutos</em>.<br>Currículo pronto.</div>
+            <div class="cta-small">Gerar grátis →</div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn feed-dl" onclick="downloadCreativo('feed-02','criativo-02-feed-1080x1080',1080,1080)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Feed JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- STORY 02 -->
+    <div class="story-wrap">
+      <div class="story-label">Stories · 1080 × 1920 px · 9:16</div>
+      <div class="story s02" id="story-02">
+        <div class="accent-bar"></div>
+        <div class="content">
+          <div class="top">
+            <div class="logo-txt">Currículo<em>AI</em></div>
+            <div class="tag">Demo</div>
+          </div>
+          <div class="headline-s">Só <em>3 min.</em><br>Currículo<br>pronto.</div>
+          <div class="chat-mock-s">
+            <div class="msg msg-ai" style="font-size:9px;padding:7px 10px">
+              <div class="msg-name" style="font-size:7px">CurrículoAI ·</div>
+              Olá! Me conta sua área e experiência.
+            </div>
+            <div class="msg msg-user" style="font-size:9px;padding:7px 10px">
+              <div class="msg-name" style="font-size:7px">· Você</div>
+              Analista de marketing, 4 anos.
+            </div>
+            <div class="msg msg-ai" style="font-size:9px;padding:7px 10px">
+              <div class="msg-name" style="font-size:7px">CurrículoAI ·</div>
+              Gerando seu currículo profissional...
+            </div>
+            <div class="typing" style="transform:scale(.85);transform-origin:left">
+              <div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>
+            </div>
+          </div>
+          <div>
+            <div class="cta-btn">Gerar meu currículo grátis →</div>
+            <div class="url">curriculoai.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn story-dl" onclick="downloadCreativo('story-02','criativo-02-stories-1080x1920',1080,1920)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Stories JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- SPECS 02 -->
+    <div class="specs">
+      <div class="spec-group">
+        <h4>Especificações</h4>
+        <div class="spec-row"><span class="spec-key">Objetivo</span><span class="spec-val">Consideração / Tráfego</span></div>
+        <div class="spec-row"><span class="spec-key">Funil</span><span class="spec-val">Meio</span></div>
+        <div class="spec-row"><span class="spec-key">Público</span><span class="spec-val">Retargeting + Similar</span></div>
+        <div class="spec-row"><span class="spec-key">Feed</span><span class="spec-val">1080×1080 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Stories</span><span class="spec-val">1080×1920 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Fundo</span><span class="spec-val acc">#111113</span></div>
+        <div class="spec-row"><span class="spec-key">Destaque</span><span class="spec-val acc">Accent bar top</span></div>
+        <div class="spec-row"><span class="spec-key">Elemento hero</span><span class="spec-val">Chat mockup animado</span></div>
+        <div class="spec-row"><span class="spec-key">CTA</span><span class="spec-val">Branco · Fundo #fff</span></div>
+      </div>
+      <div class="spec-group">
+        <h4>Copy</h4>
+        <div class="copy-block">
+          <div class="copy-field">
+            <div class="copy-label">Headline</div>
+            <div class="copy-text headline">Só 3 minutos. Currículo pronto.</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Subhead / Demonstração</div>
+            <div class="copy-text">Você conversa com nossa IA e ela gera um currículo profissional do zero. Sem formulário, sem template engessado.</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">CTA</div>
+            <div class="copy-text headline">Gerar meu currículo grátis →</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Caption (feed)</div>
+            <div class="copy-text">Como funciona: você fala, a IA escreve. Simples assim. Teste grátis agora. 🔗 Link na bio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ CRIATIVO 03 ══════════ -->
+<div class="criativo-block">
+  <div class="criativo-header">
+    <div class="criativo-num">03</div>
+    <div class="criativo-meta">
+      <div class="criativo-title">Quem Usou, Passou</div>
+      <div class="criativo-sub">Prova Social · Conversão · Fundo de funil</div>
+    </div>
+  </div>
+  <div class="formats-row">
+
+    <!-- FEED 03 -->
+    <div class="feed-wrap">
+      <div class="feed-label">Feed · 1080 × 1080 px · 1:1</div>
+      <div class="feed f03" id="feed-03">
+        <div class="side-accent"></div>
+        <div class="bg-glow"></div>
+        <div class="content">
+          <div class="top">
+            <div class="logo-txt">Currículo<em>AI</em></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <div class="testimonial">
+            <div class="quote-mark">"</div>
+            <div class="quote-text"><em>Fui chamada para entrevista em 48h</em> depois de usar o CurrículoAI. O currículo que eu tinha ficava sem resposta há meses.</div>
+            <div class="author">
+              <div class="av">A</div>
+              <div class="author-info">
+                <div class="author-name">Ana Paula M.</div>
+                <div class="author-role">Analista de RH · São Paulo</div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="big-stat">
+              <div class="big-n">94%</div>
+              <div class="big-l">taxa de satisfação</div>
+            </div>
+            <div class="cta-pill">Criar o meu →</div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn feed-dl" onclick="downloadCreativo('feed-03','criativo-03-feed-1080x1080',1080,1080)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Feed JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- STORY 03 -->
+    <div class="story-wrap">
+      <div class="story-label">Stories · 1080 × 1920 px · 9:16</div>
+      <div class="story s03" id="story-03">
+        <div class="side-accent"></div>
+        <div class="bg-glow"></div>
+        <div class="content">
+          <div class="top">
+            <div class="logo-txt">Currículo<em>AI</em></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <div class="big-n-s">94%</div>
+          <div class="big-l-s">taxa de satisfação</div>
+          <div class="quote-mark-s">"</div>
+          <div class="quote-text-s"><em>Fui chamada para entrevista em 48h</em> depois de usar o CurrículoAI. O currículo que eu tinha ficava sem resposta há meses.</div>
+          <div class="author-s">
+            <div class="av-s">A</div>
+            <div>
+              <div class="author-name-s">Ana Paula M.</div>
+              <div class="author-role-s">Analista de RH · São Paulo</div>
+            </div>
+          </div>
+          <div>
+            <div class="cta-btn">Criar meu currículo →</div>
+            <div class="url">curriculoai.com.br</div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-group">
+        <button class="dl-btn story-dl" onclick="downloadCreativo('story-03','criativo-03-stories-1080x1920',1080,1920)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/><rect x="3" y="13" width="10" height="1.5" rx=".75"/></svg>
+          Baixar Stories JPG
+        </button>
+      </div>
+    </div>
+
+    <!-- SPECS 03 -->
+    <div class="specs">
+      <div class="spec-group">
+        <h4>Especificações</h4>
+        <div class="spec-row"><span class="spec-key">Objetivo</span><span class="spec-val">Conversão</span></div>
+        <div class="spec-row"><span class="spec-key">Funil</span><span class="spec-val">Fundo</span></div>
+        <div class="spec-row"><span class="spec-key">Público</span><span class="spec-val">Retargeting quente</span></div>
+        <div class="spec-row"><span class="spec-key">Feed</span><span class="spec-val">1080×1080 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Stories</span><span class="spec-val">1080×1920 · JPG/PNG</span></div>
+        <div class="spec-row"><span class="spec-key">Fundo</span><span class="spec-val acc">#09090a</span></div>
+        <div class="spec-row"><span class="spec-key">Elemento hero</span><span class="spec-val">Side accent + Big number</span></div>
+        <div class="spec-row"><span class="spec-key">Social Proof</span><span class="spec-val">Depoimento real + 94%</span></div>
+        <div class="spec-row"><span class="spec-key">CTA</span><span class="spec-val acc">Accent Gold #d4b896</span></div>
+      </div>
+      <div class="spec-group">
+        <h4>Copy</h4>
+        <div class="copy-block">
+          <div class="copy-field">
+            <div class="copy-label">Quote hero</div>
+            <div class="copy-text headline">"Fui chamada para entrevista em 48h depois de usar o CurrículoAI."</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Dado de credibilidade</div>
+            <div class="copy-text">94% de taxa de satisfação — Ana Paula M., Analista de RH</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">CTA</div>
+            <div class="copy-text headline">Criar meu currículo →</div>
+          </div>
+          <div class="copy-field">
+            <div class="copy-label">Caption (feed)</div>
+            <div class="copy-text">Ela usou o CurrículoAI e foi chamada para entrevista em 48h. Você é o próximo. 🔗 Link na bio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function downloadCreativo(elementId, filename, exportW, exportH) {
+  const btn = event.currentTarget;
+  const original = btn.innerHTML;
+  btn.classList.add('loading');
+  btn.textContent = 'Gerando…';
+
+  const el = document.getElementById(elementId);
+
+  // Calcula escala para exportar no tamanho real (1080×1080 ou 1080×1920)
+  const rect = el.getBoundingClientRect();
+  const scaleX = exportW / rect.width;
+  const scaleY = exportH / rect.height;
+  const scale = Math.max(scaleX, scaleY);
+
+  try {
+    const canvas = await html2canvas(el, {
+      scale: scale,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      width: rect.width,
+      height: rect.height,
+      windowWidth: rect.width,
+      windowHeight: rect.height,
+      logging: false,
+    });
+
+    // Cria canvas final com dimensões exatas
+    const final = document.createElement('canvas');
+    final.width = exportW;
+    final.height = exportH;
+    const ctx = final.getContext('2d');
+    ctx.drawImage(canvas, 0, 0, exportW, exportH);
+
+    const link = document.createElement('a');
+    link.download = filename + '.jpg';
+    link.href = final.toDataURL('image/jpeg', 0.95);
+    link.click();
+  } catch(e) {
+    alert('Erro ao gerar imagem: ' + e.message);
+  }
+
+  btn.classList.remove('loading');
+  btn.innerHTML = original;
+}
+</script>
+</body>
+</html>

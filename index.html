@@ -172,7 +172,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 
 /* CV PAPER */
 .paywall-wrap{position:relative;border-radius:10px;overflow:hidden}
-.cv-paper{background:#f9f8f6;color:#1a1a1a;border-radius:10px;overflow:hidden;filter:blur(3px) brightness(.84);pointer-events:none;user-select:none;transition:filter .5s;font-family:'DM Sans',sans-serif}
+.cv-paper{background:#f9f8f6;color:#1a1a1a;border-radius:10px;overflow:hidden;filter:blur(7px) brightness(.7);pointer-events:none;user-select:none;transition:filter .5s;font-family:'DM Sans',sans-serif}
 .cv-paper.unlocked{filter:none;pointer-events:auto}
 
 /* ── CV DESIGN PREMIUM ── */
@@ -238,7 +238,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 .cv-contact-side{font-size:10.5px;color:#6e6760;margin-bottom:7px;line-height:1.45;font-weight:300;word-break:break-all}
 
 /* Paywall overlay */
-.paywall-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 15%,rgba(9,9,10,.88) 55%,rgba(9,9,10,.98) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:44px 36px;text-align:center}
+.paywall-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,9,10,.55) 0%,rgba(9,9,10,.82) 38%,rgba(9,9,10,.97) 65%,#09090a 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:44px 36px;text-align:center}
 .paywall-overlay.hidden{display:none}
 .pw-lock{font-size:24px;margin-bottom:12px}
 .pw-t{font-family:var(--fd);font-size:28px;font-weight:300;margin-bottom:8px;letter-spacing:-.5px;line-height:1.1}
@@ -281,6 +281,78 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 .modal-pay-btn:hover{opacity:.88;transform:translateY(-1px)}
 .modal-close{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fb);font-weight:300;transition:color .2s}
 .modal-close:hover{color:var(--t1)}
+/* AUTH MODAL */
+.auth-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--b1)}
+.auth-tab{flex:1;background:none;border:none;padding:12px;font-size:13px;font-weight:400;color:var(--t3);cursor:pointer;font-family:var(--fb);border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px}
+.auth-tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+.auth-inp{background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 14px;color:var(--t0);font-family:var(--fb);font-size:14px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
+.auth-inp::placeholder{color:var(--t3)}.auth-inp:focus{border-color:var(--acc)}
+.auth-err{font-size:12.5px;color:#f87171;text-align:left;padding:0 2px;min-height:18px}
+.auth-submit{width:100%;background:var(--acc);color:#09090a;border:none;padding:14px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:opacity .14s;margin-top:4px}
+.auth-submit:hover{opacity:.88}.auth-submit:disabled{opacity:.5;cursor:default}
+/* NAV USER */
+.nav-user-name{font-size:13px;color:var(--t2);font-weight:300}
+.btn-nav-dash{background:var(--acc-dim);border:1px solid var(--acc-b);color:var(--acc);border-radius:6px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--fb);transition:background .2s}
+.btn-nav-dash:hover{background:var(--acc-b)}
+.btn-nav-login{background:none;border:1px solid var(--b2);color:var(--t1);border-radius:6px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--fb);transition:all .2s}
+.btn-nav-login:hover{border-color:var(--t2)}
+.btn-nav-out{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fb);padding:0 4px}
+/* DASHBOARD */
+.dash-wrap{max-width:900px;margin:0 auto;padding:100px 40px 60px}
+.dash-head{margin-bottom:40px}
+.dash-title{font-family:var(--fd);font-size:42px;font-weight:300;letter-spacing:-.5px;margin-bottom:6px}
+.dash-title em{font-style:italic;color:var(--acc)}
+.dash-sub{font-size:13px;color:var(--t3);font-weight:300}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.dash-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:22px;transition:border-color .2s;cursor:pointer}
+.dash-card:hover{border-color:var(--b2)}
+.dash-card-name{font-size:15px;font-weight:400;color:var(--t0);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-card-cargo{font-size:12px;color:var(--t3);font-weight:300;margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dash-badge{font-size:10px;font-weight:500;letter-spacing:.5px;padding:3px 8px;border-radius:4px}
+.dash-badge.pago{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.dash-badge.gratis{background:var(--b0);color:var(--t3);border:1px solid var(--b1)}
+.dash-card-date{font-size:10.5px;color:var(--t3)}
+.dash-card-btn{background:var(--acc);color:#09090a;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--fb)}
+.dash-empty{text-align:center;padding:80px 20px;color:var(--t3)}
+.dash-empty p{margin-bottom:20px;font-size:14px}
+/* PIX FORM */
+.pix-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;text-align:left}
+.pix-inp{background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:13px 14px;color:var(--t0);font-family:var(--fb);font-size:14px;font-weight:300;outline:none;transition:border-color .2s;width:100%}
+.pix-inp::placeholder{color:var(--t3)}.pix-inp:focus{border-color:var(--acc)}
+.pix-err{font-size:12.5px;color:#f87171;margin-bottom:12px;text-align:left;padding:0 2px}
+/* PIX QR SCREEN */
+.pix-qr-wrap{display:flex;justify-content:center;margin-bottom:16px}
+.pix-qr-img{width:192px;height:192px;border-radius:10px;background:#fff;padding:8px;display:block}
+.pix-code-wrap{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.pix-code{background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:10px 12px;font-size:9px;color:var(--t2);font-family:monospace;flex:1;word-break:break-all;line-height:1.5;max-height:58px;overflow:hidden}
+.pix-copy-btn{background:var(--acc-dim);border:1px solid var(--acc-b);color:var(--acc);border-radius:7px;padding:10px 14px;font-size:12px;cursor:pointer;font-family:var(--fb);white-space:nowrap;transition:background .2s;flex-shrink:0}
+.pix-copy-btn:hover{background:var(--acc-b)}
+.pix-status{display:flex;align-items:center;gap:10px;justify-content:center;color:var(--t2);font-size:13px;margin-bottom:8px;font-weight:300}
+.pix-dots{display:flex;gap:4px}
+.pix-dots span{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:pulseDot 1.2s infinite}
+.pix-dots span:nth-child(2){animation-delay:.2s}.pix-dots span:nth-child(3){animation-delay:.4s}
+@keyframes pulseDot{0%,80%,100%{opacity:.15}40%{opacity:1}}
+.pix-timer{font-size:11.5px;color:var(--t3);margin-bottom:18px;text-align:center}
+.pix-paid{color:#4ade80;font-size:14px;font-weight:500}
+/* PRO MODAL */
+.pro-feature-tag{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(212,184,150,.15),rgba(212,184,150,.06));border:1px solid var(--acc-b);color:var(--acc);font-size:11px;font-weight:500;letter-spacing:.5px;padding:5px 12px;border-radius:20px;margin-bottom:18px}
+.pro-checks{display:flex;flex-direction:column;gap:7px;margin-bottom:22px;text-align:left}
+.pro-check{font-size:13px;color:var(--t2);display:flex;align-items:flex-start;gap:9px;font-weight:300;line-height:1.5}
+.pro-check::before{content:'✦';color:var(--acc);font-size:10px;flex-shrink:0;margin-top:3px}
+.pro-vaga-inp{background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:12px 14px;color:var(--t0);font-family:var(--fb);font-size:13px;font-weight:300;outline:none;transition:border-color .2s;width:100%;resize:vertical;min-height:80px;margin-bottom:14px}
+.pro-vaga-inp::placeholder{color:var(--t3)}.pro-vaga-inp:focus{border-color:var(--acc)}
+/* PRO RESULT */
+.pro-result-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px;backdrop-filter:blur(12px)}
+.pro-result-bg.on{display:flex}
+.pro-result-box{background:var(--s1);border:1px solid var(--b2);border-radius:18px;width:100%;max-width:680px;padding:40px;position:relative;margin:auto}
+.pro-result-title{font-family:var(--fd);font-size:30px;font-weight:300;margin-bottom:6px;letter-spacing:-.3px}
+.pro-result-title em{font-style:italic;color:var(--acc)}
+.pro-result-sub{font-size:13px;color:var(--t3);margin-bottom:28px}
+.carta-body{font-size:14px;color:var(--t1);line-height:2;white-space:pre-wrap;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:24px 28px;font-weight:300;font-family:Georgia,serif}
+.pro-result-acts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.pro-close-btn{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--t3);font-size:22px;cursor:pointer;line-height:1;padding:4px}
 
 @media(max-width:900px){
   nav,footer{padding:16px 22px}
@@ -306,7 +378,12 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
   <div class="nav-r">
     <a onclick="scrollSec('#como')">Como funciona</a>
     <a onclick="scrollSec('#especialistas')">Nossa equipe</a>
+    <a onclick="openOrLoginDashboard()" style="display:flex;align-items:center;gap:5px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Meus Currículos
+    </a>
     <a class="nav-cta" onclick="goChat()">Criar currículo →</a>
+    <div id="nav-auth" style="display:flex;align-items:center;gap:10px"></div>
   </div>
 </nav>
 
@@ -355,7 +432,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
       <div class="step-n">04</div>
       <div class="step-ic">📄</div>
       <h3>Pague e baixe</h3>
-      <p>Satisfeito? R$9 e o PDF profissional está pronto pra enviar hoje.</p>
+      <p>Satisfeito? R$1 e o PDF profissional está pronto pra enviar hoje.</p>
     </div>
   </div>
 </div>
@@ -470,10 +547,10 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 <section class="cta-sec">
 <div class="cta-inner">
   <div class="sec-kicker">Simples assim</div>
-  <div class="sec-h">Crie de graça.<br>Pague só pra baixar.</div>
-  <p class="sec-p" style="margin:0 auto 32px;text-align:center">A conversa e o preview são gratuitos. Só cobramos quando você estiver 100% satisfeito com o resultado.</p>
+  <div class="sec-h">Crie de graça.<br>Baixe quando estiver pronto.</div>
+  <p class="sec-p" style="margin:0 auto 32px;text-align:center">Converse com a IA, visualize o resultado e só pague quando estiver 100% satisfeito com o currículo.</p>
   <div class="cta-price">PDF profissional por apenas <strong>R$9</strong> — pagamento único, sem assinatura</div>
-  <button class="btn-prim" onclick="goChat()">Começar agora — é grátis</button>
+  <button class="btn-prim" onclick="goChat()">Quero meu currículo grátis →</button>
 </div>
 </section>
 
@@ -519,7 +596,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
     <div class="res-logo">Currículo<em>AI</em></div>
     <div class="res-acts" id="res-acts">
       <button class="btn-outline" onclick="goChat()">← Recomeçar</button>
-      <button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>
+      <button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$1</button>
     </div>
   </div>
   <div class="res-body">
@@ -529,8 +606,8 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
         <div class="paywall-overlay" id="paywall-ov">
           <div class="pw-lock">🔒</div>
           <div class="pw-t">Seu currículo está <em>pronto</em></div>
-          <p class="pw-p">Preview gerado! Desbloqueie o PDF profissional por R$9 e comece a enviar hoje.</p>
-          <button class="pw-btn" onclick="openPay()">Desbloquear e baixar — R$9</button>
+          <p class="pw-p">Preview gerado! Desbloqueie o PDF profissional por R$1 e comece a enviar hoje.</p>
+          <button class="pw-btn" onclick="openPay()">Desbloquear e baixar — R$1</button>
           <div class="pw-note">Pagamento único · PDF profissional · Compatível com ATS</div>
         </div>
       </div>
@@ -547,36 +624,177 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
         </div>
         <div class="ai-imp">
           <div class="ai-imp-lbl">Disponível no Pro</div>
-          <button class="imp-btn" onclick="openPay()">✦ Adaptar para outra vaga</button>
-          <button class="imp-btn" onclick="openPay()">✦ Versão em inglês</button>
-          <button class="imp-btn" onclick="openPay()">✦ Carta de apresentação</button>
+          <button class="imp-btn" onclick="openProModal('adaptar')">✦ Adaptar para outra vaga</button>
+          <button class="imp-btn" onclick="openProModal('ingles')">✦ Versão em inglês</button>
+          <button class="imp-btn" onclick="openProModal('carta')">✦ Carta de apresentação</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ═══════ DASHBOARD ═══════ -->
+<div id="dashboard-scr" class="scr">
+  <div class="dash-wrap">
+    <div class="dash-head">
+      <div class="dash-title">Meus <em>currículos</em></div>
+      <div class="dash-sub" id="dash-sub">Carregando…</div>
+    </div>
+    <div class="dash-grid" id="dash-grid"></div>
+  </div>
+</div>
+
+<!-- ═══════ PRO MODAL ═══════ -->
+<div class="modal-bg" id="pro-modal">
+  <div class="modal">
+
+    <!-- STEP 1: Feature info + dados -->
+    <div id="pro-step1">
+      <div class="pro-feature-tag">✦ <span id="pro-feature-tag-txt">Pro</span></div>
+      <div class="modal-t" style="font-size:30px;margin-bottom:8px" id="pro-modal-title">Titulo</div>
+      <p class="modal-p" style="margin-bottom:18px" id="pro-modal-desc">Descrição</p>
+      <div class="pro-checks" id="pro-checks"></div>
+      <textarea id="pro-vaga-desc" class="pro-vaga-inp" placeholder="Cole aqui a descrição da vaga para qual quer adaptar..." style="display:none"></textarea>
+      <div class="modal-val" style="margin-bottom:20px">
+        <div class="modal-price" style="font-size:44px">R$19</div>
+        <div class="modal-val-info">
+          <strong>Pagamento único</strong>
+          <span>Entregue na hora pela IA</span>
+        </div>
+      </div>
+      <div class="pix-form">
+        <input type="tel" id="pro-tel" class="pix-inp" placeholder="Celular (ex: 11999999999)" maxlength="11" inputmode="numeric">
+        <input type="text" id="pro-cpf" class="pix-inp" placeholder="CPF (somente números)" maxlength="11" inputmode="numeric">
+      </div>
+      <div id="pro-err" class="pix-err" style="display:none"></div>
+      <button class="modal-pay-btn" id="pro-btn" onclick="gerarPixPro()">Gerar PIX — R$19 →</button>
+      <button class="modal-close" onclick="closeProModal()">Agora não</button>
+    </div>
+
+    <!-- STEP 2: QR Code -->
+    <div id="pro-step2" style="display:none">
+      <div class="modal-t" style="font-size:26px;margin-bottom:8px">PIX gerado!</div>
+      <p class="modal-p" style="margin-bottom:14px">Escaneie o QR code ou copie o código abaixo</p>
+      <div class="pix-qr-wrap">
+        <img id="pro-qr-img" class="pix-qr-img" src="" alt="QR Code PIX">
+      </div>
+      <div class="pix-code-wrap">
+        <div id="pro-code" class="pix-code"></div>
+        <button class="pix-copy-btn" onclick="copyPixPro()">Copiar</button>
+      </div>
+      <div id="pro-status" class="pix-status">
+        <div class="pix-dots"><span></span><span></span><span></span></div>
+        Aguardando pagamento…
+      </div>
+      <div id="pro-timer" class="pix-timer"></div>
+      <button class="modal-close" onclick="closeProModal()">Cancelar</button>
+    </div>
+
+    <!-- STEP 3: Generating -->
+    <div id="pro-step3" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:32px;margin-bottom:16px">✦</div>
+      <div class="modal-t" style="font-size:24px;margin-bottom:10px">Gerando com IA…</div>
+      <p class="modal-p">Aguarde alguns segundos</p>
+      <div class="pix-dots" style="justify-content:center;margin-top:20px"><span></span><span></span><span></span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRO RESULT OVERLAY -->
+<div class="pro-result-bg" id="pro-result-bg">
+  <div class="pro-result-box">
+    <button class="pro-close-btn" onclick="closeProResult()">✕</button>
+    <div class="pro-result-title" id="pro-result-title">Resultado</div>
+    <div class="pro-result-sub" id="pro-result-sub"></div>
+    <div id="pro-result-content"></div>
+    <div class="pro-result-acts" id="pro-result-acts"></div>
+  </div>
+</div>
+
+<!-- ═══════ AUTH MODAL ═══════ -->
+<div class="modal-bg" id="auth-modal">
+  <div class="modal" style="max-width:380px">
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="tab-login" onclick="switchAuthTab('login')">Entrar</button>
+      <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Criar conta</button>
+    </div>
+
+    <!-- Login -->
+    <div id="auth-login">
+      <div class="auth-form">
+        <input type="email" class="auth-inp" id="login-email" placeholder="E-mail" autocomplete="email">
+        <input type="password" class="auth-inp" id="login-senha" placeholder="Senha" autocomplete="current-password">
+        <div class="auth-err" id="login-err"></div>
+        <button class="auth-submit" id="login-btn" onclick="doLogin()">Entrar</button>
+      </div>
+    </div>
+
+    <!-- Register -->
+    <div id="auth-register" style="display:none">
+      <div class="auth-form">
+        <input type="text" class="auth-inp" id="reg-nome" placeholder="Nome completo" autocomplete="name">
+        <input type="email" class="auth-inp" id="reg-email" placeholder="E-mail" autocomplete="email">
+        <input type="password" class="auth-inp" id="reg-senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password">
+        <div class="auth-err" id="reg-err"></div>
+        <button class="auth-submit" id="reg-btn" onclick="doRegister()">Criar conta</button>
+      </div>
+    </div>
+
+    <button class="modal-close" style="margin-top:18px" onclick="closeAuth()">Fechar</button>
+  </div>
+</div>
+
 <!-- ═══════ MODAL ═══════ -->
 <div class="modal-bg" id="pay-modal">
   <div class="modal">
-    <div class="modal-ic">✦</div>
-    <div class="modal-t">Baixar seu <em>currículo</em></div>
-    <p class="modal-p">Gerado e validado pela nossa equipe de especialistas. Pronto para enviar.</p>
-    <div class="modal-val">
-      <div class="modal-price">R$9</div>
-      <div class="modal-val-info">
-        <strong>Pagamento único</strong>
-        <span>Sem assinatura, sem renovação</span>
+
+    <!-- STEP 1: Info + Dados -->
+    <div id="pix-step1">
+      <div class="modal-ic">✦</div>
+      <div class="modal-t">Baixar seu <em>currículo</em></div>
+      <p class="modal-p">Gerado e validado pela nossa equipe de especialistas. Pronto para enviar.</p>
+      <div class="modal-val">
+        <div class="modal-price">R$1</div>
+        <div class="modal-val-info">
+          <strong>Pagamento único</strong>
+          <span>Sem assinatura, sem renovação</span>
+        </div>
       </div>
+      <div class="modal-checks">
+        <div class="modal-check">PDF profissional em alta qualidade</div>
+        <div class="modal-check">Compatível com ATS e sistemas de RH</div>
+        <div class="modal-check">Acesso permanente ao arquivo</div>
+        <div class="modal-check">Satisfação garantida</div>
+      </div>
+      <div class="pix-form">
+        <input type="tel" id="pix-tel" class="pix-inp" placeholder="Celular (ex: 11999999999)" maxlength="11" inputmode="numeric">
+        <input type="text" id="pix-cpf" class="pix-inp" placeholder="CPF (somente números)" maxlength="11" inputmode="numeric">
+      </div>
+      <div id="pix-err" class="pix-err" style="display:none"></div>
+      <button class="modal-pay-btn" id="pix-btn" onclick="gerarPix()">Gerar PIX — R$1 →</button>
+      <button class="modal-close" onclick="closePay()">Agora não</button>
     </div>
-    <div class="modal-checks">
-      <div class="modal-check">PDF profissional em alta qualidade</div>
-      <div class="modal-check">Compatível com ATS e sistemas de RH</div>
-      <div class="modal-check">Acesso permanente ao arquivo</div>
-      <div class="modal-check">Satisfação garantida</div>
+
+    <!-- STEP 2: QR Code PIX -->
+    <div id="pix-step2" style="display:none">
+      <div class="modal-t" style="font-size:26px;margin-bottom:8px">PIX gerado!</div>
+      <p class="modal-p" style="margin-bottom:14px">Escaneie o QR code ou copie o código abaixo</p>
+      <div class="pix-qr-wrap">
+        <img id="pix-qr-img" class="pix-qr-img" src="" alt="QR Code PIX">
+      </div>
+      <div class="pix-code-wrap">
+        <div id="pix-code" class="pix-code"></div>
+        <button class="pix-copy-btn" onclick="copyPix()">Copiar</button>
+      </div>
+      <div id="pix-status" class="pix-status">
+        <div class="pix-dots"><span></span><span></span><span></span></div>
+        Aguardando pagamento…
+      </div>
+      <div id="pix-timer" class="pix-timer"></div>
+      <button class="modal-close" onclick="closePay()">Cancelar</button>
     </div>
-    <button class="modal-pay-btn" onclick="confirmPay()">Pagar R$9 e baixar agora →</button>
-    <button class="modal-close" onclick="closePay()">Agora não</button>
+
   </div>
 </div>
 
@@ -595,14 +813,126 @@ const QUESTIONS = [
   { key:'idiomas',   ask:'Último passo! Seus **idiomas**:', opts:['Só português','Inglês básico','Inglês intermediário','Inglês avançado / fluente'] },
 ];
 
-let step = 0, answers = {}, _cvData = null;
+let step = 0, answers = {}, _cvData = null, _savedResumoId = null;
+
+/* ── AUTH STATE ── */
+let _user = null;
+function initAuth(){
+  try { _user = JSON.parse(localStorage.getItem('curriculo_user')); } catch(e){}
+  updateNavAuth();
+}
+function updateNavAuth(){
+  const el=document.getElementById('nav-auth'); if(!el) return;
+  if(_user){
+    el.innerHTML=`<span class="nav-user-name">Olá, ${_user.nome.split(' ')[0]}</span><button class="btn-nav-out" onclick="logout()">Sair</button>`;
+  } else {
+    el.innerHTML=`<button class="btn-nav-login" onclick="openAuth('login')">Entrar</button><button class="btn-nav-login" style="background:var(--acc-dim);border-color:var(--acc-b);color:var(--acc)" onclick="openAuth('register')">Criar conta</button>`;
+  }
+}
+function openOrLoginDashboard(){
+  if(_user){ openDashboard(); }
+  else { openAuth('login'); }
+}
+function openAuth(tab='login'){
+  document.getElementById('auth-modal').classList.add('on');
+  switchAuthTab(tab);
+}
+function closeAuth(){ document.getElementById('auth-modal').classList.remove('on'); }
+function switchAuthTab(tab){
+  document.getElementById('auth-login').style.display = tab==='login'?'':'none';
+  document.getElementById('auth-register').style.display = tab==='register'?'':'none';
+  document.getElementById('tab-login').classList.toggle('on', tab==='login');
+  document.getElementById('tab-register').classList.toggle('on', tab==='register');
+}
+async function doLogin(){
+  const email=document.getElementById('login-email').value.trim();
+  const senha=document.getElementById('login-senha').value;
+  const errEl=document.getElementById('login-err');
+  const btn=document.getElementById('login-btn');
+  errEl.textContent=''; btn.disabled=true; btn.textContent='Entrando…';
+  try{
+    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,senha})});
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    _user={token:d.token,nome:d.nome,email:d.email};
+    localStorage.setItem('curriculo_user',JSON.stringify(_user));
+    closeAuth(); updateNavAuth();
+  }catch(e){ errEl.textContent=e.message; }
+  btn.disabled=false; btn.textContent='Entrar';
+}
+async function doRegister(){
+  const nome=document.getElementById('reg-nome').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const senha=document.getElementById('reg-senha').value;
+  const errEl=document.getElementById('reg-err');
+  const btn=document.getElementById('reg-btn');
+  errEl.textContent=''; btn.disabled=true; btn.textContent='Criando conta…';
+  try{
+    const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome,email,senha})});
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    _user={token:d.token,nome:d.nome,email:d.email};
+    localStorage.setItem('curriculo_user',JSON.stringify(_user));
+    closeAuth(); updateNavAuth();
+  }catch(e){ errEl.textContent=e.message; }
+  btn.disabled=false; btn.textContent='Criar conta';
+}
+function logout(){
+  _user=null; localStorage.removeItem('curriculo_user'); updateNavAuth();
+}
+
+/* ── DASHBOARD ── */
+async function openDashboard(){
+  showScr('dashboard-scr');
+  document.getElementById('dash-grid').innerHTML='<p style="color:var(--t3);font-size:13px">Carregando…</p>';
+  if(!_user){ document.getElementById('dash-sub').textContent='Faça login para ver seus currículos.'; return; }
+  try{
+    const r=await fetch('/api/resumos/list',{headers:{'Authorization':'Bearer '+_user.token}});
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    renderDashboard(d.list||[]);
+  }catch(e){
+    document.getElementById('dash-grid').innerHTML=`<p style="color:#f87171;font-size:13px">${e.message}</p>`;
+  }
+}
+function renderDashboard(list){
+  const sub=document.getElementById('dash-sub');
+  const grid=document.getElementById('dash-grid');
+  sub.textContent=list.length ? `${list.length} currículo${list.length>1?'s':''} gerado${list.length>1?'s':''}` : '';
+  if(!list.length){
+    grid.innerHTML=`<div class="dash-empty"><p>Você ainda não tem currículos salvos.</p><button class="btn-prim" onclick="goChat()">Criar meu primeiro currículo →</button></div>`;
+    return;
+  }
+  grid.innerHTML=list.map(r=>{
+    const data=r.criadoEm?new Date(r.criadoEm).toLocaleDateString('pt-BR'):'';
+    return `<div class="dash-card" onclick="abrirResumo(${JSON.stringify(JSON.stringify(r))})">
+      <div class="dash-card-name">${r.nomeCompleto||'—'}</div>
+      <div class="dash-card-cargo">${r.cargo||'—'}</div>
+      <div class="dash-card-foot">
+        <span class="dash-badge ${r.pago?'pago':'gratis'}">${r.pago?'✓ PDF desbloqueado':'Preview'}</span>
+        <span class="dash-card-date">${data}</span>
+        <button class="dash-card-btn" onclick="event.stopPropagation();abrirResumo(${JSON.stringify(JSON.stringify(r))})">Abrir</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function abrirResumo(jsonStr){
+  const r=JSON.parse(jsonStr);
+  try{
+    const dados=typeof r.dadosCV==='string'?JSON.parse(r.dadosCV):r.dadosCV;
+    answers=dados.answers||{};
+    _cvData=dados.cvData||dados;
+    _savedResumoId=r.id;
+    renderResult(_cvData, r.pago);
+  }catch(e){ alert('Erro ao abrir currículo.'); }
+}
 
 function showScr(id){
   document.querySelectorAll('.scr').forEach(s=>{s.classList.remove('on');s.style.display=''});
   const el=document.getElementById(id);
   el.classList.add('on');
   if(id==='loading-scr') el.style.display='flex';
-  if(id==='result-scr') el.style.display='block';
+  if(id==='result-scr'||id==='dashboard-scr') el.style.display='block';
   window.scrollTo(0,0);
 }
 
@@ -751,6 +1081,19 @@ Responda APENAS com JSON, sem texto, sem markdown:
   clearInterval(iv);
   ids.forEach(id=>{document.getElementById(id).classList.remove('act');document.getElementById(id).classList.add('done')});
   _cvData=d;
+  _savedResumoId=null;
+  // Auto-save to account if logged in
+  if(_user){
+    fetch('/api/resumos/save',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_user.token},
+      body:JSON.stringify({
+        nomeCompleto:answers.nome||'',
+        cargo:answers.cargo||'',
+        dadosCV:JSON.stringify({answers,cvData:d})
+      })
+    }).then(r=>r.json()).then(j=>{ if(j.id) _savedResumoId=j.id; }).catch(()=>{});
+  }
   setTimeout(()=>renderResult(d),450);
 }
 
@@ -836,32 +1179,313 @@ function buildCVHTML(d){
   </div>`;
 }
 
-function renderResult(d){
+function renderResult(d, jaoPago=false){
   document.getElementById('cv-out').innerHTML=buildCVHTML(d);
   document.getElementById('ai-tip-dica').innerHTML=`<strong>💡 Dica personalizada</strong><br>${d.dica||'Adicione números concretos para se destacar.'}`;
 
   const ov=document.getElementById('paywall-ov');
-  ov.classList.remove('hidden');
-  document.getElementById('cv-out').classList.remove('unlocked');
-
+  const cvOut=document.getElementById('cv-out');
   const acts=document.getElementById('res-acts');
-  acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>`;
+
+  if(jaoPago){
+    ov.classList.add('hidden');
+    cvOut.classList.add('unlocked');
+    acts.innerHTML=`<button class="btn-outline" onclick="${_savedResumoId?'openDashboard()':'goChat()'}">← ${_savedResumoId?'Voltar':'Recomeçar'}</button><button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
+  } else {
+    ov.classList.remove('hidden');
+    cvOut.classList.remove('unlocked');
+    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$1</button>`;
+  }
 
   showScr('result-scr');
 }
 
-function openPay(){document.getElementById('pay-modal').classList.add('on')}
-function closePay(){document.getElementById('pay-modal').classList.remove('on')}
+let _pixId=null,_pollIv=null,_timerIv=null;
 
-function confirmPay(){
-  // → Integrar Stripe / AbacatePay aqui
+function openPay(){
+  document.getElementById('pay-modal').classList.add('on');
+  document.getElementById('pix-step1').style.display='';
+  document.getElementById('pix-step2').style.display='none';
+  document.getElementById('pix-err').style.display='none';
+  const btn=document.getElementById('pix-btn');
+  btn.disabled=false; btn.textContent='Gerar PIX — R$1 →';
+}
+
+function closePay(){
+  document.getElementById('pay-modal').classList.remove('on');
+  if(_pollIv){clearInterval(_pollIv);_pollIv=null;}
+  if(_timerIv){clearInterval(_timerIv);_timerIv=null;}
+}
+
+async function gerarPix(){
+  const tel=document.getElementById('pix-tel').value.trim();
+  const cpf=document.getElementById('pix-cpf').value.trim();
+  const errEl=document.getElementById('pix-err');
+  if(!tel||tel.replace(/\D/g,'').length<10){errEl.textContent='Informe um celular válido (DDD + número).';errEl.style.display='';return;}
+  if(!cpf||cpf.replace(/\D/g,'').length!==11){errEl.textContent='Informe um CPF válido (11 dígitos).';errEl.style.display='';return;}
+  errEl.style.display='none';
+  const btn=document.getElementById('pix-btn');
+  btn.disabled=true; btn.textContent='Gerando…';
+  try{
+    const r=await fetch('/api/pay',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:answers.nome||'',email:answers.email||'',telefone:tel,cpf:cpf})
+    });
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    _pixId=d.pixId;
+    document.getElementById('pix-qr-img').src='data:image/png;base64,'+d.brCodeBase64;
+    document.getElementById('pix-code').textContent=d.brCode;
+    document.getElementById('pix-step1').style.display='none';
+    document.getElementById('pix-step2').style.display='';
+    _pollIv=setInterval(checkPixStatus,3000);
+    let secs=600;
+    const timerEl=document.getElementById('pix-timer');
+    _timerIv=setInterval(()=>{
+      secs--;
+      const m=Math.floor(secs/60),s=secs%60;
+      timerEl.textContent='Expira em '+m+':'+(s<10?'0':'')+s;
+      if(secs<=0){clearInterval(_timerIv);timerEl.textContent='PIX expirado.';clearInterval(_pollIv);}
+    },1000);
+  }catch(e){
+    errEl.textContent=e.message||'Erro ao gerar PIX. Tente novamente.';
+    errEl.style.display='';
+    btn.disabled=false; btn.textContent='Gerar PIX — R$1 →';
+  }
+}
+
+async function checkPixStatus(){
+  if(!_pixId) return;
+  try{
+    const r=await fetch('/api/pay-status?id='+encodeURIComponent(_pixId));
+    const d=await r.json();
+    if(d.status==='PAID'){
+      clearInterval(_pollIv); clearInterval(_timerIv);
+      _pollIv=null; _timerIv=null;
+      document.getElementById('pix-status').innerHTML='<span class="pix-paid">✓ Pagamento confirmado!</span>';
+      setTimeout(unlockCV,1500);
+    } else if(d.status==='EXPIRED'||d.status==='CANCELLED'){
+      clearInterval(_pollIv); _pollIv=null;
+      document.getElementById('pix-status').textContent='PIX expirado. Feche e tente novamente.';
+    }
+  }catch(e){}
+}
+
+function copyPix(){
+  const code=document.getElementById('pix-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn=document.querySelector('.pix-copy-btn');
+    btn.textContent='Copiado!'; setTimeout(()=>btn.textContent='Copiar',2000);
+  });
+}
+
+function unlockCV(){
   closePay();
   document.getElementById('cv-out').classList.add('unlocked');
   document.getElementById('paywall-ov').classList.add('hidden');
   document.getElementById('res-acts').innerHTML=`
     <button class="btn-outline" onclick="goChat()">← Novo currículo</button>
     <button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
+  // Mark resume as paid in account
+  if(_user && _savedResumoId){
+    fetch('/api/resumos/save',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_user.token},
+      body:JSON.stringify({pixId:_pixId,pago:true})
+    }).catch(()=>{});
+  }
 }
+
+function confirmPay(){unlockCV();}
+
+/* ══════════════════════════════════════
+   PRO FEATURES — R$19
+══════════════════════════════════════ */
+const PRO_CONFIG = {
+  adaptar: {
+    tag: 'Adaptar para vaga',
+    title: 'Adaptar para <em>outra vaga</em>',
+    desc: 'Sua IA reescreve os bullets e resumo para a descrição da vaga que você cola abaixo.',
+    checks: ['Resumo profissional reescrito para a vaga','Bullets de experiência alinhados às exigências','Skills destacadas conforme a descrição'],
+    vaga: true,
+  },
+  ingles: {
+    tag: 'Versão em inglês',
+    title: 'Currículo em <em>inglês</em>',
+    desc: 'Seu currículo traduzido para inglês profissional, pronto para vagas internacionais.',
+    checks: ['Tradução profissional de todo o conteúdo','Terminologia adequada ao mercado global','Pronto para baixar em PDF'],
+    vaga: false,
+  },
+  carta: {
+    tag: 'Carta de apresentação',
+    title: 'Carta de <em>apresentação</em>',
+    desc: 'Uma carta personalizada para acompanhar seu currículo, com tom profissional e persuasivo.',
+    checks: ['3 parágrafos impactantes','Baseada no seu perfil real','Tom profissional e direto'],
+    vaga: false,
+  },
+};
+
+let _proFeature=null, _proPixId=null, _proPollIv=null, _proTimerIv=null;
+
+function openProModal(feature){
+  _proFeature=feature;
+  const cfg=PRO_CONFIG[feature];
+  document.getElementById('pro-feature-tag-txt').textContent=cfg.tag;
+  document.getElementById('pro-modal-title').innerHTML=cfg.title;
+  document.getElementById('pro-modal-desc').textContent=cfg.desc;
+  document.getElementById('pro-checks').innerHTML=cfg.checks.map(c=>`<div class="pro-check">${c}</div>`).join('');
+  const vagaEl=document.getElementById('pro-vaga-desc');
+  vagaEl.style.display=cfg.vaga?'':'none'; vagaEl.value='';
+  document.getElementById('pro-step1').style.display='';
+  document.getElementById('pro-step2').style.display='none';
+  document.getElementById('pro-step3').style.display='none';
+  document.getElementById('pro-err').style.display='none';
+  const btn=document.getElementById('pro-btn');
+  btn.disabled=false; btn.textContent='Gerar PIX — R$19 →';
+  document.getElementById('pro-modal').classList.add('on');
+}
+
+function closeProModal(){
+  document.getElementById('pro-modal').classList.remove('on');
+  if(_proPollIv){clearInterval(_proPollIv);_proPollIv=null;}
+  if(_proTimerIv){clearInterval(_proTimerIv);_proTimerIv=null;}
+}
+
+async function gerarPixPro(){
+  const tel=document.getElementById('pro-tel').value.trim();
+  const cpf=document.getElementById('pro-cpf').value.trim();
+  const errEl=document.getElementById('pro-err');
+  if(!tel||tel.replace(/\D/g,'').length<10){errEl.textContent='Informe um celular válido.';errEl.style.display='';return;}
+  if(!cpf||cpf.replace(/\D/g,'').length!==11){errEl.textContent='Informe um CPF válido (11 dígitos).';errEl.style.display='';return;}
+  if(_proFeature==='adaptar'&&!document.getElementById('pro-vaga-desc').value.trim()){
+    errEl.textContent='Cole a descrição da vaga antes de continuar.';errEl.style.display='';return;
+  }
+  errEl.style.display='none';
+  const btn=document.getElementById('pro-btn');
+  btn.disabled=true; btn.textContent='Gerando…';
+  try{
+    const r=await fetch('/api/pay-pro',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:answers.nome||'',email:answers.email||'',telefone:tel,cpf,feature:_proFeature})
+    });
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    _proPixId=d.pixId;
+    document.getElementById('pro-qr-img').src='data:image/png;base64,'+d.brCodeBase64;
+    document.getElementById('pro-code').textContent=d.brCode;
+    document.getElementById('pro-step1').style.display='none';
+    document.getElementById('pro-step2').style.display='';
+    _proPollIv=setInterval(checkPixStatusPro,3000);
+    let secs=600;
+    const timerEl=document.getElementById('pro-timer');
+    _proTimerIv=setInterval(()=>{
+      secs--;
+      const m=Math.floor(secs/60),s=secs%60;
+      timerEl.textContent='Expira em '+m+':'+(s<10?'0':'')+s;
+      if(secs<=0){clearInterval(_proTimerIv);timerEl.textContent='PIX expirado.';clearInterval(_proPollIv);}
+    },1000);
+  }catch(e){
+    errEl.textContent=e.message||'Erro ao gerar PIX. Tente novamente.';
+    errEl.style.display='';
+    btn.disabled=false; btn.textContent='Gerar PIX — R$19 →';
+  }
+}
+
+async function checkPixStatusPro(){
+  if(!_proPixId) return;
+  try{
+    const r=await fetch('/api/pay-status?id='+encodeURIComponent(_proPixId));
+    const d=await r.json();
+    if(d.status==='PAID'){
+      clearInterval(_proPollIv); clearInterval(_proTimerIv);
+      _proPollIv=null; _proTimerIv=null;
+      document.getElementById('pro-status').innerHTML='<span class="pix-paid">✓ Pagamento confirmado!</span>';
+      document.getElementById('pro-step2').style.display='none';
+      document.getElementById('pro-step3').style.display='';
+      setTimeout(gerarConteudoPro, 800);
+    } else if(d.status==='EXPIRED'||d.status==='CANCELLED'){
+      clearInterval(_proPollIv); _proPollIv=null;
+      document.getElementById('pro-status').textContent='PIX expirado. Feche e tente novamente.';
+    }
+  }catch(e){}
+}
+
+function copyPixPro(){
+  const code=document.getElementById('pro-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn=document.querySelector('#pro-step2 .pix-copy-btn');
+    btn.textContent='Copiado!'; setTimeout(()=>btn.textContent='Copiar',2000);
+  });
+}
+
+async function gerarConteudoPro(){
+  const prompts={
+    ingles:`Você é um tradutor profissional de currículos. Traduza TODOS os campos de texto para inglês profissional. Mantenha nomes próprios, empresas e cidades no original. Retorne APENAS JSON válido com exatamente esta estrutura:\n${JSON.stringify(_cvData)}\n\nDados originais:\n${JSON.stringify(_cvData)}\n\nTraduza todos os valores de texto para inglês. Retorne apenas o JSON traduzido.`,
+    carta:`Você é um especialista em RH brasileiro. Escreva uma carta de apresentação profissional e persuasiva em português (Brasil) para este candidato.\n\nPerfil:\nNome: ${answers.nome||''}\nCidade: ${answers.cidade||''}\nCargo desejado: ${answers.cargo||''}\nNível: ${answers.nivel||''}\nExperiência: ${answers.exp||''}\nResultados: ${answers.resultado||''}\nFormação: ${answers.formacao||''}\nHabilidades: ${answers.skills||''}\n\nEscreva 3 parágrafos: (1) apresentação e interesse, (2) experiências e resultados relevantes, (3) motivação e encerramento.\n\nRetorne APENAS JSON: {"carta":"texto completo com \\n entre os parágrafos"}`,
+    adaptar:`Você é um especialista sênior em RH. Reescreva o currículo abaixo para se encaixar perfeitamente na vaga descrita.\n\nCurrículo atual:\n${JSON.stringify(_cvData)}\n\nRespostas do candidato:\nNome: ${answers.nome||''}\nCargo atual: ${answers.cargo||''}\nExperiência: ${answers.exp||''}\nResultados: ${answers.resultado||''}\nHabilidades: ${answers.skills||''}\n\nDescrição da vaga-alvo:\n${document.getElementById('pro-vaga-desc').value}\n\nAtualize: resumo profissional, bullets de experiência e lista de skills para se alinharem à vaga. Retorne APENAS o JSON com a mesma estrutura do currículo atual.`,
+  };
+
+  try{
+    const r=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:prompts[_proFeature]})
+    });
+    const j=await r.json();
+    const raw=j.choices?.[0]?.message?.content||'{}';
+    const match=raw.match(/\{[\s\S]*\}/);
+    const data=JSON.parse(match?match[0]:raw);
+    closeProModal();
+    showProResult(data);
+  }catch(e){
+    document.getElementById('pro-step3').innerHTML=`<p style="color:#f87171;font-size:14px">Erro ao gerar conteúdo: ${e.message}</p><button class="modal-close" onclick="closeProModal()" style="margin-top:16px">Fechar</button>`;
+  }
+}
+
+function showProResult(data){
+  const cfg=PRO_CONFIG[_proFeature];
+  document.getElementById('pro-result-title').innerHTML=cfg.title;
+  const contentEl=document.getElementById('pro-result-content');
+  const actsEl=document.getElementById('pro-result-acts');
+
+  if(_proFeature==='carta'){
+    document.getElementById('pro-result-sub').textContent='Sua carta de apresentação personalizada';
+    contentEl.innerHTML=`<div class="carta-body">${(data.carta||'Não foi possível gerar a carta.').replace(/\n/g,'<br>')}</div>`;
+    actsEl.innerHTML=`<button class="modal-pay-btn" style="flex:1" onclick="copiarCarta()">Copiar carta</button><button class="btn-outline" style="flex:1" onclick="closeProResult()">Fechar</button>`;
+    window._cartaTexto=data.carta||'';
+  } else {
+    document.getElementById('pro-result-sub').textContent=_proFeature==='ingles'?'Currículo traduzido para inglês profissional':'Currículo adaptado para a nova vaga';
+    const prevData=_proFeature==='ingles'?data:{..._cvData,...data};
+    contentEl.innerHTML=`<div class="cv-paper unlocked" style="border-radius:10px;overflow:hidden">${buildCVHTML(prevData)}</div>`;
+    window._proResultData=prevData;
+    actsEl.innerHTML=`<button class="modal-pay-btn" style="flex:1" onclick="downloadProPDF()">📥 Baixar PDF</button><button class="btn-outline" style="flex:1" onclick="closeProResult()">Fechar</button>`;
+  }
+
+  document.getElementById('pro-result-bg').classList.add('on');
+}
+
+function closeProResult(){ document.getElementById('pro-result-bg').classList.remove('on'); }
+
+function copiarCarta(){
+  navigator.clipboard.writeText(window._cartaTexto||'').then(()=>{
+    const btn=document.querySelector('#pro-result-acts .modal-pay-btn');
+    btn.textContent='✓ Copiado!'; setTimeout(()=>btn.textContent='Copiar carta',2000);
+  });
+}
+
+function downloadProPDF(){
+  const d=window._proResultData||{};
+  const html=buildCVHTML(d);
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Currículo Pro</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cv-wrapper{font-family:'DM Sans',sans-serif;background:#f9f8f6;min-height:297mm;width:210mm;margin:0 auto}.cv-head{background:#0d0d0f;color:#fff;padding:0}.cv-head-inner{padding:36px 44px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:28px}.cv-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:-1.5px;line-height:.95;color:#fff;margin-bottom:6px}.cv-title{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.32)}.cv-contacts-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}.cv-contact-line{font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap}.cv-stripe{height:3px;background:linear-gradient(90deg,#c8a478 0%,#e2c9a0 40%,rgba(200,164,120,.12) 100%)}.cv-body{display:grid;grid-template-columns:1fr 192px;background:#f9f8f6}.cv-main{padding:30px 36px 36px;border-right:1px solid #e8e4de}.cv-side{padding:30px 22px 36px;background:#f2efe9}.cv-section{margin-bottom:24px}.cv-section-title{font-size:7px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:#bab0a2;margin-bottom:13px;padding-bottom:8px;border-bottom:1.5px solid #ede9e2}.cv-summary{font-size:11.5px;color:#4d4740;line-height:1.85;border-left:2px solid #c8a478;padding-left:12px}.cv-exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px}.cv-exp-role{font-size:13px;font-weight:500;color:#111}.cv-exp-period{font-size:8.5px;color:#c8a478;background:#f0ebe3;padding:2px 7px;border-radius:3px}.cv-exp-company{font-size:11px;color:#968d82;margin-bottom:8px}.cv-exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}.cv-exp-bullets li{font-size:11px;color:#554f48;line-height:1.7;padding-left:14px;position:relative}.cv-exp-bullets li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:1px;background:#c8a478}.cv-edu-item{display:flex;justify-content:space-between;align-items:flex-start}.cv-edu-course{font-size:12.5px;font-weight:500;color:#111;margin-bottom:2px}.cv-edu-inst{font-size:10.5px;color:#968d82}.cv-edu-year{font-size:9.5px;color:#c4bdb4}.cv-side-title{font-size:6.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#bab0a2;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #e0dbd2}.cv-side-section{margin-bottom:22px}.cv-skill-item{font-size:10.5px;color:#5a534c;padding:6px 0;border-bottom:1px solid #e4dfd6;display:flex;align-items:center;gap:6px}.cv-skill-item::before{content:'';width:4px;height:4px;border-radius:50%;background:#c8a478}.cv-lang-item{margin-bottom:8px}.cv-lang-name{font-size:11px;color:#333}.cv-lang-lvl{font-size:9px;color:#b8b0a5}.cv-contact-side{font-size:10px;color:#6e6760;margin-bottom:6px}.cv-level-pill{display:inline-flex;align-items:center;gap:5px;background:#111;color:#c8a478;font-size:8px;padding:4px 9px;border-radius:4px}@media print{@page{margin:0;size:A4}body{width:210mm}}</style></head><body>${html}</body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),800);
+}
+
+// Init on load
+window.addEventListener('DOMContentLoaded', initAuth);
 
 function downloadPDF(){
   const d=_cvData||{};
