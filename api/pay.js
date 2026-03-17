@@ -13,6 +13,10 @@ export default async function handler(req, res) {
   const NOCODB_TABLE_ID = process.env.NOCODB_TABLE_ID;
   const NOCODB_API_KEY = process.env.NOCODB_API_KEY;
 
+  if (!ABACATEPAY_KEY) {
+    return res.status(500).json({ error: 'Chave AbacatePay não configurada no servidor.' });
+  }
+
   // Format phone: ensure +55 prefix, strip non-digits first
   const phoneDigits = telefone.replace(/\D/g, '');
   const cellphone = phoneDigits.startsWith('55')
@@ -32,22 +36,19 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         amount: 900, // R$9,00 em centavos
-        expiresIn: 600, // 10 minutos
+        expiresIn: 600,
         description: 'CurriculoAI PDF',
-        customer: {
-          name: nome,
-          cellphone,
-          email,
-          taxId,
-        },
+        customer: { name: nome, cellphone, email, taxId },
       }),
     });
 
-    const pixJson = await pixRes.json();
+    const pixText = await pixRes.text();
+    let pixJson;
+    try { pixJson = JSON.parse(pixText); }
+    catch(e) { return res.status(502).json({ error: 'Resposta inválida do AbacatePay: ' + pixText.slice(0,120) }); }
 
     if (!pixJson.data) {
-      const errMsg = pixJson.error || 'Erro ao criar cobrança PIX';
-      return res.status(502).json({ error: errMsg });
+      return res.status(502).json({ error: pixJson.error || JSON.stringify(pixJson) });
     }
 
     const pix = pixJson.data;
