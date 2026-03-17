@@ -1025,7 +1025,7 @@ async function gerarPix(){
     const d=await r.json();
     if(d.error) throw new Error(d.error);
     _pixId=d.pixId;
-    document.getElementById('pix-qr-img').src='data:image/png;base64,'+d.brCodeBase64;
+    document.getElementById('pix-qr-img').src=d.brCodeBase64;
     document.getElementById('pix-code').textContent=d.brCode;
     document.getElementById('pix-step1').style.display='none';
     document.getElementById('pix-step2').style.display='';
@@ -1155,7 +1155,7 @@ async function gerarPixPro(){
     const d=await r.json();
     if(d.error) throw new Error(d.error);
     _proPixId=d.pixId;
-    document.getElementById('pro-qr-img').src='data:image/png;base64,'+d.brCodeBase64;
+    document.getElementById('pro-qr-img').src=d.brCodeBase64;
     document.getElementById('pro-code').textContent=d.brCode;
     document.getElementById('pro-step1').style.display='none';
     document.getElementById('pro-step2').style.display='';
