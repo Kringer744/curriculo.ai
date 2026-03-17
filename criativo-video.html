@@ -4,254 +4,226 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CurrículoAI — Motion Creative</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#09090a;--acc:#d4b896;--fb:'DM Sans',sans-serif}
+:root{--acc:#d4b896;--bg:#09090a}
 body{
-  background:#080809;
+  background:#060607;min-height:100vh;
   display:flex;flex-direction:column;align-items:center;
-  min-height:100vh;padding:32px 20px 48px;
-  font-family:var(--fb);color:#fff;gap:20px;
+  padding:32px 20px 52px;gap:22px;
+  font-family:'DM Sans',sans-serif;color:#fff;
 }
 
-/* ── HEADER ── */
-.header{display:flex;flex-direction:column;align-items:center;gap:4px}
-.logo{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.logo em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--acc);letter-spacing:1px}
-.tagline{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.5px}
-
-/* ── FORMAT TOGGLE ── */
-.fmt-toggle{
-  display:flex;gap:0;
-  background:#111113;border:1px solid rgba(255,255,255,.08);
-  border-radius:9px;padding:4px;
+.brand{
+  font-size:11px;font-weight:300;letter-spacing:4px;
+  text-transform:uppercase;color:rgba(255,255,255,.25);
 }
-.fmt-btn{
-  padding:7px 20px;border-radius:6px;border:none;
-  font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;
-  cursor:pointer;transition:all .2s;color:rgba(255,255,255,.3);background:transparent;
-  display:flex;align-items:center;gap:6px;
-}
-.fmt-btn.active{background:var(--acc);color:#09090a;}
-.fmt-btn:not(.active):hover{color:rgba(255,255,255,.6)}
+.brand em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--acc)}
 
-.fmt-icon{opacity:.7}
-.fmt-btn.active .fmt-icon{opacity:1}
-
-/* ── CANVAS WRAP ── */
-.canvas-outer{
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
+/* format tabs */
+.tabs{display:flex;background:#0e0e10;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:4px;gap:3px}
+.tab{
+  padding:8px 22px;border-radius:7px;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;
+  letter-spacing:.7px;text-transform:uppercase;transition:all .25s;
+  color:rgba(255,255,255,.28);background:transparent;
+  display:flex;align-items:center;gap:7px;
 }
-.canvas-wrap{
+.tab.on{background:var(--acc);color:#09090a}
+.tab:not(.on):hover{color:rgba(255,255,255,.55)}
+.tab:disabled{opacity:.25;pointer-events:none}
+
+/* canvas stage */
+.stage{
   position:relative;border-radius:14px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 40px 100px rgba(0,0,0,.85);
-  transition:all .35s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 0 0 1px rgba(0,0,0,.5), 0 48px 120px rgba(0,0,0,.9);
 }
-/* Feed 1:1 */
-.canvas-wrap.feed   canvas{display:block;width:400px;height:400px}
-/* Stories 9:16 */
-.canvas-wrap.stories canvas{display:block;width:270px;height:480px}
+/* feed: show 480px wide   stories: show 270px wide (≈480px tall) */
+.stage.feed    canvas{display:block;width:480px;height:480px}
+.stage.stories canvas{display:block;width:270px;height:480px}
 
-/* ── CONTROLS ── */
-.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+/* controls */
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .btn{
   display:inline-flex;align-items:center;gap:7px;
-  padding:9px 20px;border-radius:7px;
-  font-family:var(--fb);font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;
-  cursor:pointer;border:none;transition:opacity .15s,transform .1s;white-space:nowrap;
+  padding:9px 22px;border-radius:8px;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;
+  letter-spacing:.7px;text-transform:uppercase;transition:opacity .15s,transform .12s;
 }
-.btn:hover{opacity:.82;transform:translateY(-1px)}
-.btn:active{transform:translateY(0);opacity:1}
-.btn-rec {background:#c0392b;color:#fff}
-.btn-stop{background:#1e1e21;color:#fff;border:1px solid rgba(255,255,255,.1)}
-.btn-reset{background:#1e1e21;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.08)}
-.btn:disabled{opacity:.3;pointer-events:none}
+.btn:hover{opacity:.8;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.25;pointer-events:none}
+.btn-red {background:#bf2e25;color:#fff}
+.btn-stop{background:#1a1a1d;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.08)}
 
-/* ── STATUS ── */
-.status{
-  font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.3px;
-  display:flex;align-items:center;gap:6px;
-}
-.rec-dot{
-  width:6px;height:6px;border-radius:50%;background:#c0392b;
-  animation:blink .9s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+/* status */
+.status{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.4px;display:flex;align-items:center;gap:7px}
+.dot{width:6px;height:6px;border-radius:50%;background:#bf2e25;animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
 
-/* ── INFO ── */
-.info{
-  font-size:10px;color:rgba(255,255,255,.18);text-align:center;
-  line-height:1.8;letter-spacing:.2px;max-width:340px;
-}
-.info strong{color:rgba(212,184,150,.45);font-weight:400}
+/* meta */
+.meta{font-size:10px;color:rgba(255,255,255,.15);text-align:center;line-height:1.9;letter-spacing:.2px}
+.meta b{color:rgba(212,184,150,.4);font-weight:400}
 
-/* ── SPEC BADGES ── */
-.specs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.spec{
-  padding:4px 10px;border-radius:20px;
-  font-size:9px;font-weight:400;letter-spacing:.6px;text-transform:uppercase;
-  border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.2);
-}
+.chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.chip{padding:3px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.06);font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.2)}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="logo">Currículo<em>AI</em></div>
-  <div class="tagline">Motion Creative — Meta Ads</div>
-</div>
+<div class="brand">Currículo<em>AI</em> &nbsp;·&nbsp; Motion Creative</div>
 
-<!-- FORMAT TOGGLE -->
-<div class="fmt-toggle">
-  <button class="fmt-btn active" id="btnFeed" onclick="setFormat('feed')">
-    <svg class="fmt-icon" width="12" height="12" viewBox="0 0 12 12"><rect width="12" height="12" rx="2" fill="currentColor"/></svg>
+<div class="tabs">
+  <button class="tab on" id="tFeed"    onclick="setFmt('feed')">
+    <svg width="11" height="11" viewBox="0 0 11 11"><rect width="11" height="11" rx="2" fill="currentColor"/></svg>
     Feed 1:1
   </button>
-  <button class="fmt-btn" id="btnStories" onclick="setFormat('stories')">
-    <svg class="fmt-icon" width="8" height="12" viewBox="0 0 8 12"><rect width="8" height="12" rx="2" fill="currentColor"/></svg>
+  <button class="tab"    id="tStories" onclick="setFmt('stories')">
+    <svg width="7"  height="11" viewBox="0 0 7 11"><rect width="7" height="11" rx="2" fill="currentColor"/></svg>
     Stories 9:16
   </button>
 </div>
 
-<!-- CANVAS -->
-<div class="canvas-outer">
-  <div class="canvas-wrap feed" id="canvasWrap">
-    <canvas id="c"></canvas>
-  </div>
+<div class="stage feed" id="stage">
+  <canvas id="c"></canvas>
 </div>
 
-<!-- CONTROLS -->
-<div class="controls">
-  <button class="btn btn-rec" id="btnRec" onclick="startRecording()">
-    <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+<div class="ctrl">
+  <button class="btn btn-red"  id="bRec"  onclick="startRec()">
+    <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
     Gravar Vídeo
   </button>
-  <button class="btn btn-stop" id="btnStop" onclick="stopRecording()" disabled>
-    <svg width="8" height="8" viewBox="0 0 8 8"><rect width="8" height="8" rx="1.5" fill="currentColor"/></svg>
+  <button class="btn btn-stop" id="bStop" onclick="stopRec()" disabled>
+    <svg width="8" height="8"><rect width="8" height="8" rx="1.5" fill="currentColor"/></svg>
     Parar e Baixar
   </button>
-  <button class="btn btn-reset" onclick="resetAnim()">
-    <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M2 8a6 6 0 1 1 1.5 3.9l1.1-1.1A4.5 4.5 0 1 0 3.5 8H5l-2.5 2.5L0 8h2z"/></svg>
+  <button class="btn btn-ghost" onclick="resetA()">
+    <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M2 8a6 6 0 1 1 1.5 3.9l1.1-1.1A4.5 4.5 0 1 0 3.5 8H5L2.5 5.5 0 8h2z"/></svg>
     Reiniciar
   </button>
 </div>
 
 <div class="status" id="status">Animação em loop · Clique em Gravar para capturar</div>
 
-<div class="specs" id="specs">
-  <div class="spec" id="specFmt">Feed · 1080×1080 px</div>
-  <div class="spec">60 fps</div>
-  <div class="spec">WebM · ~8s loop</div>
-  <div class="spec">Meta Ads</div>
+<div class="chips">
+  <div class="chip" id="chipFmt">Feed · 1080 × 1080</div>
+  <div class="chip">60 fps</div>
+  <div class="chip">WebM · ~10s</div>
+  <div class="chip">Meta Ads</div>
 </div>
 
-<div class="info">
-  Grave por pelo menos <strong>1 loop completo (~8s)</strong>.<br>
-  Download em <strong>WebM</strong> · compatível com Premiere, After Effects e Meta Ads.
+<div class="meta">
+  Grave <b>1 loop completo (~10s)</b> antes de parar.<br>
+  Arquivo em <b>WebM</b> — compatível com Meta Ads, Premiere e After Effects.
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
-const FONT_D = '"Cormorant Garamond", Georgia, serif';
-const FONT_U = '"DM Sans", sans-serif';
-const C_BG   = '#09090a';
-const C_ACC  = '#d4b896';
-const C_W    = '#ffffff';
-const C_T2   = 'rgba(255,255,255,0.42)';
-const C_T3   = 'rgba(255,255,255,0.20)';
-const FPS    = 60;
-const TOTAL  = 510; // ~8.5s loop
-
-/* ═══════════════════════════════════════════
-   CANVAS & FORMAT STATE
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   SETUP
+══════════════════════════════════════════ */
 const canvas = document.getElementById('c');
 const ctx    = canvas.getContext('2d');
-let FORMAT   = 'feed';   // 'feed' | 'stories'
-let W, H;
 
-function applyFormat(fmt){
-  FORMAT = fmt;
-  if(fmt === 'feed'){
-    canvas.width  = 1080;
-    canvas.height = 1080;
-  } else {
-    canvas.width  = 1080;
-    canvas.height = 1920;
-  }
-  W = canvas.width;
-  H = canvas.height;
-  initParticles();
+const FD = '"Cormorant Garamond",Georgia,serif';
+const FU = '"DM Sans",system-ui,sans-serif';
 
-  // UI: toggle classes
-  document.getElementById('canvasWrap').className = `canvas-wrap ${fmt}`;
-  document.getElementById('btnFeed').className    = `fmt-btn${fmt==='feed'?' active':''}`;
-  document.getElementById('btnStories').className = `fmt-btn${fmt==='stories'?' active':''}`;
-  document.getElementById('specFmt').textContent  =
-    fmt === 'feed' ? 'Feed · 1080×1080 px' : 'Stories · 1080×1920 px';
+const BG  = '#09090a';
+const ACC = '#d4b896';
+const W1  = 'rgba(255,255,255,1)';
+const T2  = 'rgba(255,255,255,.42)';
+const T3  = 'rgba(255,255,255,.18)';
+
+let W, H, FMT = 'feed';
+let frame = 0, raf, recorder, chunks = [];
+const FPS   = 60;
+const TOTAL = 600; // 10s loop
+
+/* ══════════════════════════════════════════
+   FORMAT
+══════════════════════════════════════════ */
+function setFmt(f){
+  if(FMT===f) return;
+  if(recorder && recorder.state!=='inactive') return;
+  FMT = f;
+  applyFmt();
+  resetA();
 }
-
-function setFormat(fmt){
-  if(FORMAT === fmt) return;
-  if(recorder && recorder.state !== 'inactive') return; // can't switch while recording
-  frame = 0;
-  applyFormat(fmt);
+function applyFmt(){
+  if(FMT==='feed'){ canvas.width=1080; canvas.height=1080; }
+  else            { canvas.width=1080; canvas.height=1920; }
+  W = canvas.width; H = canvas.height;
+  document.getElementById('stage').className = `stage ${FMT}`;
+  document.getElementById('tFeed').className    = `tab${FMT==='feed'?' on':''}`;
+  document.getElementById('tStories').className = `tab${FMT==='stories'?' on':''}`;
+  document.getElementById('chipFmt').textContent =
+    FMT==='feed' ? 'Feed · 1080 × 1080' : 'Stories · 1080 × 1920';
+  initParticles(); initNoise();
 }
+applyFmt();
 
-applyFormat('feed');
-
-/* ═══════════════════════════════════════════
-   ANIMATION STATE
-═══════════════════════════════════════════ */
-let frame     = 0;
-let particles = [];
-let raf       = null;
-let recorder  = null;
-let chunks    = [];
-
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════
    EASING
-═══════════════════════════════════════════ */
-const ease = {
-  out3:  t => 1 - Math.pow(1-t,3),
-  out5:  t => 1 - Math.pow(1-t,5),
-  in3:   t => t*t*t,
-  spring:t => {
-    if(t===0) return 0; if(t===1) return 1;
-    const c4 = (2*Math.PI)/3;
-    return Math.pow(2,-10*t)*Math.sin((t*10-.75)*c4)+1;
-  }
+══════════════════════════════════════════ */
+const E = {
+  o3:  t=>1-Math.pow(1-t,3),
+  o5:  t=>1-Math.pow(1-t,5),
+  i3:  t=>t*t*t,
+  io:  t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,
+  spr: t=>{
+    if(!t) return 0; if(t===1) return 1;
+    return Math.pow(2,-10*t)*Math.sin((t*10-.75)*(2*Math.PI/3))+1;
+  },
+  back:t=>{ const c=1.70158; return (c+1)*t*t*t - c*t*t; }
 };
-const clamp    = (v,a,b) => Math.max(a,Math.min(b,v));
-const progress = (f,s,e) => clamp((f-s)/(e-s),0,1);
-const lerp     = (a,b,t) => a+(b-a)*t;
+const cl   = (v,a,b) => Math.max(a,Math.min(b,v));
+const pg   = (f,s,e) => cl((f-s)/(e-s),0,1);
+const lerp = (a,b,t) => a+(b-a)*t;
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════
+   NOISE
+══════════════════════════════════════════ */
+const NOISE_FRAMES = 4;
+const noiseC = [];
+function initNoise(){
+  noiseC.length = 0;
+  const ns = Math.min(W, 512);
+  for(let n=0;n<NOISE_FRAMES;n++){
+    const oc = document.createElement('canvas');
+    oc.width = oc.height = ns;
+    const ox = oc.getContext('2d');
+    const id = ox.createImageData(ns,ns);
+    for(let i=0;i<id.data.length;i+=4){
+      const v = Math.random()*255|0;
+      id.data[i]=id.data[i+1]=id.data[i+2]=v;
+      id.data[i+3]=255;
+    }
+    ox.putImageData(id,0,0);
+    noiseC.push(oc);
+  }
+}
+
+/* ══════════════════════════════════════════
    PARTICLES
-═══════════════════════════════════════════ */
+══════════════════════════════════════════ */
+let parts = [];
 function initParticles(){
-  particles = Array.from({length:46},()=>({
-    x: Math.random()*W,
-    y: Math.random()*H,
-    r: Math.random()*1.4+.3,
-    vx:(Math.random()-.5)*.3,
-    vy:(Math.random()-.5)*.3,
-    o: Math.random()*.22+.04,
-    fl:Math.random()*Math.PI*2,
-    fs:Math.random()*.035+.008,
+  parts = Array.from({length:55},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*1.5+.3,
+    vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35,
+    o:Math.random()*.18+.03,
+    ph:Math.random()*Math.PI*2,
+    sp:Math.random()*.03+.006,
   }));
 }
 
-/* ═══════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════ */
-function roundRect(x,y,w,h,r){
+/* ══════════════════════════════════════════
+   DRAW UTILITIES
+══════════════════════════════════════════ */
+function rr(x,y,w,h,r){
   ctx.beginPath();
   ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
   ctx.quadraticCurveTo(x+w,y,x+w,y+r);
@@ -264,263 +236,443 @@ function roundRect(x,y,w,h,r){
   ctx.closePath();
 }
 
-/* ═══════════════════════════════════════════
-   DRAW — shared elements (W/H relative)
-═══════════════════════════════════════════ */
-function drawBg(bgAlpha, f){
-  ctx.globalAlpha = 1;
-  ctx.fillStyle = C_BG;
+/* ══════════════════════════════════════════
+   LAYER — BACKGROUND + ORBS
+══════════════════════════════════════════ */
+function drawBG(f){
+  ctx.globalAlpha=1;
+  ctx.fillStyle=BG;
   ctx.fillRect(0,0,W,H);
-  // ambient glow
-  const ga = bgAlpha * .55 * (.7+.3*Math.sin(f*.018));
-  const grd = ctx.createRadialGradient(W*.12,H*.5,0,W*.12,H*.5,W*.7);
-  grd.addColorStop(0,`rgba(212,184,150,${ga})`);
-  grd.addColorStop(1,'transparent');
-  ctx.fillStyle = grd;
-  ctx.fillRect(0,0,W,H);
+
+  // 3 animated orbs
+  const orbs=[
+    {cx:.12, cy:.45, r:.68, speed:.007, phase:0,     col:'212,184,150', base:.48},
+    {cx:.85, cy:.15, r:.55, speed:.011, phase:1.8,   col:'100,80,160',  base:.22},
+    {cx:.5,  cy:.88, r:.52, speed:.009, phase:3.4,   col:'80,100,180',  base:.18},
+  ];
+  orbs.forEach(o=>{
+    const ox = (o.cx + Math.sin(f*o.speed+o.phase)*.06)*W;
+    const oy = (o.cy + Math.cos(f*o.speed*1.3+o.phase)*.05)*H;
+    const a  = o.base*(0.7+0.3*Math.sin(f*o.speed*2+o.phase));
+    const g  = ctx.createRadialGradient(ox,oy,0,ox,oy,o.r*W);
+    g.addColorStop(0,`rgba(${o.col},${a})`);
+    g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  });
+
+  // vignette
+  const vig=ctx.createRadialGradient(W/2,H/2,W*.2,W/2,H/2,W*.85);
+  vig.addColorStop(0,'transparent');
+  vig.addColorStop(1,'rgba(0,0,0,.55)');
+  ctx.fillStyle=vig; ctx.fillRect(0,0,W,H);
+
+  // grain
+  const ni = noiseC[Math.floor(f/2)%NOISE_FRAMES];
+  ctx.globalAlpha=.025;
+  ctx.globalCompositeOperation='screen';
+  ctx.drawImage(ni,0,0,W,H);
+  ctx.globalCompositeOperation='source-over';
+  ctx.globalAlpha=1;
 }
 
-function drawParticles(bgAlpha){
-  particles.forEach(p=>{
+/* ══════════════════════════════════════════
+   LAYER — PARTICLES
+══════════════════════════════════════════ */
+function drawParts(f){
+  parts.forEach(p=>{
     p.x+=p.vx; p.y+=p.vy;
     if(p.x<0)p.x=W; if(p.x>W)p.x=0;
     if(p.y<0)p.y=H; if(p.y>H)p.y=0;
-    p.fl+=p.fs;
-    ctx.globalAlpha = p.o*(.5+.5*Math.sin(p.fl))*bgAlpha;
-    ctx.fillStyle = C_ACC;
+    p.ph+=p.sp;
+    ctx.globalAlpha=p.o*(.4+.6*Math.sin(p.ph));
+    ctx.fillStyle=ACC;
     ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
   });
   ctx.globalAlpha=1;
 }
 
+/* ══════════════════════════════════════════
+   LAYER — GEOMETRIC ACCENTS
+══════════════════════════════════════════ */
+function drawGeo(f, lx, topY){
+  // horizontal scan line
+  const scanP = pg(f,10,60);
+  if(scanP>0){
+    const scanY = lerp(-W*.02, topY-W*.04, E.o5(scanP));
+    ctx.globalAlpha=scanP*.35;
+    const sg=ctx.createLinearGradient(lx,0,lx+W*.7,0);
+    sg.addColorStop(0,ACC); sg.addColorStop(.6,'rgba(212,184,150,.3)'); sg.addColorStop(1,'transparent');
+    ctx.strokeStyle=sg; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(lx,scanY); ctx.lineTo(lx+W*.7,scanY); ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+
+  // two accent lines drawing in from left
+  [[W*.015, topY+W*.006],[W*.015, topY+W*.017]].forEach(([lx2,ly],i)=>{
+    const p=E.o5(pg(f,25+i*15,90+i*15));
+    if(!p) return;
+    const len=lerp(0,W*.38,p);
+    const lg=ctx.createLinearGradient(lx2,0,lx2+len,0);
+    lg.addColorStop(0,ACC); lg.addColorStop(1,'transparent');
+    ctx.globalAlpha=p*(i===0?.5:.25);
+    ctx.strokeStyle=lg; ctx.lineWidth=i===0?1.5:.8;
+    ctx.beginPath(); ctx.moveTo(lx2,ly); ctx.lineTo(lx2+len,ly); ctx.stroke();
+    ctx.globalAlpha=1;
+  });
+
+  // rotating diamond (top-right accent)
+  const dP=E.o3(pg(f,40,100));
+  if(dP>0){
+    const dx=W*.9, dy=topY-W*.04, ds=W*.028;
+    const rot=(f*.012)%(Math.PI*2);
+    ctx.save();
+    ctx.translate(dx,dy); ctx.rotate(rot);
+    ctx.globalAlpha=dP*.25;
+    ctx.strokeStyle=ACC; ctx.lineWidth=1.2;
+    ctx.beginPath();
+    ctx.moveTo(0,-ds); ctx.lineTo(ds,0);
+    ctx.lineTo(0,ds); ctx.lineTo(-ds,0);
+    ctx.closePath(); ctx.stroke();
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+
+  // corner brackets (feed only)
+  if(FMT==='feed'){
+    const bP=E.o3(pg(f,50,110));
+    if(bP>0){
+      const sz=W*.045, pad=W*.028, lw=1.5;
+      ctx.globalAlpha=bP*.2; ctx.strokeStyle=ACC; ctx.lineWidth=lw;
+      [[pad,pad],[W-pad,pad],[W-pad,H-pad],[pad,H-pad]].forEach(([cx,cy],i)=>{
+        const sx=cx===pad?1:-1, sy=cy===pad?1:-1;
+        ctx.beginPath();
+        ctx.moveTo(cx+sz*sx,cy); ctx.lineTo(cx,cy); ctx.lineTo(cx,cy+sz*sy);
+        ctx.stroke();
+      });
+      ctx.globalAlpha=1;
+    }
+  }
+}
+
+/* ══════════════════════════════════════════
+   LAYER — LOGO (char-by-char)
+══════════════════════════════════════════ */
 function drawLogo(f, lx, ly){
-  const p = ease.spring(progress(f,15,75));
-  if(p<=0) return;
+  const p=E.o5(pg(f,45,105));
+  if(!p) return;
+  const fs = W*.022;
   ctx.save();
-  ctx.globalAlpha = clamp(p*1.4,0,1);
-  ctx.translate(0, lerp(-W*.015,0,p));
-  const fs = W*.024;
-  ctx.font = `300 ${fs}px/1 ${FONT_U}`;
-  ctx.fillStyle = C_T2;
-  ctx.fillText('Currículo', lx, ly);
-  const tw = ctx.measureText('Currículo').width;
-  ctx.font = `italic 300 ${fs}px/1 ${FONT_D}`;
-  ctx.fillStyle = C_ACC;
-  ctx.fillText('AI', lx+tw+W*.002, ly);
+  ctx.globalAlpha=cl(p*2,0,1);
+
+  // "Currículo" char by char
+  const word='Currículo';
+  ctx.font=`300 ${fs}px/1 ${FU}`;
+  let cx=lx;
+  word.split('').forEach((ch,i)=>{
+    const cp=cl((p*word.length - i)/1.5, 0, 1);
+    const oy=lerp(-W*.025, 0, E.spr(cp));
+    ctx.globalAlpha=cl(cp*3,0,1)*.6;
+    ctx.fillStyle=T2;
+    ctx.save(); ctx.translate(0,oy);
+    ctx.fillText(ch,cx,ly); ctx.restore();
+    cx+=ctx.measureText(ch).width;
+  });
+
+  // "AI" italic
+  ctx.font=`italic 300 ${fs}px/1 ${FD}`;
+  const aiP=cl((p*1.5-.5)*2,0,1);
+  ctx.globalAlpha=aiP;
+  ctx.fillStyle=ACC;
+  const aiOy=lerp(-W*.025,0,E.spr(cl(aiP,0,1)));
+  ctx.save(); ctx.translate(0,aiOy); ctx.fillText('AI',cx+W*.003,ly); ctx.restore();
+
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-function drawBadge(f, bx, by){
-  const p = ease.spring(progress(f,35,95));
-  if(p<=0) return;
+/* ══════════════════════════════════════════
+   LAYER — BADGE
+══════════════════════════════════════════ */
+function drawBadge(f, lx, ly){
+  const p=E.spr(pg(f,70,125));
+  if(!p) return;
   ctx.save();
-  ctx.globalAlpha = clamp(p*1.5,0,1);
-  ctx.translate(0, lerp(-W*.02,0,p));
-  const bw=W*.24, bh=W*.04, br=bw/2, dotR=W*.005;
-  roundRect(bx,by,bw,bh,br);
-  ctx.fillStyle='rgba(212,184,150,0.07)'; ctx.fill();
-  roundRect(bx,by,bw,bh,br);
-  ctx.strokeStyle='rgba(212,184,150,0.22)'; ctx.lineWidth=1.2; ctx.stroke();
-  ctx.fillStyle=C_ACC;
-  ctx.beginPath(); ctx.arc(bx+bw*.12,by+bh/2,dotR,0,Math.PI*2); ctx.fill();
-  ctx.font=`400 ${W*.016}px/1 ${FONT_U}`;
-  ctx.fillStyle=C_T2;
-  ctx.letterSpacing=`${W*.003}px`;
-  ctx.fillText('POWERED BY IA', bx+bw*.21, by+bh*.68);
+  ctx.globalAlpha=cl(p*1.5,0,1);
+  ctx.translate(0,lerp(-W*.02,0,p));
+  const bw=W*.25,bh=W*.038,br=bh/2;
+  rr(lx,ly,bw,bh,br);
+  ctx.fillStyle='rgba(212,184,150,.07)'; ctx.fill();
+  rr(lx,ly,bw,bh,br);
+  ctx.strokeStyle='rgba(212,184,150,.22)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle=ACC;
+  ctx.beginPath(); ctx.arc(lx+bw*.11,ly+bh/2,W*.005,0,Math.PI*2); ctx.fill();
+  ctx.font=`400 ${W*.015}px/1 ${FU}`;
+  ctx.fillStyle=T2;
+  ctx.letterSpacing=`${W*.0035}px`;
+  ctx.fillText('POWERED BY IA',lx+bw*.2,ly+bh*.67);
   ctx.letterSpacing='0px';
   ctx.restore(); ctx.globalAlpha=1;
 }
 
+/* ══════════════════════════════════════════
+   LAYER — HEADLINE (clip wipe)
+══════════════════════════════════════════ */
 function drawHeadline(f, lx, startY, lineH, fs){
   const lines=[
-    {t:'O mercado',   s:85,  e:145, italic:false},
-    {t:'não espera',  s:115, e:180, italic:true},
-    {t:'por você.',   s:150, e:210, italic:false},
+    {t:'O mercado',  s:100, e:160, italic:false},
+    {t:'não espera', s:130, e:195, italic:true},
+    {t:'por você.',  s:165, e:230, italic:false},
   ];
   lines.forEach((ln,i)=>{
-    const p=ease.out5(progress(f,ln.s,ln.e));
-    if(p<=0)return;
+    const p=E.o5(pg(f,ln.s,ln.e));
+    if(!p) return;
+    const y=startY+i*lineH;
+    const oy=lerp(lineH*.6,0,p);
+
+    // clip mask: reveal from bottom
     ctx.save();
+    ctx.beginPath();
+    ctx.rect(lx-W*.02, y-lineH*1.1, W*.9, lineH*1.25);
+    ctx.clip();
     ctx.globalAlpha=p;
-    ctx.translate(0,lerp(W*.032,0,p));
-    ctx.font = ln.italic
-      ? `italic 300 ${fs}px/1 ${FONT_D}`
-      : `300 ${fs}px/1 ${FONT_D}`;
-    ctx.fillStyle = ln.italic ? C_ACC : C_W;
-    ctx.fillText(ln.t, lx, startY + i*lineH);
-    ctx.restore(); ctx.globalAlpha=1;
+    ctx.translate(0,oy);
+    ctx.font=ln.italic
+      ? `italic 300 ${fs}px/1 ${FD}`
+      : `300 ${fs}px/1 ${FD}`;
+    ctx.fillStyle=ln.italic?ACC:W1;
+    ctx.fillText(ln.t,lx,y);
+    ctx.restore();
+    ctx.globalAlpha=1;
   });
 }
 
-function drawSubtext(f, lx, y, fs){
-  const p=ease.out3(progress(f,210,270));
-  if(p<=0)return;
+/* ══════════════════════════════════════════
+   LAYER — SUBTEXT
+══════════════════════════════════════════ */
+function drawSub(f, lx, y, fs){
+  const p=E.o3(pg(f,220,280));
+  if(!p) return;
   ctx.save();
-  ctx.globalAlpha=p*.65;
-  ctx.translate(0,lerp(W*.015,0,p));
-  ctx.font=`300 ${fs}px/1 ${FONT_U}`;
-  ctx.fillStyle=C_T2;
+  ctx.globalAlpha=p*.55;
+  ctx.translate(0,lerp(W*.018,0,p));
+  ctx.font=`300 ${fs}px/1 ${FU}`;
+  ctx.fillStyle=T2;
   ctx.fillText('Currículo profissional com IA em menos de 3 minutos.',lx,y);
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-function drawDivider(f, lx, y){
-  const p=ease.out3(progress(f,215,280));
-  if(p<=0)return;
-  ctx.globalAlpha=p*.15;
-  ctx.fillStyle=C_W;
-  ctx.fillRect(lx, y, W*.84*p, 1.5);
+/* ══════════════════════════════════════════
+   LAYER — DIVIDER
+══════════════════════════════════════════ */
+function drawDiv(f, lx, y){
+  const p=E.o5(pg(f,228,295));
+  if(!p) return;
+  const lg=ctx.createLinearGradient(lx,0,lx+W*.84,0);
+  lg.addColorStop(0,`rgba(212,184,150,.25)`);
+  lg.addColorStop(1,'transparent');
+  ctx.globalAlpha=p;
+  ctx.fillStyle=lg;
+  ctx.fillRect(lx,y,W*.84*p,1);
   ctx.globalAlpha=1;
 }
 
-function drawStats(f, lx, y, valFs, labFs){
-  const s1=ease.spring(progress(f,260,315));
-  const s2=ease.spring(progress(f,280,335));
-  [{val:'+12k',  label:'currículos gerados', p:s1, x:lx},
-   {val:'3 min', label:'tempo médio',         p:s2, x:lx+W*.32}
-  ].forEach(s=>{
-    if(s.p<=0)return;
+/* ══════════════════════════════════════════
+   LAYER — STATS COUNTER
+══════════════════════════════════════════ */
+function drawStats(f, lx, y, vFs, lFs){
+  const s=[
+    {target:12000, suffix:'k', prefix:'+', label:'currículos gerados', s:265, e:350, xs:lx},
+    {target:3,     suffix:' min', prefix:'', label:'tempo médio',       s:285, e:370, xs:lx+W*.32},
+  ];
+  s.forEach(st=>{
+    const p=E.spr(pg(f,st.s,st.e));
+    if(!p) return;
     ctx.save();
-    ctx.globalAlpha=clamp(s.p*1.5,0,1);
-    ctx.translate(0,lerp(W*.022,0,s.p));
-    ctx.font=`300 ${valFs}px/1 ${FONT_D}`;
-    ctx.fillStyle=C_ACC;
-    ctx.fillText(s.val,s.x,y);
-    ctx.font=`300 ${labFs}px/1 ${FONT_U}`;
-    ctx.fillStyle=C_T3;
-    ctx.fillText(s.label,s.x,y+labFs*1.5);
+    ctx.globalAlpha=cl(p*2,0,1);
+    ctx.translate(0,lerp(W*.025,0,p));
+
+    // number counter
+    const raw = st.target===12000
+      ? Math.round(lerp(0,12,cl(p*1.2,0,1)))
+      : Math.round(lerp(0,3,cl(p*1.2,0,1)));
+    const disp = st.target===12000
+      ? `${st.prefix}${raw}${st.suffix}`
+      : `${st.prefix}${raw}${st.suffix}`;
+
+    ctx.font=`300 ${vFs}px/1 ${FD}`;
+    ctx.fillStyle=ACC;
+    ctx.fillText(disp, st.xs, y);
+    ctx.font=`300 ${lFs}px/1 ${FU}`;
+    ctx.fillStyle=T3;
+    ctx.fillText(st.label, st.xs, y+lFs*1.6);
     ctx.restore(); ctx.globalAlpha=1;
   });
 }
 
-function drawCTA(f, bx, by){
-  const p=ease.spring(progress(f,330,390));
-  if(p<=0)return;
-  const bw=W*.32, bh=W*.07, br=W*.012;
+/* ══════════════════════════════════════════
+   LAYER — CTA (shimmer)
+══════════════════════════════════════════ */
+function drawCTA(f, lx, by, bw){
+  const p=E.spr(pg(f,340,405));
+  if(!p) return;
+  const bh=W*.072, br=W*.014;
   ctx.save(); ctx.globalAlpha=p;
-  const pulse=.5+.5*Math.sin(f*.08);
-  const bg2=ctx.createRadialGradient(bx+bw/2,by+bh/2,0,bx+bw/2,by+bh/2,W*.2);
-  bg2.addColorStop(0,`rgba(212,184,150,${.18*pulse})`);
-  bg2.addColorStop(1,'transparent');
-  ctx.fillStyle=bg2; ctx.fillRect(bx-W*.06,by-W*.06,bw+W*.12,bh+W*.12);
-  roundRect(bx,by,bw,bh,br);
-  ctx.fillStyle=C_ACC; ctx.fill();
-  ctx.font=`500 ${W*.038}px/1 ${FONT_U}`;
+
+  // glow
+  const pulse=.5+.5*Math.sin(f*.07);
+  const g1=ctx.createRadialGradient(lx+bw/2,by+bh/2,0,lx+bw/2,by+bh/2,bw*.55);
+  g1.addColorStop(0,`rgba(212,184,150,${.22*pulse})`);
+  g1.addColorStop(1,'transparent');
+  ctx.fillStyle=g1; ctx.fillRect(lx-bw*.1,by-bh*.6,bw*1.2,bh*2.2);
+
+  // button
+  rr(lx,by,bw,bh,br);
+  ctx.fillStyle=ACC; ctx.fill();
+
+  // shimmer sweep
+  const shimP=(f*.018)%2;
+  if(shimP<1){
+    const sx=lerp(lx-bw*.3,lx+bw*1.3,shimP);
+    ctx.save();
+    rr(lx,by,bw,bh,br); ctx.clip();
+    const sg=ctx.createLinearGradient(sx-bw*.18,0,sx+bw*.18,0);
+    sg.addColorStop(0,'transparent');
+    sg.addColorStop(.5,'rgba(255,255,255,.18)');
+    sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg; ctx.fillRect(sx-bw*.2,by,bw*.4,bh);
+    ctx.restore();
+  }
+
+  // label
+  ctx.font=`500 ${W*.038}px/1 ${FU}`;
   ctx.fillStyle='#09090a';
   const txt='Criar meu currículo →';
   const tw=ctx.measureText(txt).width;
-  ctx.fillText(txt, bx+(bw-tw)/2, by+bh*.64);
+  ctx.fillText(txt, lx+(bw-tw)/2, by+bh*.65);
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-function drawAccentLine(f, lx, ly){
-  const p=ease.out3(progress(f,20,80));
-  if(p<=0)return;
-  const len=lerp(0,W*.38,p);
-  ctx.globalAlpha=p*.45;
-  const lg=ctx.createLinearGradient(lx,0,lx+len,0);
-  lg.addColorStop(0,C_ACC); lg.addColorStop(1,'transparent');
-  ctx.strokeStyle=lg; ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+len,ly); ctx.stroke();
-  ctx.globalAlpha=1;
-}
-
+/* ══════════════════════════════════════════
+   LAYER — FADE
+══════════════════════════════════════════ */
 function drawFade(f){
-  const p=progress(f,TOTAL-45,TOTAL);
-  if(p<=0)return;
-  ctx.globalAlpha=ease.in3(p);
-  ctx.fillStyle=C_BG; ctx.fillRect(0,0,W,H);
+  const p=pg(f,TOTAL-50,TOTAL);
+  if(!p) return;
+  ctx.globalAlpha=E.i3(p);
+  ctx.fillStyle=BG; ctx.fillRect(0,0,W,H);
   ctx.globalAlpha=1;
 }
 
-/* ═══════════════════════════════════════════
-   DRAW — FORMAT LAYOUTS
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   MAIN DRAW — FEED
+══════════════════════════════════════════ */
 function drawFeed(f){
-  const bgAlpha=ease.out3(progress(f,0,30));
-  const LX=W*.082;
-
-  drawBg(bgAlpha,f);
-  drawParticles(bgAlpha);
-  drawAccentLine(f, LX, H*.34);
-  drawLogo(f, LX, H*.305);
-  drawBadge(f, LX, H*.352);
-  drawHeadline(f, LX, H*.49, W*.132, W*.112);
-  drawSubtext(f, LX, H*.788, W*.026);
-  drawDivider(f, LX, H*.808);
-  drawStats(f, LX, H*.876, W*.062, W*.022);
-  drawCTA(f, LX, H*.788);
+  const lx=W*.082;
+  drawBG(f);
+  drawParts(f);
+  drawGeo(f, lx, H*.295);
+  drawLogo(f,  lx, H*.295);
+  drawBadge(f, lx, H*.315);
+  drawHeadline(f, lx, H*.485, W*.135, W*.114);
+  drawSub(f,   lx, H*.788, W*.027);
+  drawDiv(f,   lx, H*.806);
+  drawStats(f, lx, H*.876, W*.065, W*.023);
+  drawCTA(f,   lx, H*.788, W*.33);
   drawFade(f);
 }
 
+/* ══════════════════════════════════════════
+   MAIN DRAW — STORIES
+══════════════════════════════════════════ */
 function drawStories(f){
-  const bgAlpha=ease.out3(progress(f,0,30));
-  const LX=W*.09;
+  const lx=W*.088;
+  drawBG(f);
+  drawParts(f);
 
-  drawBg(bgAlpha,f);
-  drawParticles(bgAlpha);
+  // extra top-right ambient
+  const ga=.28*(.7+.3*Math.sin(f*.014+2));
+  const gr2=ctx.createRadialGradient(W*.92,H*.12,0,W*.92,H*.12,W*.65);
+  gr2.addColorStop(0,`rgba(212,184,150,${ga})`);
+  gr2.addColorStop(1,'transparent');
+  ctx.fillStyle=gr2; ctx.fillRect(0,0,W,H);
 
-  // Stories: extra top glow
-  const ga2=bgAlpha*.35*(.6+.4*Math.sin(f*.022+1));
-  const g2=ctx.createRadialGradient(W*.88,H*.18,0,W*.88,H*.18,W*.6);
-  g2.addColorStop(0,`rgba(212,184,150,${ga2})`);
-  g2.addColorStop(1,'transparent');
-  ctx.fillStyle=g2; ctx.fillRect(0,0,W,H);
-
-  // Top area: logo + badge
-  drawAccentLine(f, LX, H*.175);
-  drawLogo(f, LX, H*.155);
-  drawBadge(f, LX, H*.18);
-
-  // Vertical spacer line left
-  const vlineP=ease.out3(progress(f,30,90));
-  if(vlineP>0){
-    ctx.globalAlpha=vlineP*.12;
-    ctx.fillStyle=C_ACC;
-    ctx.fillRect(LX, H*.22, 1.5, H*.52*vlineP);
+  // corner brackets top
+  const bkP=E.o3(pg(f,50,110));
+  if(bkP>0){
+    const sz=W*.06,pad=W*.05;
+    ctx.globalAlpha=bkP*.18; ctx.strokeStyle=ACC; ctx.lineWidth=2;
+    [[pad,H*.06],[W-pad,H*.06],[W-pad,H*.94],[pad,H*.94]].forEach(([cx,cy],i)=>{
+      const sx=cx<W/2?1:-1, sy=cy<H/2?1:-1;
+      ctx.beginPath();
+      ctx.moveTo(cx+sz*sx,cy); ctx.lineTo(cx,cy); ctx.lineTo(cx,cy+sz*sy);
+      ctx.stroke();
+    });
     ctx.globalAlpha=1;
   }
 
-  // Big centered headline (stories: larger, more vertical space)
-  drawHeadlineStories(f, LX+W*.06, H*.32, H*.085, W*.158);
+  // top: logo + badge + geo
+  drawGeo(f, lx, H*.135);
+  drawLogo(f,  lx, H*.132);
+  drawBadge(f, lx, H*.148);
 
-  // Subtext
-  drawSubtext(f, LX+W*.06, H*.645, W*.034);
+  // left accent bar
+  const barP=E.o3(pg(f,30,90));
+  if(barP>0){
+    const bary=H*.18, barH=H*.52*barP;
+    const lg=ctx.createLinearGradient(0,bary,0,bary+barH);
+    lg.addColorStop(0,`rgba(212,184,150,.18)`);
+    lg.addColorStop(1,'transparent');
+    ctx.globalAlpha=barP; ctx.fillStyle=lg;
+    ctx.fillRect(lx,bary,2,barH);
+    ctx.globalAlpha=1;
+  }
 
-  // Divider
-  drawDivider(f, LX, H*.668);
+  // headline larger, indented
+  drawHeadline(f, lx+W*.07, H*.28, H*.082, W*.158);
 
-  // Stats side by side
-  drawStats(f, LX, H*.706, W*.078, W*.028);
+  // subtext
+  drawSub(f,   lx+W*.07, H*.63, W*.034);
+  drawDiv(f,   lx,       H*.655);
+  drawStats(f, lx,       H*.698, W*.08, W*.028);
 
-  // CTA larger and centered
-  const ctaP=ease.spring(progress(f,330,390));
+  // big centered CTA
+  const ctaP=E.spr(pg(f,340,405));
   if(ctaP>0){
-    const bw=W*.78, bh=W*.13, bx=(W-bw)/2, by=H*.8, br=W*.018;
+    const bw=W*.79, bh=W*.13, bx=(W-bw)/2, by=H*.8, br=W*.02;
     ctx.save(); ctx.globalAlpha=ctaP;
-    const pulse=.5+.5*Math.sin(f*.08);
-    const bg2=ctx.createRadialGradient(W/2,by+bh/2,0,W/2,by+bh/2,W*.45);
-    bg2.addColorStop(0,`rgba(212,184,150,${.22*pulse})`);
-    bg2.addColorStop(1,'transparent');
-    ctx.fillStyle=bg2; ctx.fillRect(0,by-W*.08,W,bh+W*.16);
-    roundRect(bx,by,bw,bh,br);
-    ctx.fillStyle=C_ACC; ctx.fill();
-    ctx.font=`500 ${W*.05}px/1 ${FONT_U}`;
+    const pulse=.5+.5*Math.sin(f*.07);
+    const g1=ctx.createRadialGradient(W/2,by+bh/2,0,W/2,by+bh/2,W*.5);
+    g1.addColorStop(0,`rgba(212,184,150,${.25*pulse})`);
+    g1.addColorStop(1,'transparent');
+    ctx.fillStyle=g1; ctx.fillRect(0,by-bh*.5,W,bh*2);
+    rr(bx,by,bw,bh,br);
+    ctx.fillStyle=ACC; ctx.fill();
+    // shimmer
+    const sp=(f*.018)%2;
+    if(sp<1){
+      const sx=lerp(bx-bw*.3,bx+bw*1.3,sp);
+      ctx.save(); rr(bx,by,bw,bh,br); ctx.clip();
+      const sg=ctx.createLinearGradient(sx-bw*.18,0,sx+bw*.18,0);
+      sg.addColorStop(0,'transparent');
+      sg.addColorStop(.5,'rgba(255,255,255,.18)');
+      sg.addColorStop(1,'transparent');
+      ctx.fillStyle=sg; ctx.fillRect(sx-bw*.2,by,bw*.4,bh);
+      ctx.restore();
+    }
+    ctx.font=`500 ${W*.05}px/1 ${FU}`;
     ctx.fillStyle='#09090a';
     const txt='Criar meu currículo →';
-    const tw=ctx.measureText(txt).width;
-    ctx.fillText(txt, bx+(bw-tw)/2, by+bh*.64);
+    const tw2=ctx.measureText(txt).width;
+    ctx.fillText(txt,bx+(bw-tw2)/2,by+bh*.66);
     ctx.restore(); ctx.globalAlpha=1;
   }
 
-  // Bottom tag
-  const tagP=ease.out3(progress(f,350,400));
+  // bottom url tag
+  const tagP=E.o3(pg(f,370,430));
   if(tagP>0){
-    ctx.globalAlpha=tagP*.25;
-    ctx.font=`300 ${W*.022}px/1 ${FONT_U}`;
-    ctx.fillStyle=C_W;
+    ctx.globalAlpha=tagP*.22;
+    ctx.font=`300 ${W*.024}px/1 ${FU}`;
+    ctx.fillStyle=W1;
     ctx.textAlign='center';
-    ctx.fillText('curriculo.ai', W/2, H*.93);
+    ctx.fillText('curriculo.ai',W/2,H*.935);
     ctx.textAlign='left';
     ctx.globalAlpha=1;
   }
@@ -528,93 +680,63 @@ function drawStories(f){
   drawFade(f);
 }
 
-function drawHeadlineStories(f, lx, startY, lineH, fs){
-  const lines=[
-    {t:'O mercado',   s:85,  e:145, italic:false},
-    {t:'não espera',  s:115, e:180, italic:true},
-    {t:'por você.',   s:150, e:210, italic:false},
-  ];
-  lines.forEach((ln,i)=>{
-    const p=ease.out5(progress(f,ln.s,ln.e));
-    if(p<=0)return;
-    ctx.save();
-    ctx.globalAlpha=p;
-    ctx.translate(0,lerp(W*.04,0,p));
-    ctx.font = ln.italic
-      ? `italic 300 ${fs}px/1 ${FONT_D}`
-      : `300 ${fs}px/1 ${FONT_D}`;
-    ctx.fillStyle = ln.italic ? C_ACC : C_W;
-    ctx.fillText(ln.t, lx, startY+i*lineH);
-    ctx.restore(); ctx.globalAlpha=1;
-  });
-}
-
-/* ═══════════════════════════════════════════
-   MAIN LOOP
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   LOOP
+══════════════════════════════════════════ */
 function draw(f){
-  if(FORMAT==='feed') drawFeed(f);
-  else                drawStories(f);
+  FMT==='feed' ? drawFeed(f) : drawStories(f);
 }
-
 function loop(){
   draw(frame);
-  frame = (frame+1) % TOTAL;
-  raf = requestAnimationFrame(loop);
+  frame=(frame+1)%TOTAL;
+  raf=requestAnimationFrame(loop);
 }
+function resetA(){ frame=0; initParticles(); }
 
-function resetAnim(){
-  frame=0; initParticles();
-}
+// wait for fonts then start
+document.fonts.ready.then(()=>{ loop(); });
 
-loop();
-
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════
    RECORDING
-═══════════════════════════════════════════ */
-function startRecording(){
+══════════════════════════════════════════ */
+function startRec(){
   chunks=[];
   const stream=canvas.captureStream(FPS);
   const mimes=['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'];
   let mime='';
-  for(const m of mimes){ if(MediaRecorder.isTypeSupported(m)){mime=m;break;} }
-  if(!mime){ alert('Seu browser não suporta gravação. Use Chrome ou Edge.'); return; }
+  for(const m of mimes) if(MediaRecorder.isTypeSupported(m)){mime=m;break;}
+  if(!mime){alert('Use Chrome ou Edge para gravar.');return;}
 
-  recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:18_000_000});
-  recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
+  recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:20_000_000});
+  recorder.ondataavailable=e=>e.data.size&&chunks.push(e.data);
   recorder.onstop=()=>{
     const blob=new Blob(chunks,{type:mime});
     const ext=mime.includes('mp4')?'mp4':'webm';
-    const fmt=FORMAT==='stories'?'stories':'feed';
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=`criativo-video-${fmt}-curriculo-ai.${ext}`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const a=Object.assign(document.createElement('a'),{
+      href:URL.createObjectURL(blob),
+      download:`criativo-${FMT}-curriculo-ai.${ext}`
+    });
+    a.click(); URL.revokeObjectURL(a.href);
     setStatus('idle');
   };
   recorder.start(100);
-  setStatus('recording');
-  document.getElementById('btnRec').disabled=true;
-  document.getElementById('btnStop').disabled=false;
-  document.getElementById('btnFeed').disabled=true;
-  document.getElementById('btnStories').disabled=true;
+  setStatus('rec');
+  ['bRec'].forEach(id=>document.getElementById(id).disabled=true);
+  ['bStop'].forEach(id=>document.getElementById(id).disabled=false);
+  ['tFeed','tStories'].forEach(id=>document.getElementById(id).disabled=true);
 }
 
-function stopRecording(){
-  if(recorder&&recorder.state!=='inactive') recorder.stop();
-  document.getElementById('btnRec').disabled=false;
-  document.getElementById('btnStop').disabled=true;
-  document.getElementById('btnFeed').disabled=false;
-  document.getElementById('btnStories').disabled=false;
+function stopRec(){
+  recorder?.state!=='inactive'&&recorder.stop();
+  document.getElementById('bRec').disabled=false;
+  document.getElementById('bStop').disabled=true;
+  ['tFeed','tStories'].forEach(id=>document.getElementById(id).disabled=false);
 }
 
 function setStatus(s){
-  const el=document.getElementById('status');
-  el.innerHTML = s==='recording'
-    ? '<span class="rec-dot"></span>Gravando — clique em Parar e Baixar quando quiser'
-    : 'Animação em loop · Clique em Gravar para capturar';
+  document.getElementById('status').innerHTML=s==='rec'
+    ?'<span class="dot"></span>Gravando — pare quando quiser para baixar'
+    :'Animação em loop · Clique em Gravar para capturar';
 }
 </script>
 </body>
