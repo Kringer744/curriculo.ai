@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CurrículoAI — Currículo profissional em minutos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090a;--s1:#111113;--s2:#18181b;--s3:#222226;
+  --b0:rgba(255,255,255,0.04);--b1:rgba(255,255,255,0.08);--b2:rgba(255,255,255,0.14);
+  --t0:#fff;--t1:rgba(255,255,255,.72);--t2:rgba(255,255,255,.42);--t3:rgba(255,255,255,.2);
+  --acc:#d4b896;--acc-dim:rgba(212,184,150,0.08);--acc-b:rgba(212,184,150,0.22);
+  --fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t0);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden;font-weight:300}
+
+/* SCREENS */
+.scr{display:none;min-height:100vh}.scr.on{display:block}
+#loading-scr{display:none;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:0}
+#loading-scr.on{display:flex}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;border-bottom:1px solid var(--b0);backdrop-filter:blur(24px);background:rgba(9,9,10,0.82)}
+.logo{font-family:var(--fd);font-size:22px;font-weight:300;letter-spacing:1px}
+.logo em{font-style:italic;color:var(--acc)}
+.nav-r{display:flex;gap:32px;align-items:center}
+.nav-r a{color:var(--t2);text-decoration:none;font-size:13px;letter-spacing:.4px;transition:color .2s;cursor:pointer;font-weight:300}
+.nav-r a:hover{color:var(--t0)}
+.nav-cta{background:var(--t0);color:#09090a !important;padding:9px 22px;border-radius:6px;font-size:12px !important;font-weight:500 !important;letter-spacing:.5px;transition:opacity .2s !important}
+.nav-cta:hover{opacity:.85}
+
+/* HERO */
+.hero{padding:196px 56px 130px;max-width:1100px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--b2);color:var(--t2);padding:5px 14px;border-radius:100px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:36px;font-weight:400}
+.hero-eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--acc);flex-shrink:0}
+.hero h1{font-family:var(--fd);font-size:clamp(52px,7.5vw,100px);font-weight:300;line-height:.95;letter-spacing:-1px;margin-bottom:30px}
+.hero h1 em{font-style:italic;color:var(--acc)}
+.hero-lead{font-size:15px;color:var(--t2);max-width:460px;margin-bottom:48px;line-height:1.85;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:24px}
+.btn-prim{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#09090a;padding:14px 30px;border-radius:7px;font-size:13px;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;font-family:var(--fb);transition:opacity .15s,transform .15s}
+.btn-prim:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{color:var(--t2);font-size:13px;cursor:pointer;border:none;background:none;font-family:var(--fb);font-weight:300;letter-spacing:.3px;transition:color .2s}
+.btn-ghost:hover{color:var(--t0)}
+.hero-nums{display:flex;gap:52px;margin-top:80px;padding-top:44px;border-top:1px solid var(--b1)}
+.hero-n{font-family:var(--fd);font-size:38px;font-weight:300;letter-spacing:-1px}
+.hero-nl{font-size:12px;color:var(--t3);margin-top:3px;letter-spacing:.3px}
+
+/* SECTIONS */
+section{padding:108px 56px}
+.si{max-width:1100px;margin:0 auto}
+.sec-kicker{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:18px}
+.sec-h{font-family:var(--fd);font-size:clamp(34px,4.5vw,58px);font-weight:300;letter-spacing:-.5px;line-height:1.05;margin-bottom:20px}
+.sec-p{font-size:14px;color:var(--t2);font-weight:300;max-width:460px;line-height:1.85}
+
+/* STEPS */
+.steps-g{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:64px;background:var(--b1);border-radius:14px;overflow:hidden;border:1px solid var(--b1)}
+.step-c{background:var(--s1);padding:44px 34px;transition:background .2s}
+.step-c:hover{background:var(--s2)}
+.step-n{font-family:var(--fd);font-size:12px;color:var(--acc);letter-spacing:2px;margin-bottom:22px;font-weight:400}
+.step-ic{width:40px;height:40px;border-radius:9px;background:var(--s3);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:20px}
+.step-c h3{font-family:var(--fd);font-size:20px;font-weight:300;margin-bottom:9px;letter-spacing:-.3px}
+.step-c p{font-size:13px;color:var(--t2);line-height:1.7;font-weight:300}
+
+/* ── SEÇÃO ESPECIALISTAS ── */
+.experts-s{background:var(--s1);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.experts-inner{max-width:1100px;margin:0 auto}
+.experts-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:72px}
+.experts-quote{font-family:var(--fd);font-size:clamp(22px,3vw,34px);font-weight:300;line-height:1.4;letter-spacing:-.3px;color:var(--t1)}
+.experts-quote em{font-style:italic;color:var(--acc)}
+.experts-stat-grid{display:flex;flex-direction:column;gap:20px}
+.expert-stat{display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--s2);border:1px solid var(--b1);border-radius:10px}
+.expert-stat-n{font-family:var(--fd);font-size:32px;font-weight:300;color:var(--acc);letter-spacing:-1px;min-width:70px}
+.expert-stat-l{font-size:13px;color:var(--t2);font-weight:300;line-height:1.5}
+
+/* Error cards */
+.errors-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:24px}
+.errors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.error-card{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:22px 24px;position:relative;overflow:hidden}
+.error-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(212,100,80,.6),transparent)}
+.error-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(212,100,80,.7);margin-bottom:10px;font-weight:400}
+.error-tag::before{content:'×';font-size:14px;font-weight:300}
+.error-card h4{font-family:var(--fd);font-size:17px;font-weight:300;margin-bottom:7px;letter-spacing:-.2px}
+.error-card p{font-size:12px;color:var(--t2);line-height:1.65;font-weight:300}
+
+/* Team */
+.team-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
+.team-card{background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:28px 26px}
+.team-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px;font-family:var(--fd);font-size:18px;font-weight:400;color:var(--acc);border:1px solid var(--acc-b);background:var(--acc-dim)}
+.team-name{font-size:14px;font-weight:400;margin-bottom:3px;letter-spacing:.1px}
+.team-role{font-size:11px;color:var(--acc);letter-spacing:.5px;margin-bottom:12px;text-transform:uppercase;font-weight:400}
+.team-bio{font-size:12.5px;color:var(--t2);line-height:1.7;font-weight:300}
+
+/* CHAT PREVIEW */
+.prev-s{border-top:1px solid var(--b1);border-bottom:1px solid var(--b1)}
+.prev-w{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto}
+.chat-phone{background:var(--s2);border-radius:20px;border:1px solid var(--b2);padding:28px 24px}
+.chat-top{font-size:10px;color:var(--t3);letter-spacing:1.5px;margin-bottom:22px;text-transform:uppercase}
+.msg{margin-bottom:12px}
+.msg.ai{background:var(--s3);border:1px solid var(--b1);border-radius:14px 14px 14px 3px;padding:12px 16px;font-size:13px;color:var(--t1);max-width:88%;line-height:1.6;font-weight:300}
+.msg.usr{background:var(--acc-dim);border:1px solid var(--acc-b);border-radius:14px 14px 3px 14px;padding:12px 16px;font-size:13px;color:var(--t0);max-width:88%;margin-left:auto;font-weight:300}
+.ai-lbl{font-size:10px;color:var(--t3);margin-bottom:4px;letter-spacing:1px}
+
+/* CTA */
+.cta-sec{background:var(--s1);border-top:1px solid var(--b1)}
+.cta-inner{max-width:680px;margin:0 auto;text-align:center;padding:100px 56px}
+.cta-price{font-family:var(--fd);font-size:14px;color:var(--t2);margin-bottom:32px;font-weight:300}
+.cta-price strong{font-size:26px;color:var(--acc);font-weight:300;letter-spacing:-.5px}
+
+footer{padding:36px 56px;border-top:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+footer p{font-size:12px;color:var(--t3);font-weight:300}
+
+/* ── CHAT APP ── */
+#chat-scr{background:var(--bg);display:grid;grid-template-rows:62px 1fr 78px;min-height:100vh}
+#chat-scr.on{display:grid}
+.chat-nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid var(--b1);background:rgba(9,9,10,.9);backdrop-filter:blur(20px)}
+.chat-nav-logo{font-family:var(--fd);font-size:18px;font-weight:300;letter-spacing:.5px}
+.chat-nav-logo em{font-style:italic;color:var(--acc)}
+.chat-prog-wrap{display:flex;align-items:center;gap:12px}
+.chat-prog-bar{width:150px;height:2px;background:var(--b1);border-radius:2px;overflow:hidden}
+.chat-prog-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.chat-prog-pct{font-size:11px;color:var(--t3);min-width:28px}
+.chat-body{overflow-y:auto;display:flex;flex-direction:column;max-width:680px;margin:0 auto;width:100%;padding:32px 24px}
+.chat-msg{margin-bottom:18px;animation:fadeUp .32s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.chat-msg.bot .bubble{background:var(--s1);border:1px solid var(--b1);border-radius:16px 16px 16px 4px;padding:15px 19px;font-size:14px;color:var(--t1);line-height:1.72;font-weight:300;max-width:88%;display:inline-block}
+.chat-msg.me .bubble{background:var(--acc-dim);border:1px solid var(--acc-b);border-radius:16px 16px 4px 16px;padding:15px 19px;font-size:14px;color:var(--t0);line-height:1.72;font-weight:300;max-width:88%;display:inline-block;margin-left:auto}
+.chat-msg.me{display:flex;justify-content:flex-end}
+.chat-msg .bot-tag{font-size:10px;color:var(--t3);margin-bottom:4px;letter-spacing:1px}
+.opts-wrap{display:flex;flex-wrap:wrap;gap:8px;max-width:680px;margin:0 auto 18px;padding:0 24px;width:100%;animation:fadeUp .32s ease both}
+.opt-btn{background:var(--s2);border:1px solid var(--b2);border-radius:100px;padding:8px 18px;font-size:13px;color:var(--t1);cursor:pointer;font-family:var(--fb);font-weight:300;transition:all .14s}
+.opt-btn:hover{border-color:var(--acc-b);background:var(--acc-dim);color:var(--t0)}
+.chat-input-outer{border-top:1px solid var(--b1);background:var(--s1);display:flex;align-items:stretch}
+.chat-input-inner{max-width:680px;margin:0 auto;width:100%;display:flex;align-items:stretch}
+.chat-input{flex:1;background:transparent;border:none;outline:none;color:var(--t0);font-family:var(--fb);font-size:14px;font-weight:300;padding:20px 22px;resize:none;max-height:110px;line-height:1.5}
+.chat-input::placeholder{color:var(--t3)}
+.chat-send{background:var(--acc);border:none;cursor:pointer;padding:0 26px;font-family:var(--fb);font-size:13px;font-weight:500;color:#09090a;transition:opacity .14s;flex-shrink:0}
+.chat-send:hover{opacity:.85}
+.typing-dot{display:inline-flex;gap:4px;align-items:center;padding:13px 17px;background:var(--s1);border:1px solid var(--b1);border-radius:16px 16px 16px 4px}
+.typing-dot span{width:5px;height:5px;border-radius:50%;background:var(--t2);animation:blink 1.2s ease infinite}
+.typing-dot span:nth-child(2){animation-delay:.2s}
+.typing-dot span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+
+/* LOADING */
+.load-logo{font-family:var(--fd);font-size:26px;font-weight:300;letter-spacing:1px;margin-bottom:6px}
+.load-logo em{font-style:italic;color:var(--acc)}
+.load-sub{font-size:13px;color:var(--t2);margin-bottom:40px;font-weight:300}
+.load-steps{display:flex;flex-direction:column;gap:8px;width:290px}
+.ld-step{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--t3);font-weight:300;padding:5px 0;transition:color .3s}
+.ld-step.done{color:var(--t2)}.ld-step.act{color:var(--t0)}
+.ld-dot{width:6px;height:6px;border-radius:50%;background:var(--s3);flex-shrink:0;transition:background .3s}
+.ld-step.done .ld-dot{background:var(--acc)}
+.ld-step.act .ld-dot{background:var(--acc);box-shadow:0 0 8px var(--acc);animation:lp .8s ease infinite}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* RESULT */
+#result-scr{background:var(--bg);display:none;padding:0}
+#result-scr.on{display:block}
+.res-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 48px;border-bottom:1px solid var(--b1);background:rgba(9,9,10,.92);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100}
+.res-logo{font-family:var(--fd);font-size:20px;font-weight:300;letter-spacing:.5px}
+.res-logo em{font-style:italic;color:var(--acc)}
+.res-acts{display:flex;gap:10px;align-items:center}
+.btn-outline{background:transparent;border:1px solid var(--b2);color:var(--t2);padding:9px 18px;border-radius:6px;font-size:12px;font-weight:400;cursor:pointer;font-family:var(--fb);transition:all .14s;letter-spacing:.3px}
+.btn-outline:hover{color:var(--t0);background:var(--s2)}
+.btn-pay{background:var(--acc);color:#09090a;border:none;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:opacity .14s;display:flex;align-items:center;gap:7px}
+.btn-pay:hover{opacity:.88}
+.res-body{display:grid;grid-template-columns:1fr 330px;gap:24px;padding:32px 48px;max-width:1260px;margin:0 auto}
+
+/* CV PAPER */
+.paywall-wrap{position:relative;border-radius:10px;overflow:hidden}
+.cv-paper{background:#f9f8f6;color:#1a1a1a;border-radius:10px;overflow:hidden;filter:blur(3px) brightness(.84);pointer-events:none;user-select:none;transition:filter .5s;font-family:'DM Sans',sans-serif}
+.cv-paper.unlocked{filter:none;pointer-events:auto}
+
+/* ── CV DESIGN PREMIUM ── */
+.cv-wrapper{font-family:'DM Sans',sans-serif;background:#f9f8f6}
+
+.cv-head{background:#0d0d0f;color:#fff;padding:0}
+.cv-head-inner{padding:38px 48px 34px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.cv-name{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;letter-spacing:-1.5px;line-height:.95;color:#fff;margin-bottom:7px}
+.cv-title{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:400}
+.cv-contacts-col{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.cv-contact-line{font-size:10.5px;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.cv-contact-line::after{content:'';width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.cv-contact-line:last-child::after{display:none}
+
+.cv-stripe{height:3px;background:linear-gradient(90deg,#c8a478 0%,#e2c9a0 40%,rgba(200,164,120,.15) 100%)}
+
+.cv-body{display:grid;grid-template-columns:1fr 200px;background:#f9f8f6}
+
+/* Main column */
+.cv-main{padding:34px 40px 40px;border-right:1px solid #e8e4de}
+.cv-section{margin-bottom:28px}
+.cv-section:last-child{margin-bottom:0}
+.cv-section-title{font-size:7.5px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:#bab0a2;margin-bottom:16px;padding-bottom:9px;border-bottom:1.5px solid #ede9e2;display:flex;align-items:center;gap:10px}
+.cv-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(200,164,120,.3),transparent)}
+
+.cv-summary{font-size:12.5px;color:#4d4740;line-height:1.85;font-weight:300;border-left:2px solid #c8a478;padding-left:14px}
+
+/* Experience */
+.cv-exp-item{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #ede9e2}
+.cv-exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cv-exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px;gap:16px}
+.cv-exp-role{font-size:13.5px;font-weight:500;color:#111;line-height:1.2}
+.cv-exp-period{font-size:9.5px;color:#c8a478;font-weight:500;white-space:nowrap;letter-spacing:.5px;padding-top:1px;background:#f0ebe3;padding:2px 8px;border-radius:3px;flex-shrink:0}
+.cv-exp-company{font-size:11.5px;color:#968d82;margin-bottom:10px;font-weight:400;letter-spacing:.1px}
+.cv-exp-bullets{list-style:none;display:flex;flex-direction:column;gap:6px}
+.cv-exp-bullets li{font-size:11.5px;color:#554f48;line-height:1.7;padding-left:16px;position:relative;font-weight:300}
+.cv-exp-bullets li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:1px;background:#c8a478}
+
+/* Education */
+.cv-edu-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.cv-edu-course{font-size:13px;font-weight:500;color:#111;margin-bottom:2px}
+.cv-edu-inst{font-size:11px;color:#968d82;font-weight:300}
+.cv-edu-level{display:inline-block;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#c8a478;background:#f0ebe3;padding:2px 7px;border-radius:3px;margin-top:4px}
+.cv-edu-year{font-size:10px;color:#c4bdb4;white-space:nowrap;font-weight:400}
+
+/* Sidebar */
+.cv-side{padding:34px 24px 40px;background:#f2efe9}
+.cv-side-section{margin-bottom:26px}
+.cv-side-section:last-child{margin-bottom:0}
+.cv-side-title{font-size:7px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#bab0a2;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e0dbd2}
+
+.cv-level-pill{display:inline-flex;align-items:center;gap:5px;background:#111;color:#c8a478;font-size:8.5px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 10px;border-radius:4px;margin-bottom:6px}
+.cv-level-dot{width:4px;height:4px;border-radius:50%;background:#c8a478}
+
+.cv-skill-item{font-size:11px;color:#5a534c;padding:7px 0;border-bottom:1px solid #e4dfd6;font-weight:300;display:flex;align-items:center;gap:8px;line-height:1.3}
+.cv-skill-item:last-child{border-bottom:none}
+.cv-skill-item::before{content:'';width:4px;height:4px;border-radius:50%;background:#c8a478;flex-shrink:0}
+
+.cv-lang-item{margin-bottom:10px}
+.cv-lang-name{font-size:11.5px;color:#333;font-weight:400;margin-bottom:1px}
+.cv-lang-lvl{font-size:9.5px;color:#b8b0a5;font-weight:300}
+
+.cv-contact-side{font-size:10.5px;color:#6e6760;margin-bottom:7px;line-height:1.45;font-weight:300;word-break:break-all}
+
+/* Paywall overlay */
+.paywall-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 15%,rgba(9,9,10,.88) 55%,rgba(9,9,10,.98) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:44px 36px;text-align:center}
+.paywall-overlay.hidden{display:none}
+.pw-lock{font-size:24px;margin-bottom:12px}
+.pw-t{font-family:var(--fd);font-size:28px;font-weight:300;margin-bottom:8px;letter-spacing:-.5px;line-height:1.1}
+.pw-t em{font-style:italic;color:var(--acc)}
+.pw-p{font-size:13px;color:var(--t2);margin-bottom:26px;font-weight:300;line-height:1.65;max-width:320px}
+.pw-btn{background:var(--acc);color:#09090a;border:none;padding:14px 36px;border-radius:7px;font-size:13.5px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:opacity .14s,transform .14s}
+.pw-btn:hover{opacity:.88;transform:translateY(-1px)}
+.pw-note{font-size:11px;color:var(--t3);margin-top:10px;font-weight:300}
+
+/* AI PANEL */
+.ai-p{background:var(--s1);border:1px solid var(--b1);border-radius:14px;overflow:hidden;position:sticky;top:88px}
+.ai-p-hd{padding:18px 22px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:10px}
+.ai-av{width:30px;height:30px;background:var(--acc-dim);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;border:1px solid var(--acc-b)}
+.ai-pnm{font-size:13px;font-weight:400;letter-spacing:.1px}
+.ai-pst{font-size:10px;color:var(--acc);letter-spacing:.5px}
+.ai-tips{padding:18px 22px;display:flex;flex-direction:column;gap:10px}
+.ai-tip{background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--t2);line-height:1.55;font-weight:300}
+.ai-tip strong{color:var(--t1);font-weight:400}
+.ai-imp{padding:14px 22px;border-top:1px solid var(--b1)}
+.ai-imp-lbl{font-size:10px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px}
+.imp-btn{display:block;width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:9px 12px;font-size:12px;color:var(--t2);cursor:pointer;text-align:left;margin-bottom:6px;transition:all .14s;font-family:var(--fb);font-weight:300}
+.imp-btn:hover{border-color:var(--acc-b);color:var(--t0);background:var(--acc-dim)}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.modal-bg.on{display:flex}
+.modal{background:var(--s1);border:1px solid var(--b2);border-radius:18px;padding:48px 40px;max-width:400px;width:90%;text-align:center;animation:fadeUp .28s ease}
+.modal-ic{font-size:32px;margin-bottom:18px}
+.modal-t{font-family:var(--fd);font-size:38px;font-weight:300;margin-bottom:9px;letter-spacing:-.5px;line-height:1}
+.modal-t em{font-style:italic;color:var(--acc)}
+.modal-p{font-size:13px;color:var(--t2);margin-bottom:30px;line-height:1.75;font-weight:300}
+.modal-val{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:24px}
+.modal-price{font-family:var(--fd);font-size:54px;font-weight:300;color:var(--acc);letter-spacing:-2px;line-height:1}
+.modal-val-info strong{display:block;font-size:13px;font-weight:400;color:var(--t0);margin-bottom:2px;text-align:left}
+.modal-val-info span{font-size:11.5px;color:var(--t3);font-weight:300}
+.modal-checks{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;text-align:left;background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:14px 18px}
+.modal-check{font-size:13px;color:var(--t2);display:flex;align-items:center;gap:9px;font-weight:300}
+.modal-check::before{content:'✓';color:var(--acc);font-size:11px;font-weight:600}
+.modal-pay-btn{width:100%;background:var(--acc);color:#09090a;border:none;padding:15px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--fb);transition:opacity .14s,transform .14s;margin-bottom:10px}
+.modal-pay-btn:hover{opacity:.88;transform:translateY(-1px)}
+.modal-close{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fb);font-weight:300;transition:color .2s}
+.modal-close:hover{color:var(--t1)}
+
+@media(max-width:900px){
+  nav,footer{padding:16px 22px}
+  .hero{padding:130px 22px 90px}
+  section{padding:80px 22px}
+  .steps-g{grid-template-columns:1fr 1fr}
+  .experts-top,.prev-w,.errors-grid,.team-g{grid-template-columns:1fr}
+  .res-body{grid-template-columns:1fr;padding:18px 20px}
+  .res-nav{padding:14px 20px}
+  .hero-nums{flex-wrap:wrap;gap:28px}
+  .chat-body,.opts-wrap{padding-left:16px;padding-right:16px}
+  .chat-nav{padding:0 18px}
+  .cta-inner{padding:80px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ LANDING ═══════ -->
+<div id="land-scr" class="scr on">
+<nav>
+  <div class="logo">Currículo<em>AI</em></div>
+  <div class="nav-r">
+    <a onclick="scrollSec('#como')">Como funciona</a>
+    <a onclick="scrollSec('#especialistas')">Nossa equipe</a>
+    <a class="nav-cta" onclick="goChat()">Criar currículo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Desenvolvido por especialistas em RH e IA</div>
+  <h1>Seu próximo<br>emprego começa<br>com um currículo <em>perfeito</em></h1>
+  <p class="hero-lead">Errar no currículo é mais comum do que parece — e caro. Nossa IA, construída com especialistas em recrutamento, escreve, formata e otimiza tudo por você em 5 minutos.</p>
+  <div class="hero-actions">
+    <button class="btn-prim" onclick="goChat()">Criar meu currículo — grátis</button>
+    <button class="btn-ghost" onclick="scrollSec('#como')">Como funciona ↓</button>
+  </div>
+  <div class="hero-nums">
+    <div><div class="hero-n">14k+</div><div class="hero-nl">Currículos gerados</div></div>
+    <div><div class="hero-n">4.9</div><div class="hero-nl">Avaliação média</div></div>
+    <div><div class="hero-n">73%</div><div class="hero-nl">Eliminados na triagem automática</div></div>
+    <div><div class="hero-n">3×</div><div class="hero-nl">Mais entrevistas</div></div>
+  </div>
+</div>
+
+<!-- COMO FUNCIONA -->
+<section id="como">
+<div class="si">
+  <div class="sec-kicker">Como funciona</div>
+  <div class="sec-h">Simples como<br>uma conversa</div>
+  <div class="steps-g">
+    <div class="step-c">
+      <div class="step-n">01</div>
+      <div class="step-ic">💬</div>
+      <h3>Você conversa</h3>
+      <p>A IA faz as perguntas certas. Você responde do seu jeito, sem formulário.</p>
+    </div>
+    <div class="step-c">
+      <div class="step-n">02</div>
+      <div class="step-ic">🤖</div>
+      <h3>IA escreve tudo</h3>
+      <p>Suas respostas viram texto profissional, com linguagem de RH e otimizado para ATS.</p>
+    </div>
+    <div class="step-c">
+      <div class="step-n">03</div>
+      <div class="step-ic">✦</div>
+      <h3>Veja de graça</h3>
+      <p>Preview completo sem pagar nada. Revise quantas vezes quiser.</p>
+    </div>
+    <div class="step-c">
+      <div class="step-n">04</div>
+      <div class="step-ic">📄</div>
+      <h3>Pague e baixe</h3>
+      <p>Satisfeito? R$9 e o PDF profissional está pronto pra enviar hoje.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ESPECIALISTAS -->
+<section class="experts-s" id="especialistas">
+<div class="experts-inner si">
+
+  <div class="experts-top">
+    <div>
+      <div class="sec-kicker">Por que confiar em nós</div>
+      <div class="sec-h">Construído por quem<br>vive o <em>recrutamento</em></div>
+      <p class="sec-p" style="margin-top:16px">Não é só IA. É IA treinada com anos de experiência real em seleção e desenvolvimento de pessoas — combinada com engenharia de ponta. Cada detalhe do currículo foi pensado por alguém que já leu (e rejeitou) milhares deles.</p>
+    </div>
+    <div class="experts-stat-grid">
+      <div class="expert-stat">
+        <div class="expert-stat-n">73%</div>
+        <div class="expert-stat-l">dos currículos são eliminados antes de chegar em um humano — por sistemas ATS mal configurados</div>
+      </div>
+      <div class="expert-stat">
+        <div class="expert-stat-n">6 seg</div>
+        <div class="expert-stat-l">é o tempo médio que um recrutador olha para um currículo antes de decidir continuar ou não</div>
+      </div>
+      <div class="expert-stat">
+        <div class="expert-stat-n">89%</div>
+        <div class="expert-stat-l">dos candidatos cometem ao menos um erro crítico de formatação ou linguagem no currículo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="errors-label">Erros mais comuns que eliminam candidatos</div>
+  <div class="errors-grid">
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Currículo genérico</h4>
+      <p>Usar o mesmo currículo para todas as vagas. Recrutadores percebem e desapontam imediatamente. Nossa IA adapta o texto para cada perfil de vaga.</p>
+    </div>
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Sem resultados concretos</h4>
+      <p>"Responsável por vendas" não impressiona ninguém. "Aumentei as vendas em 40% em 6 meses" sim. A IA te ajuda a extrair e formatar esses números.</p>
+    </div>
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Formatação invisível ao ATS</h4>
+      <p>Tabelas, colunas e ícones bonitos podem tornar seu currículo ilegível para sistemas automáticos. Nosso layout é otimizado para passar nessa triagem.</p>
+    </div>
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Verbos fracos e passivos</h4>
+      <p>"Auxiliei", "participei", "colaborei" transmitem passividade. A IA usa verbos de impacto e linguagem ativa que demonstram protagonismo.</p>
+    </div>
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Resumo profissional vago</h4>
+      <p>Muitos ignoram ou escrevem algo genérico demais. Esse é o primeiro texto que o recrutador lê — nossa IA cria um resumo personalizado e direto.</p>
+    </div>
+    <div class="error-card">
+      <div class="error-tag">Erro frequente</div>
+      <h4>Informações fora de ordem</h4>
+      <p>Hierarquia errada de seções confunde e cansa o leitor. Seguimos o padrão esperado pelo mercado brasileiro e internacional.</p>
+    </div>
+  </div>
+
+  <div class="team-g">
+    <div class="team-card">
+      <div class="team-av">RC</div>
+      <div class="team-name">Rafaela Costa</div>
+      <div class="team-role">Head de Recrutamento</div>
+      <p class="team-bio">15 anos como headhunter e gestora de RH em grandes corporações brasileiras. Treinou a IA com padrões reais de triagem e seleção do mercado.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-av">TM</div>
+      <div class="team-name">Thiago Mendes</div>
+      <div class="team-role">Engenheiro de IA</div>
+      <p class="team-bio">Especialista em modelos de linguagem e processamento de texto profissional, com histórico em pesquisa aplicada de NLP. Responsável pela arquitetura de geração de conteúdo.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-av">LF</div>
+      <div class="team-name">Letícia Faria</div>
+      <div class="team-role">Especialista em Carreira</div>
+      <p class="team-bio">Consultora de carreira com mais de 2.000 currículos revisados ao longo de uma década. Definiu os critérios de qualidade e os padrões de linguagem usados pela IA.</p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- CHAT PREVIEW -->
+<section class="prev-s">
+<div class="prev-w">
+  <div>
+    <div class="sec-kicker">Experiência real</div>
+    <div class="sec-h">Sem formulário.<br>Só conversa.</div>
+    <p class="sec-p" style="margin-bottom:36px">A IA pergunta do jeito certo. Você responde como quiser, sem pressão. Ela cuida da linguagem, do formato, de tudo.</p>
+    <button class="btn-prim" onclick="goChat()">Experimentar agora →</button>
+  </div>
+  <div class="chat-phone">
+    <div class="chat-top">CurrículoAI · conversa</div>
+    <div class="msg ai"><div class="ai-lbl">IA</div>Qual cargo você está buscando?</div>
+    <div class="msg usr">Analista de Marketing Digital</div>
+    <div class="msg ai"><div class="ai-lbl">IA</div>Me conta sobre sua experiência mais recente — empresa e o que você fazia lá.</div>
+    <div class="msg usr">2 anos na Agência X gerenciando Google Ads e redes sociais de clientes grandes</div>
+    <div class="msg ai"><div class="ai-lbl">IA</div>Ótimo! Algum resultado concreto que você se orgulha? Reduziu custo, aumentou alguma métrica?</div>
+    <div class="msg usr">Reduzi o CPA em 35% e cresci o ROAS médio de 2.1x pra 3.8x em 6 meses</div>
+  </div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+<div class="cta-inner">
+  <div class="sec-kicker">Simples assim</div>
+  <div class="sec-h">Crie de graça.<br>Pague só pra baixar.</div>
+  <p class="sec-p" style="margin:0 auto 32px;text-align:center">A conversa e o preview são gratuitos. Só cobramos quando você estiver 100% satisfeito com o resultado.</p>
+  <div class="cta-price">PDF profissional por apenas <strong>R$9</strong> — pagamento único, sem assinatura</div>
+  <button class="btn-prim" onclick="goChat()">Começar agora — é grátis</button>
+</div>
+</section>
+
+<footer>
+  <div class="logo">Currículo<em>AI</em></div>
+  <p>© 2025 CurrículoAI · Feito no Brasil 🇧🇷</p>
+</footer>
+</div>
+
+<!-- ═══════ CHAT ═══════ -->
+<div id="chat-scr" class="scr">
+  <div class="chat-nav">
+    <div class="chat-nav-logo">Currículo<em>AI</em></div>
+    <div class="chat-prog-wrap">
+      <div class="chat-prog-bar"><div class="chat-prog-fill" id="cpf" style="width:0%"></div></div>
+      <div class="chat-prog-pct" id="cpct">0%</div>
+    </div>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-input-outer">
+    <div class="chat-input-inner">
+      <textarea class="chat-input" id="chat-in" placeholder="Escreva sua resposta…" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="chat-send" onclick="sendMsg()">Enviar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ LOADING ═══════ -->
+<div id="loading-scr" class="scr">
+  <div class="load-logo">Currículo<em>AI</em></div>
+  <div class="load-sub">Gerando seu currículo personalizado…</div>
+  <div class="load-steps">
+    <div class="ld-step act" id="ld0"><div class="ld-dot"></div>Analisando suas respostas</div>
+    <div class="ld-step" id="ld1"><div class="ld-dot"></div>Otimizando linguagem para RH</div>
+    <div class="ld-step" id="ld2"><div class="ld-dot"></div>Estruturando experiências</div>
+    <div class="ld-step" id="ld3"><div class="ld-dot"></div>Montando layout final</div>
+  </div>
+</div>
+
+<!-- ═══════ RESULT ═══════ -->
+<div id="result-scr" class="scr">
+  <div class="res-nav">
+    <div class="res-logo">Currículo<em>AI</em></div>
+    <div class="res-acts" id="res-acts">
+      <button class="btn-outline" onclick="goChat()">← Recomeçar</button>
+      <button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>
+    </div>
+  </div>
+  <div class="res-body">
+    <div>
+      <div class="paywall-wrap">
+        <div class="cv-paper" id="cv-out"></div>
+        <div class="paywall-overlay" id="paywall-ov">
+          <div class="pw-lock">🔒</div>
+          <div class="pw-t">Seu currículo está <em>pronto</em></div>
+          <p class="pw-p">Preview gerado! Desbloqueie o PDF profissional por R$9 e comece a enviar hoje.</p>
+          <button class="pw-btn" onclick="openPay()">Desbloquear e baixar — R$9</button>
+          <div class="pw-note">Pagamento único · PDF profissional · Compatível com ATS</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ai-p">
+        <div class="ai-p-hd">
+          <div class="ai-av">✦</div>
+          <div><div class="ai-pnm">Análise da IA</div><div class="ai-pst">● Currículo otimizado</div></div>
+        </div>
+        <div class="ai-tips">
+          <div class="ai-tip"><strong>✓ Compatível com ATS</strong><br>Formatação validada pelos nossos especialistas em RH.</div>
+          <div class="ai-tip" id="ai-tip-dica">Gerando dica personalizada…</div>
+        </div>
+        <div class="ai-imp">
+          <div class="ai-imp-lbl">Disponível no Pro</div>
+          <button class="imp-btn" onclick="openPay()">✦ Adaptar para outra vaga</button>
+          <button class="imp-btn" onclick="openPay()">✦ Versão em inglês</button>
+          <button class="imp-btn" onclick="openPay()">✦ Carta de apresentação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MODAL ═══════ -->
+<div class="modal-bg" id="pay-modal">
+  <div class="modal">
+    <div class="modal-ic">✦</div>
+    <div class="modal-t">Baixar seu <em>currículo</em></div>
+    <p class="modal-p">Gerado e validado pela nossa equipe de especialistas. Pronto para enviar.</p>
+    <div class="modal-val">
+      <div class="modal-price">R$9</div>
+      <div class="modal-val-info">
+        <strong>Pagamento único</strong>
+        <span>Sem assinatura, sem renovação</span>
+      </div>
+    </div>
+    <div class="modal-checks">
+      <div class="modal-check">PDF profissional em alta qualidade</div>
+      <div class="modal-check">Compatível com ATS e sistemas de RH</div>
+      <div class="modal-check">Acesso permanente ao arquivo</div>
+      <div class="modal-check">Satisfação garantida</div>
+    </div>
+    <button class="modal-pay-btn" onclick="confirmPay()">Pagar R$9 e baixar agora →</button>
+    <button class="modal-close" onclick="closePay()">Agora não</button>
+  </div>
+</div>
+
+<script>
+
+const QUESTIONS = [
+  { key:'nome',      ask:'Olá! Vamos criar seu currículo. 👋\n\nComeçando pelo básico — qual é seu **nome completo**?' },
+  { key:'email',     ask:'Qual é o seu **e-mail** de contato?' },
+  { key:'cidade',    ask:'Em qual **cidade e estado** você mora?\n_(ex: São Paulo, SP)_' },
+  { key:'cargo',     ask:'Qual **cargo ou área** você está buscando?\n_(ex: Analista de Marketing Digital, Desenvolvedor Backend)_' },
+  { key:'nivel',     ask:'Qual é o seu **nível de experiência**?', opts:['Estágio / Júnior (0–2 anos)','Pleno (3–5 anos)','Sênior (5–10 anos)','Liderança / Gestão (10+ anos)'] },
+  { key:'exp',       ask:'Me conta sobre sua **experiência mais recente**.\n\nEmpresa, cargo e o que você fazia no dia a dia. Escreva à vontade!' },
+  { key:'resultado', ask:'Que **resultados concretos** você alcançou nessa experiência?\n\nNúmeros impressionam muito mais — porcentagens, valores, metas batidas, projetos entregues. Qualquer coisa que mostre impacto real.' },
+  { key:'formacao',  ask:'Qual é sua **formação acadêmica**?\n\nCurso, instituição e ano de conclusão (ou previsão).' },
+  { key:'skills',    ask:'Quais são suas principais **habilidades técnicas e ferramentas**?\n\nListe separadas por vírgula.\n_(ex: Excel avançado, Google Ads, Power BI, Python, Liderança de equipes)_' },
+  { key:'idiomas',   ask:'Último passo! Seus **idiomas**:', opts:['Só português','Inglês básico','Inglês intermediário','Inglês avançado / fluente'] },
+];
+
+let step = 0, answers = {}, _cvData = null;
+
+function showScr(id){
+  document.querySelectorAll('.scr').forEach(s=>{s.classList.remove('on');s.style.display=''});
+  const el=document.getElementById(id);
+  el.classList.add('on');
+  if(id==='loading-scr') el.style.display='flex';
+  if(id==='result-scr') el.style.display='block';
+  window.scrollTo(0,0);
+}
+
+function scrollSec(sel){document.querySelector(sel)?.scrollIntoView({behavior:'smooth'})}
+
+function goChat(){
+  step=0; answers={}; _cvData=null;
+  document.getElementById('chat-body').innerHTML='';
+  showScr('chat-scr');
+  setTimeout(()=>askQ(0),300);
+}
+
+function updateProg(){
+  const pct=Math.round((step/QUESTIONS.length)*100);
+  document.getElementById('cpf').style.width=pct+'%';
+  document.getElementById('cpct').textContent=pct+'%';
+}
+
+function appendMsg(html,cls){
+  const wrap=document.getElementById('chat-body');
+  const el=document.createElement('div');
+  el.className='chat-msg '+cls; el.innerHTML=html;
+  wrap.appendChild(el);
+  el.scrollIntoView({behavior:'smooth',block:'end'});
+}
+
+function appendOpts(opts,id){
+  const wrap=document.getElementById('chat-body');
+  const w=document.createElement('div'); w.className='opts-wrap'; w.id=id;
+  opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='opt-btn'; b.textContent=o;
+    b.onclick=()=>{w.remove(); submitAnswer(o)};
+    w.appendChild(b);
+  });
+  wrap.appendChild(w);
+  w.scrollIntoView({behavior:'smooth',block:'end'});
+}
+
+function md(t){
+  return t
+    .replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--t0);font-weight:500">$1</strong>')
+    .replace(/_(.+?)_/g,'<em style="color:var(--t2)">$1</em>')
+    .replace(/\n/g,'<br>');
+}
+
+function showTyping(){
+  const w=document.getElementById('chat-body');
+  const el=document.createElement('div'); el.className='chat-msg bot'; el.id='typing';
+  el.innerHTML='<div class="typing-dot"><span></span><span></span><span></span></div>';
+  w.appendChild(el); el.scrollIntoView({behavior:'smooth',block:'end'});
+}
+function removeTyping(){document.getElementById('typing')?.remove()}
+
+function askQ(i){
+  updateProg();
+  const q=QUESTIONS[i]; if(!q) return;
+  showTyping();
+  setTimeout(()=>{
+    removeTyping();
+    appendMsg('<div class="bot-tag">IA</div><div class="bubble">'+md(q.ask)+'</div>','bot');
+    if(q.opts) appendOpts(q.opts,'opts-'+i);
+    document.getElementById('chat-in')?.focus();
+  },750+Math.random()*350);
+}
+
+function sendMsg(){
+  const inp=document.getElementById('chat-in');
+  const val=inp.value.trim(); if(!val) return;
+  inp.value=''; inp.style.height='';
+  submitAnswer(val);
+}
+
+function submitAnswer(val){
+  document.querySelectorAll('.opts-wrap').forEach(w=>w.remove());
+  appendMsg('<div class="bubble">'+val.replace(/\n/g,'<br>')+'</div>','me');
+  answers[QUESTIONS[step].key]=val;
+  step++; updateProg();
+  if(step>=QUESTIONS.length) setTimeout(generateCV,600);
+  else setTimeout(()=>askQ(step),700);
+}
+
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}}
+function autoResize(el){el.style.height='';el.style.height=Math.min(el.scrollHeight,110)+'px'}
+
+async function generateCV(){
+  showScr('loading-scr');
+  const ids=['ld0','ld1','ld2','ld3']; let li=0;
+  const iv=setInterval(()=>{
+    if(li>0){document.getElementById(ids[li-1]).classList.remove('act');document.getElementById(ids[li-1]).classList.add('done')}
+    if(li<ids.length){document.getElementById(ids[li]).classList.add('act');li++}
+  },1000);
+
+  const prompt=`Você é um especialista sênior em RH e redação de currículos para o mercado brasileiro. Gere um currículo profissional completo e impactante com base nos dados abaixo.
+
+DADOS:
+Nome: ${answers.nome||''}
+Email: ${answers.email||''}
+Cidade: ${answers.cidade||''}
+Cargo desejado: ${answers.cargo||''}
+Nível: ${answers.nivel||''}
+Experiência recente: ${answers.exp||''}
+Resultados e conquistas: ${answers.resultado||''}
+Formação: ${answers.formacao||''}
+Habilidades: ${answers.skills||''}
+Idiomas: ${answers.idiomas||''}
+
+REGRAS OBRIGATÓRIAS:
+1. resumo: 3 frases poderosas. Use o cargo e nível. Mencione área de expertise + diferencial + objetivo.
+2. exp_bullets: EXATAMENTE 4 bullets. Cada um OBRIGATORIAMENTE começa com verbo de ação forte (Liderou, Implementou, Otimizou, Aumentou, Reduziu, Desenvolveu, Gerenciou...). Inclua os números/resultados mencionados. Bullets devem ser específicos, não genéricos.
+3. skills_list: USE APENAS as habilidades que o candidato mencionou. Não invente. Máximo 8.
+4. idiomas_list: SEMPRE inclua {"nome":"Português","nivel":"Nativo"} + o que foi informado.
+5. exp_periodo: extraia do texto ou estime razoavelmente.
+6. formacao_nivel: detecte se é Técnico, Tecnólogo, Bacharelado, Licenciatura, Especialização, MBA, Mestrado, Doutorado.
+7. dica: dica MUITO específica para este candidato, não genérica.
+
+Responda APENAS com JSON, sem texto, sem markdown:
+{"resumo":"...","exp_titulo":"...","exp_empresa":"...","exp_periodo":"...","exp_bullets":["...","...","...","..."],"formacao_curso":"...","formacao_nivel":"...","formacao_inst":"...","formacao_ano":"...","skills_list":["..."],"idiomas_list":[{"nome":"Português","nivel":"Nativo"}],"dica":"..."}`;
+
+  let d=null;
+  try{
+    const r=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt})
+    });
+    const j=await r.json();
+    const raw=j.choices?.[0]?.message?.content||'{}';
+    const match=raw.match(/\{[\s\S]*\}/);
+    d=JSON.parse(match?match[0]:raw);
+  }catch(e){
+    const sk=(answers.skills||'').split(',').map(s=>s.trim()).filter(Boolean).slice(0,8);
+    const langs=[{nome:'Português',nivel:'Nativo'}];
+    if(answers.idiomas&&!answers.idiomas.toLowerCase().includes('só')&&!answers.idiomas.toLowerCase().includes('nenhum'))
+      langs.push({nome:'Inglês',nivel:answers.idiomas.replace('Inglês ','').replace('/ fluente','').trim()});
+    d={
+      resumo:`Profissional com experiência em ${answers.cargo||'sua área'}, combinando visão estratégica com execução orientada a resultados. ${answers.nivel||'Sólida experiência'} no mercado, com histórico comprovado de entrega em ambientes dinâmicos e de alta demanda. Busca contribuir com seu conhecimento técnico e analítico em uma empresa inovadora.`,
+      exp_titulo:answers.cargo||'Cargo',exp_empresa:'Empresa',exp_periodo:'2022 – 2024',
+      exp_bullets:['Liderou projetos estratégicos com impacto direto nos resultados da área','Implementou melhorias de processo que elevaram a eficiência operacional da equipe','Gerenciou demandas de alta complexidade com entrega dentro dos prazos e padrões de qualidade','Colaborou com times multidisciplinares para alcançar objetivos organizacionais'],
+      formacao_curso:answers.formacao||'Graduação',formacao_nivel:'Bacharelado',formacao_inst:'Instituição de Ensino',formacao_ano:'2022',
+      skills_list:sk.length?sk:['Pacote Office','Comunicação assertiva','Gestão de projetos'],
+      idiomas_list:langs,
+      dica:'Adicione métricas específicas (%, R$, tempo economizado) a cada bullet de experiência — isso aumenta em 40% a chance de avançar na triagem.'
+    };
+  }
+
+  clearInterval(iv);
+  ids.forEach(id=>{document.getElementById(id).classList.remove('act');document.getElementById(id).classList.add('done')});
+  _cvData=d;
+  setTimeout(()=>renderResult(d),450);
+}
+
+function buildCVHTML(d){
+  const bullets=(d.exp_bullets||[]).map(b=>`<li>${b}</li>`).join('');
+  const skills=(d.skills_list||[]).map(s=>`<div class="cv-skill-item">${s}</div>`).join('');
+  const langs=(d.idiomas_list||[{nome:'Português',nivel:'Nativo'}]).map(l=>`
+    <div class="cv-lang-item">
+      <div class="cv-lang-name">${l.nome}</div>
+      ${l.nivel?`<div class="cv-lang-lvl">${l.nivel}</div>`:''}
+    </div>`).join('');
+  const nivelClean=(answers.nivel||'').replace(/\(.*\)/,'').trim();
+
+  return `<div class="cv-wrapper">
+    <div class="cv-head">
+      <div class="cv-head-inner">
+        <div>
+          <div class="cv-name">${answers.nome||'Seu Nome'}</div>
+          <div class="cv-title">${answers.cargo||'Profissional'}</div>
+        </div>
+        <div class="cv-contacts-col">
+          ${answers.email?`<div class="cv-contact-line">${answers.email}</div>`:''}
+          ${answers.cidade?`<div class="cv-contact-line">${answers.cidade}</div>`:''}
+        </div>
+      </div>
+    </div>
+    <div class="cv-stripe"></div>
+    <div class="cv-body">
+      <div class="cv-main">
+
+        <div class="cv-section">
+          <div class="cv-section-title">Resumo Profissional</div>
+          <div class="cv-summary">${d.resumo||''}</div>
+        </div>
+
+        <div class="cv-section">
+          <div class="cv-section-title">Experiência Profissional</div>
+          <div class="cv-exp-item">
+            <div class="cv-exp-header">
+              <div class="cv-exp-role">${d.exp_titulo||''}</div>
+              <div class="cv-exp-period">${d.exp_periodo||''}</div>
+            </div>
+            <div class="cv-exp-company">${d.exp_empresa||''}</div>
+            <ul class="cv-exp-bullets">${bullets}</ul>
+          </div>
+        </div>
+
+        <div class="cv-section">
+          <div class="cv-section-title">Formação Acadêmica</div>
+          <div class="cv-edu-item">
+            <div>
+              <div class="cv-edu-course">${d.formacao_curso||''}</div>
+              <div class="cv-edu-inst">${d.formacao_inst||''}</div>
+              ${d.formacao_nivel?`<div class="cv-edu-level">${d.formacao_nivel}</div>`:''}
+            </div>
+            <div class="cv-edu-year">${d.formacao_ano||''}</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cv-side">
+
+        ${nivelClean?`<div class="cv-side-section"><div class="cv-level-pill"><div class="cv-level-dot"></div>${nivelClean}</div></div>`:''}
+
+        <div class="cv-side-section">
+          <div class="cv-side-title">Habilidades</div>
+          ${skills}
+        </div>
+
+        <div class="cv-side-section">
+          <div class="cv-side-title">Idiomas</div>
+          <div>${langs}</div>
+        </div>
+
+        <div class="cv-side-section">
+          <div class="cv-side-title">Contato</div>
+          ${answers.email?`<div class="cv-contact-side">${answers.email}</div>`:''}
+          ${answers.cidade?`<div class="cv-contact-side">${answers.cidade}</div>`:''}
+        </div>
+
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderResult(d){
+  document.getElementById('cv-out').innerHTML=buildCVHTML(d);
+  document.getElementById('ai-tip-dica').innerHTML=`<strong>💡 Dica personalizada</strong><br>${d.dica||'Adicione números concretos para se destacar.'}`;
+
+  const ov=document.getElementById('paywall-ov');
+  ov.classList.remove('hidden');
+  document.getElementById('cv-out').classList.remove('unlocked');
+
+  const acts=document.getElementById('res-acts');
+  acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>`;
+
+  showScr('result-scr');
+}
+
+function openPay(){document.getElementById('pay-modal').classList.add('on')}
+function closePay(){document.getElementById('pay-modal').classList.remove('on')}
+
+function confirmPay(){
+  // → Integrar Stripe / AbacatePay aqui
+  closePay();
+  document.getElementById('cv-out').classList.add('unlocked');
+  document.getElementById('paywall-ov').classList.add('hidden');
+  document.getElementById('res-acts').innerHTML=`
+    <button class="btn-outline" onclick="goChat()">← Novo currículo</button>
+    <button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
+}
+
+function downloadPDF(){
+  const d=_cvData||{};
+  const html=buildCVHTML(d);
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Currículo — ${answers.nome||''}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .cv-wrapper{font-family:'DM Sans',sans-serif;background:#f9f8f6;min-height:297mm;width:210mm;margin:0 auto}
+    .cv-head{background:#0d0d0f;color:#fff;padding:0}
+    .cv-head-inner{padding:36px 44px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:28px}
+    .cv-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:-1.5px;line-height:.95;color:#fff;margin-bottom:6px}
+    .cv-title{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.32);font-weight:400}
+    .cv-contacts-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+    .cv-contact-line{font-size:10px;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px;white-space:nowrap}
+    .cv-contact-line::after{content:'';width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.18);flex-shrink:0}
+    .cv-contact-line:last-child::after{display:none}
+    .cv-stripe{height:3px;background:linear-gradient(90deg,#c8a478 0%,#e2c9a0 40%,rgba(200,164,120,.12) 100%)}
+    .cv-body{display:grid;grid-template-columns:1fr 192px;background:#f9f8f6}
+    .cv-main{padding:30px 36px 36px;border-right:1px solid #e8e4de}
+    .cv-side{padding:30px 22px 36px;background:#f2efe9}
+    .cv-section{margin-bottom:24px}.cv-section:last-child{margin-bottom:0}
+    .cv-section-title{font-size:7px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:#bab0a2;margin-bottom:13px;padding-bottom:8px;border-bottom:1.5px solid #ede9e2;display:flex;align-items:center;gap:8px}
+    .cv-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(200,164,120,.25),transparent)}
+    .cv-summary{font-size:11.5px;color:#4d4740;line-height:1.85;font-weight:300;border-left:2px solid #c8a478;padding-left:12px}
+    .cv-exp-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #ede9e2}.cv-exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .cv-exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;gap:12px}
+    .cv-exp-role{font-size:13px;font-weight:500;color:#111;line-height:1.2}
+    .cv-exp-period{font-size:8.5px;color:#c8a478;font-weight:500;white-space:nowrap;letter-spacing:.5px;background:#f0ebe3;padding:2px 7px;border-radius:3px;flex-shrink:0}
+    .cv-exp-company{font-size:11px;color:#968d82;margin-bottom:8px;font-weight:400}
+    .cv-exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+    .cv-exp-bullets li{font-size:11px;color:#554f48;line-height:1.7;padding-left:14px;position:relative;font-weight:300}
+    .cv-exp-bullets li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:1px;background:#c8a478}
+    .cv-edu-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .cv-edu-course{font-size:12.5px;font-weight:500;color:#111;margin-bottom:2px}
+    .cv-edu-inst{font-size:10.5px;color:#968d82;font-weight:300;margin-bottom:3px}
+    .cv-edu-level{display:inline-block;font-size:8px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#c8a478;background:#f0ebe3;padding:2px 6px;border-radius:3px}
+    .cv-edu-year{font-size:9.5px;color:#c4bdb4;white-space:nowrap;font-weight:400}
+    .cv-side-section{margin-bottom:22px}.cv-side-section:last-child{margin-bottom:0}
+    .cv-side-title{font-size:6.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#bab0a2;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #e0dbd2}
+    .cv-level-pill{display:inline-flex;align-items:center;gap:5px;background:#111;color:#c8a478;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;border-radius:4px;margin-bottom:4px}
+    .cv-level-dot{width:4px;height:4px;border-radius:50%;background:#c8a478}
+    .cv-skill-item{font-size:10.5px;color:#5a534c;padding:6px 0;border-bottom:1px solid #e4dfd6;font-weight:300;display:flex;align-items:center;gap:6px;line-height:1.3}
+    .cv-skill-item:last-child{border-bottom:none}
+    .cv-skill-item::before{content:'';width:4px;height:4px;border-radius:50%;background:#c8a478;flex-shrink:0}
+    .cv-lang-item{margin-bottom:8px}
+    .cv-lang-name{font-size:11px;color:#333;font-weight:400;margin-bottom:1px}
+    .cv-lang-lvl{font-size:9px;color:#b8b0a5;font-weight:300}
+    .cv-contact-side{font-size:10px;color:#6e6760;margin-bottom:6px;line-height:1.45;font-weight:300;word-break:break-all}
+    @media print{@page{margin:0;size:A4}body{width:210mm}}
+  </style></head><body>${html}</body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),800);
+}
+</script>
+</body>
+</html>
