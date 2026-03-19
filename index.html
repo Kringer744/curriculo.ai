@@ -172,7 +172,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 
 /* CV PAPER */
 .paywall-wrap{position:relative;border-radius:10px;overflow:hidden}
-.cv-paper{background:#f9f8f6;color:#1a1a1a;border-radius:10px;overflow:hidden;filter:blur(7px) brightness(.7);pointer-events:none;user-select:none;transition:filter .5s;font-family:'DM Sans',sans-serif}
+.cv-paper{background:#f9f8f6;color:#1a1a1a;border-radius:10px;overflow:hidden;transition:filter .5s;font-family:'DM Sans',sans-serif}
 .cv-paper.unlocked{filter:none;pointer-events:auto}
 
 /* ── CV DESIGN PREMIUM ── */
@@ -238,7 +238,7 @@ footer p{font-size:12px;color:var(--t3);font-weight:300}
 .cv-contact-side{font-size:10.5px;color:#6e6760;margin-bottom:7px;line-height:1.45;font-weight:300;word-break:break-all}
 
 /* Paywall overlay */
-.paywall-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,9,10,.55) 0%,rgba(9,9,10,.82) 38%,rgba(9,9,10,.97) 65%,#09090a 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:44px 36px;text-align:center}
+.paywall-overlay{display:none}
 .paywall-overlay.hidden{display:none}
 .pw-lock{font-size:24px;margin-bottom:12px}
 .pw-t{font-family:var(--fd);font-size:28px;font-weight:300;margin-bottom:8px;letter-spacing:-.5px;line-height:1.1}
@@ -977,14 +977,12 @@ function renderResult(d, jaoPago=false){
   const cvOut=document.getElementById('cv-out');
   const acts=document.getElementById('res-acts');
 
+  ov.classList.add('hidden');
+  cvOut.classList.add('unlocked');
   if(jaoPago){
-    ov.classList.add('hidden');
-    cvOut.classList.add('unlocked');
     acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="downloadPDF()">📥 Baixar PDF</button>`;
   } else {
-    ov.classList.remove('hidden');
-    cvOut.classList.remove('unlocked');
-    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">🔓 Baixar PDF — R$9</button>`;
+    acts.innerHTML=`<button class="btn-outline" onclick="goChat()">← Recomeçar</button><button class="btn-pay" onclick="openPay()">📥 Baixar PDF — R$9</button>`;
   }
 
   showScr('result-scr');
